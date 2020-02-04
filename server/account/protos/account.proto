@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option java_package = "com.vell.chat.account";
+
+package account;
+
+// 账号服务
+service Account {
+  rpc signup (SignupReq) returns (AccountResp) {}
+  rpc login (LoginReq) returns (AccountResp) {}
+  rpc logout (TokenReq) returns (AccountResp) {}
+  rpc isAlive (TokenReq) returns (AccountResp) {}
+}
+
+// 注册
+message SignupReq {
+  string username = 1; // 用户名，唯一存在
+  string password = 2;
+  string phoneNumber = 3;
+  string email = 4;
+  string extra = 5;
+}
+
+// 登陆请求
+message LoginReq {
+  string account = 1; // 账号，可以是用户名、手机号、email
+  string password = 2;
+}
+
+// token信息
+message TokenReq {
+  string token = 1;
+}
+
+// 账号结果返回
+message AccountResp {
+  int32 code = 1; // 错误码
+  string msg = 2;
+  string token = 3;
+  string extra = 4;
+}

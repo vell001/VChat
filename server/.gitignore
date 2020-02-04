@@ -1,0 +1,8 @@
+.idea
+.vscode
+.clwb
+.DS_Store
+bazel-bin
+bazel-out
+bazel-server
+bazel-testlogs

@@ -1,0 +1,70 @@
+load("@com_github_grpc_grpc//bazel:grpc_build_system.bzl", "grpc_proto_library")
+load("@com_github_grpc_grpc//bazel:cc_grpc_library.bzl", "cc_grpc_library")
+
+
+proto_library(
+    name = "account_proto",
+    srcs = ["protos/account.proto"],
+)
+
+cc_proto_library(
+    name = "account_cc_proto",
+    deps = [":account_proto"],
+)
+
+cc_grpc_library(
+    name = "account_cc_grpc",
+    srcs = [":account_proto"],
+    grpc_only = True,
+    deps = [":account_cc_proto"],
+)
+
+cc_binary(
+    name = 'account_server',
+    srcs = ['src/account_server.cc',
+            'src/AccountServiceImpl.cpp',
+            'src/AccountServiceImpl.h',
+            ],
+    deps = [
+        ':account_cc_grpc',
+        '@com_github_grpc_grpc//:grpc++',
+    ],
+    linkopts = ['-ldl'],
+)
+
+proto_library(
+    name = "helloworld_proto",
+    srcs = ["protos/helloworld.proto"],
+)
+
+cc_proto_library(
+    name = "helloworld_cc_proto",
+    deps = [":helloworld_proto"],
+)
+
+cc_grpc_library(
+    name = "helloworld_cc_grpc",
+    srcs = [":helloworld_proto"],
+    grpc_only = True,
+    deps = [":helloworld_cc_proto"],
+)
+
+cc_binary(
+    name = 'greeter_client',
+    srcs = ['src/greeter_client.cc'],
+    deps = [
+        ':helloworld_cc_grpc',
+        '@com_github_grpc_grpc//:grpc++',
+    ],
+    linkopts = ['-ldl'],
+)
+
+cc_binary(
+    name = 'greeter_server',
+    srcs = ['src/greeter_server.cc'],
+    deps = [
+        ':helloworld_cc_grpc',
+        '@com_github_grpc_grpc//:grpc++',
+    ],
+    linkopts = ['-ldl'],
+)

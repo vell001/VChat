@@ -1,0 +1,27 @@
+//
+// Created by vellhe on 2020/2/4.
+//
+
+#ifndef SERVER_ACCOUNTSERVICEIMPL_H
+#define SERVER_ACCOUNTSERVICEIMPL_H
+
+#include "account/protos/account.grpc.pb.h"
+
+class AccountServiceImpl final : public account::Account::Service {
+public:
+    ~AccountServiceImpl() override;
+
+    grpc::Status signup(::grpc::ServerContext *context, const ::account::SignupReq *request,
+                        ::account::AccountResp *response) override;
+
+    grpc::Status login(::grpc::ServerContext *context, const ::account::LoginReq *request,
+                       ::account::AccountResp *response) override;
+
+    grpc::Status logout(::grpc::ServerContext *context, const ::account::TokenReq *request,
+                        ::account::AccountResp *response) override;
+
+    grpc::Status isAlive(::grpc::ServerContext *context, const ::account::TokenReq *request,
+                         ::account::AccountResp *response) override;
+};
+
+#endif //SERVER_ACCOUNTSERVICEIMPL_H
