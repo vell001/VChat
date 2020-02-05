@@ -1,0 +1,45 @@
+account_interface = interface +c {
+	static get_instance(): account_interface; # 单例
+    add_listener(listener: account_listener);
+    remove_listener(listener: account_listener);
+
+	signup(info: signup_msg);
+    login(info: login_msg);
+	logout(token: token_msg);
+	is_alive(token: token_msg);
+}
+
+account_listener = interface +o +j {
+    on_signup_callback(callback: account_resp);
+    on_login_callback(callback: account_resp);
+    on_logout_callback(callback: account_resp);
+    on_is_alive_callback(callback: account_resp);
+}
+
+# 注册信息
+signup_msg = record {
+    username: string; # 用户名，唯一存在
+    password: string;
+    phoneNumber: string;
+    email: string;
+    extra: string;
+}
+
+# 登陆信息
+login_msg = record {
+    account: string; # 账号，可以是用户名、手机号、email
+    password: string;
+}
+
+# token信息
+token_msg = record {
+    token: string;
+}
+
+# 账号结果返回
+account_resp = record {
+    code: i32; # 错误码
+    msg: string;
+    token: string;
+    extra: string;
+}

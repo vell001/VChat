@@ -1,4 +1,4 @@
-.idea
+# bazel
 .vscode
 .clwb
 .DS_Store
@@ -6,3 +6,12 @@ bazel-bin
 bazel-out
 bazel-server
 bazel-testlogs
+
+# android
+.idea
+*.iml
+.gradle
+local.properties
+build
+captures
+.externalNativeBuild

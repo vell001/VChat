@@ -6,14 +6,14 @@ package account;
 
 // 账号服务
 service Account {
-  rpc signup (SignupReq) returns (AccountResp) {}
-  rpc login (LoginReq) returns (AccountResp) {}
-  rpc logout (TokenReq) returns (AccountResp) {}
-  rpc isAlive (TokenReq) returns (AccountResp) {}
+  rpc signup (SignupMsg) returns (AccountResp) {}
+  rpc login (LoginMsg) returns (AccountResp) {}
+  rpc logout (TokenMsg) returns (AccountResp) {}
+  rpc isAlive (TokenMsg) returns (AccountResp) {}
 }
 
-// 注册
-message SignupReq {
+// 注册信息
+message SignupMsg {
   string username = 1; // 用户名，唯一存在
   string password = 2;
   string phoneNumber = 3;
@@ -21,14 +21,14 @@ message SignupReq {
   string extra = 5;
 }
 
-// 登陆请求
-message LoginReq {
+// 登陆信息
+message LoginMsg {
   string account = 1; // 账号，可以是用户名、手机号、email
   string password = 2;
 }
 
 // token信息
-message TokenReq {
+message TokenMsg {
   string token = 1;
 }
 
