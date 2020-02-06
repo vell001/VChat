@@ -2,8 +2,7 @@
 // Created by vellhe on 2020/2/4.
 //
 
-#ifndef SERVER_ACCOUNTSERVICEIMPL_H
-#define SERVER_ACCOUNTSERVICEIMPL_H
+#pragma once
 
 #include "account/protos/account.grpc.pb.h"
 
@@ -24,4 +23,3 @@ public:
                          ::account::AccountResp *response) override;
 };
 
-#endif //SERVER_ACCOUNTSERVICEIMPL_H

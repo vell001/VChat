@@ -13,8 +13,22 @@ android {
 
         externalNativeBuild {
             cmake {
-                cppFlags "-frtti -fexceptions -std=c++11"
-                arguments '-DANDROID_STL=c++_shared'
+                // The paths to the protoc and grpc_cpp_plugin binaries on the host system (codegen
+                // is not cross-compiled to Android)
+                def protoc = project.hasProperty('protoc') ?
+                        project.property('protoc') : '/usr/local/bin/protoc'
+                def grpc_cpp_plugin = project.hasProperty('grpc_cpp_plugin') ?
+                        project.property('grpc_cpp_plugin') : '/usr/local/bin/grpc_cpp_plugin'
+
+                cppFlags "-std=c++11 -frtti -fexceptions"
+                arguments '-DANDROID_STL=c++_static'
+                arguments '-DRUN_HAVE_POSIX_REGEX=0'
+                arguments '-DRUN_HAVE_STD_REGEX=0'
+                arguments '-DRUN_HAVE_STEADY_CLOCK=0'
+                arguments '-Dprotobuf_BUILD_PROTOC_BINARIES=off'
+                arguments '-DgRPC_BUILD_CODEGEN=off'
+                arguments '-DPROTOBUF_PROTOC_EXECUTABLE=' + protoc
+                arguments '-DGRPC_CPP_PLUGIN_EXECUTABLE=' + grpc_cpp_plugin
             }
         }
         ndk {
