@@ -12,7 +12,7 @@ namespace djinni_generated {
 
 struct LoginMsg
 {
-    using CppType = ::account::LoginMsg;
+    using CppType = ::account_djinni::LoginMsg;
     using ObjcType = SCLoginMsg*;
 
     using Boxed = LoginMsg;

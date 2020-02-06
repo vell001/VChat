@@ -6,6 +6,7 @@ package com.vell.chat.account;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class AccountInterface {
+    /** 单例 */
     public abstract void addListener(AccountListener listener);
 
     public abstract void removeListener(AccountListener listener);

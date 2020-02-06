@@ -10,7 +10,7 @@ namespace djinni_generated {
 
 class NativeAccountResp final {
 public:
-    using CppType = ::account::AccountResp;
+    using CppType = ::account_djinni::AccountResp;
     using JniType = jobject;
 
     using Boxed = NativeAccountResp;

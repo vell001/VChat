@@ -12,7 +12,7 @@ namespace djinni_generated {
 
 struct AccountResp
 {
-    using CppType = ::account::AccountResp;
+    using CppType = ::account_djinni::AccountResp;
     using ObjcType = SCAccountResp*;
 
     using Boxed = AccountResp;

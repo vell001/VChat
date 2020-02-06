@@ -8,10 +8,10 @@
 
 namespace djinni_generated {
 
-class NativeAccountListener final : ::djinni::JniInterface<::account::AccountListener, NativeAccountListener> {
+class NativeAccountListener final : ::djinni::JniInterface<::account_djinni::AccountListener, NativeAccountListener> {
 public:
-    using CppType = std::shared_ptr<::account::AccountListener>;
-    using CppOptType = std::shared_ptr<::account::AccountListener>;
+    using CppType = std::shared_ptr<::account_djinni::AccountListener>;
+    using CppOptType = std::shared_ptr<::account_djinni::AccountListener>;
     using JniType = jobject;
 
     using Boxed = NativeAccountListener;
@@ -25,21 +25,21 @@ public:
 private:
     NativeAccountListener();
     friend ::djinni::JniClass<NativeAccountListener>;
-    friend ::djinni::JniInterface<::account::AccountListener, NativeAccountListener>;
+    friend ::djinni::JniInterface<::account_djinni::AccountListener, NativeAccountListener>;
 
-    class JavaProxy final : ::djinni::JavaProxyHandle<JavaProxy>, public ::account::AccountListener
+    class JavaProxy final : ::djinni::JavaProxyHandle<JavaProxy>, public ::account_djinni::AccountListener
     {
     public:
         JavaProxy(JniType j);
         ~JavaProxy();
 
-        void on_signup_callback(const ::account::AccountResp & callback) override;
-        void on_login_callback(const ::account::AccountResp & callback) override;
-        void on_logout_callback(const ::account::AccountResp & callback) override;
-        void on_is_alive_callback(const ::account::AccountResp & callback) override;
+        void on_signup_callback(const ::account_djinni::AccountResp & callback) override;
+        void on_login_callback(const ::account_djinni::AccountResp & callback) override;
+        void on_logout_callback(const ::account_djinni::AccountResp & callback) override;
+        void on_is_alive_callback(const ::account_djinni::AccountResp & callback) override;
 
     private:
-        friend ::djinni::JniInterface<::account::AccountListener, ::djinni_generated::NativeAccountListener>;
+        friend ::djinni::JniInterface<::account_djinni::AccountListener, ::djinni_generated::NativeAccountListener>;
     };
 
     const ::djinni::GlobalRef<jclass> clazz { ::djinni::jniFindClass("com/vell/chat/account/AccountListener") };

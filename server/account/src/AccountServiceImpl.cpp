@@ -10,7 +10,11 @@ AccountServiceImpl::~AccountServiceImpl() {
 
 grpc::Status AccountServiceImpl::signup(::grpc::ServerContext *context, const ::account::SignupMsg *request,
                                         ::account::AccountResp *response) {
-    return Service::signup(context, request, response);
+    const std::string& username = request->username();
+    const std::string& password = request->password();
+    response->set_msg(username + "###" + password);
+    grpc::Status status(grpc::StatusCode::OK,"");
+    return status;
 }
 
 grpc::Status AccountServiceImpl::login(::grpc::ServerContext *context, const ::account::LoginMsg *request,

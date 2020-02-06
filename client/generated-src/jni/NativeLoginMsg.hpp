@@ -10,7 +10,7 @@ namespace djinni_generated {
 
 class NativeLoginMsg final {
 public:
-    using CppType = ::account::LoginMsg;
+    using CppType = ::account_djinni::LoginMsg;
     using JniType = jobject;
 
     using Boxed = NativeLoginMsg;

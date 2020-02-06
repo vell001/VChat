@@ -13,6 +13,7 @@
 
 + (nullable SCAccountInterface *)getInstance;
 
+/** 单例 */
 - (void)addListener:(nullable id<SCAccountListener>)listener;
 
 - (void)removeListener:(nullable id<SCAccountListener>)listener;

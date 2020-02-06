@@ -6,7 +6,7 @@
 
 namespace djinni_generated {
 
-NativeAccountListener::NativeAccountListener() : ::djinni::JniInterface<::account::AccountListener, NativeAccountListener>() {}
+NativeAccountListener::NativeAccountListener() : ::djinni::JniInterface<::account_djinni::AccountListener, NativeAccountListener>() {}
 
 NativeAccountListener::~NativeAccountListener() = default;
 
@@ -14,7 +14,7 @@ NativeAccountListener::JavaProxy::JavaProxy(JniType j) : Handle(::djinni::jniGet
 
 NativeAccountListener::JavaProxy::~JavaProxy() = default;
 
-void NativeAccountListener::JavaProxy::on_signup_callback(const ::account::AccountResp & c_callback) {
+void NativeAccountListener::JavaProxy::on_signup_callback(const ::account_djinni::AccountResp & c_callback) {
     auto jniEnv = ::djinni::jniGetThreadEnv();
     ::djinni::JniLocalScope jscope(jniEnv, 10);
     const auto& data = ::djinni::JniClass<::djinni_generated::NativeAccountListener>::get();
@@ -22,7 +22,7 @@ void NativeAccountListener::JavaProxy::on_signup_callback(const ::account::Accou
                            ::djinni::get(::djinni_generated::NativeAccountResp::fromCpp(jniEnv, c_callback)));
     ::djinni::jniExceptionCheck(jniEnv);
 }
-void NativeAccountListener::JavaProxy::on_login_callback(const ::account::AccountResp & c_callback) {
+void NativeAccountListener::JavaProxy::on_login_callback(const ::account_djinni::AccountResp & c_callback) {
     auto jniEnv = ::djinni::jniGetThreadEnv();
     ::djinni::JniLocalScope jscope(jniEnv, 10);
     const auto& data = ::djinni::JniClass<::djinni_generated::NativeAccountListener>::get();
@@ -30,7 +30,7 @@ void NativeAccountListener::JavaProxy::on_login_callback(const ::account::Accoun
                            ::djinni::get(::djinni_generated::NativeAccountResp::fromCpp(jniEnv, c_callback)));
     ::djinni::jniExceptionCheck(jniEnv);
 }
-void NativeAccountListener::JavaProxy::on_logout_callback(const ::account::AccountResp & c_callback) {
+void NativeAccountListener::JavaProxy::on_logout_callback(const ::account_djinni::AccountResp & c_callback) {
     auto jniEnv = ::djinni::jniGetThreadEnv();
     ::djinni::JniLocalScope jscope(jniEnv, 10);
     const auto& data = ::djinni::JniClass<::djinni_generated::NativeAccountListener>::get();
@@ -38,7 +38,7 @@ void NativeAccountListener::JavaProxy::on_logout_callback(const ::account::Accou
                            ::djinni::get(::djinni_generated::NativeAccountResp::fromCpp(jniEnv, c_callback)));
     ::djinni::jniExceptionCheck(jniEnv);
 }
-void NativeAccountListener::JavaProxy::on_is_alive_callback(const ::account::AccountResp & c_callback) {
+void NativeAccountListener::JavaProxy::on_is_alive_callback(const ::account_djinni::AccountResp & c_callback) {
     auto jniEnv = ::djinni::jniGetThreadEnv();
     ::djinni::JniLocalScope jscope(jniEnv, 10);
     const auto& data = ::djinni::JniClass<::djinni_generated::NativeAccountListener>::get();

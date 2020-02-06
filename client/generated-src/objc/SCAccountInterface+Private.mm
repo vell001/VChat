@@ -17,15 +17,15 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 
 @interface SCAccountInterface ()
 
-- (id)initWithCpp:(const std::shared_ptr<::account::AccountInterface>&)cppRef;
+- (id)initWithCpp:(const std::shared_ptr<::account_djinni::AccountInterface>&)cppRef;
 
 @end
 
 @implementation SCAccountInterface {
-    ::djinni::CppProxyCache::Handle<std::shared_ptr<::account::AccountInterface>> _cppRefHandle;
+    ::djinni::CppProxyCache::Handle<std::shared_ptr<::account_djinni::AccountInterface>> _cppRefHandle;
 }
 
-- (id)initWithCpp:(const std::shared_ptr<::account::AccountInterface>&)cppRef
+- (id)initWithCpp:(const std::shared_ptr<::account_djinni::AccountInterface>&)cppRef
 {
     if (self = [super init]) {
         _cppRefHandle.assign(cppRef);
@@ -35,7 +35,7 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 
 + (nullable SCAccountInterface *)getInstance {
     try {
-        auto objcpp_result_ = ::account::AccountInterface::get_instance();
+        auto objcpp_result_ = ::account_djinni::AccountInterface::get_instance();
         return ::djinni_generated::AccountInterface::fromCpp(objcpp_result_);
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }

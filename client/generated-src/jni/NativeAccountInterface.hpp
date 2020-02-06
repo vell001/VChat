@@ -8,10 +8,10 @@
 
 namespace djinni_generated {
 
-class NativeAccountInterface final : ::djinni::JniInterface<::account::AccountInterface, NativeAccountInterface> {
+class NativeAccountInterface final : ::djinni::JniInterface<::account_djinni::AccountInterface, NativeAccountInterface> {
 public:
-    using CppType = std::shared_ptr<::account::AccountInterface>;
-    using CppOptType = std::shared_ptr<::account::AccountInterface>;
+    using CppType = std::shared_ptr<::account_djinni::AccountInterface>;
+    using CppOptType = std::shared_ptr<::account_djinni::AccountInterface>;
     using JniType = jobject;
 
     using Boxed = NativeAccountInterface;
@@ -25,7 +25,7 @@ public:
 private:
     NativeAccountInterface();
     friend ::djinni::JniClass<NativeAccountInterface>;
-    friend ::djinni::JniInterface<::account::AccountInterface, NativeAccountInterface>;
+    friend ::djinni::JniInterface<::account_djinni::AccountInterface, NativeAccountInterface>;
 
 };
 

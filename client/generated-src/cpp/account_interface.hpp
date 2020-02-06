@@ -5,7 +5,7 @@
 
 #include <memory>
 
-namespace account {
+namespace account_djinni {
 
 class AccountListener;
 struct LoginMsg;
@@ -18,6 +18,7 @@ public:
 
     static std::shared_ptr<AccountInterface> get_instance();
 
+    /** 单例 */
     virtual void add_listener(const std::shared_ptr<AccountListener> & listener) = 0;
 
     virtual void remove_listener(const std::shared_ptr<AccountListener> & listener) = 0;
@@ -31,4 +32,4 @@ public:
     virtual void is_alive(const TokenMsg & token) = 0;
 };
 
-}  // namespace account
+}  // namespace account_djinni

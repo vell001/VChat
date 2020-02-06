@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace account {
+namespace account_djinni {
 
 struct AccountResp;
 
@@ -20,4 +20,4 @@ public:
     virtual void on_is_alive_callback(const AccountResp & callback) = 0;
 };
 
-}  // namespace account
+}  // namespace account_djinni

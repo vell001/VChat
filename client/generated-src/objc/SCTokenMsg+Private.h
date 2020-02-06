@@ -12,7 +12,7 @@ namespace djinni_generated {
 
 struct TokenMsg
 {
-    using CppType = ::account::TokenMsg;
+    using CppType = ::account_djinni::TokenMsg;
     using ObjcType = SCTokenMsg*;
 
     using Boxed = TokenMsg;

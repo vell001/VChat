@@ -13,8 +13,8 @@ namespace djinni_generated {
 class AccountInterface
 {
 public:
-    using CppType = std::shared_ptr<::account::AccountInterface>;
-    using CppOptType = std::shared_ptr<::account::AccountInterface>;
+    using CppType = std::shared_ptr<::account_djinni::AccountInterface>;
+    using CppOptType = std::shared_ptr<::account_djinni::AccountInterface>;
     using ObjcType = SCAccountInterface*;
 
     using Boxed = AccountInterface;

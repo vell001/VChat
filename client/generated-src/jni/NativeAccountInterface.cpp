@@ -9,7 +9,7 @@
 
 namespace djinni_generated {
 
-NativeAccountInterface::NativeAccountInterface() : ::djinni::JniInterface<::account::AccountInterface, NativeAccountInterface>("com/vell/chat/account/AccountInterface$CppProxy") {}
+NativeAccountInterface::NativeAccountInterface() : ::djinni::JniInterface<::account_djinni::AccountInterface, NativeAccountInterface>("com/vell/chat/account/AccountInterface$CppProxy") {}
 
 NativeAccountInterface::~NativeAccountInterface() = default;
 
@@ -18,7 +18,7 @@ CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProx
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
-        delete reinterpret_cast<::djinni::CppProxyHandle<::account::AccountInterface>*>(nativeRef);
+        delete reinterpret_cast<::djinni::CppProxyHandle<::account_djinni::AccountInterface>*>(nativeRef);
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
@@ -26,7 +26,7 @@ CJNIEXPORT jobject JNICALL Java_com_vell_chat_account_AccountInterface_00024CppP
 {
     try {
         DJINNI_FUNCTION_PROLOGUE0(jniEnv);
-        auto r = ::account::AccountInterface::get_instance();
+        auto r = ::account_djinni::AccountInterface::get_instance();
         return ::djinni::release(::djinni_generated::NativeAccountInterface::fromCpp(jniEnv, r));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
 }
@@ -35,7 +35,7 @@ CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProx
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
-        const auto& ref = ::djinni::objectFromHandleAddress<::account::AccountInterface>(nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::account_djinni::AccountInterface>(nativeRef);
         ref->add_listener(::djinni_generated::NativeAccountListener::toCpp(jniEnv, j_listener));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
@@ -44,7 +44,7 @@ CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProx
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
-        const auto& ref = ::djinni::objectFromHandleAddress<::account::AccountInterface>(nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::account_djinni::AccountInterface>(nativeRef);
         ref->remove_listener(::djinni_generated::NativeAccountListener::toCpp(jniEnv, j_listener));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
@@ -53,7 +53,7 @@ CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProx
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
-        const auto& ref = ::djinni::objectFromHandleAddress<::account::AccountInterface>(nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::account_djinni::AccountInterface>(nativeRef);
         ref->signup(::djinni_generated::NativeSignupMsg::toCpp(jniEnv, j_info));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
@@ -62,7 +62,7 @@ CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProx
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
-        const auto& ref = ::djinni::objectFromHandleAddress<::account::AccountInterface>(nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::account_djinni::AccountInterface>(nativeRef);
         ref->login(::djinni_generated::NativeLoginMsg::toCpp(jniEnv, j_info));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
@@ -71,7 +71,7 @@ CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProx
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
-        const auto& ref = ::djinni::objectFromHandleAddress<::account::AccountInterface>(nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::account_djinni::AccountInterface>(nativeRef);
         ref->logout(::djinni_generated::NativeTokenMsg::toCpp(jniEnv, j_token));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
@@ -80,7 +80,7 @@ CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProx
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
-        const auto& ref = ::djinni::objectFromHandleAddress<::account::AccountInterface>(nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::account_djinni::AccountInterface>(nativeRef);
         ref->is_alive(::djinni_generated::NativeTokenMsg::toCpp(jniEnv, j_token));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }

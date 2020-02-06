@@ -12,31 +12,31 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 namespace djinni_generated {
 
 class AccountListener::ObjcProxy final
-: public ::account::AccountListener
+: public ::account_djinni::AccountListener
 , private ::djinni::ObjcProxyBase<ObjcType>
 {
     friend class ::djinni_generated::AccountListener;
 public:
     using ObjcProxyBase::ObjcProxyBase;
-    void on_signup_callback(const ::account::AccountResp & c_callback) override
+    void on_signup_callback(const ::account_djinni::AccountResp & c_callback) override
     {
         @autoreleasepool {
             [djinni_private_get_proxied_objc_object() onSignupCallback:(::djinni_generated::AccountResp::fromCpp(c_callback))];
         }
     }
-    void on_login_callback(const ::account::AccountResp & c_callback) override
+    void on_login_callback(const ::account_djinni::AccountResp & c_callback) override
     {
         @autoreleasepool {
             [djinni_private_get_proxied_objc_object() onLoginCallback:(::djinni_generated::AccountResp::fromCpp(c_callback))];
         }
     }
-    void on_logout_callback(const ::account::AccountResp & c_callback) override
+    void on_logout_callback(const ::account_djinni::AccountResp & c_callback) override
     {
         @autoreleasepool {
             [djinni_private_get_proxied_objc_object() onLogoutCallback:(::djinni_generated::AccountResp::fromCpp(c_callback))];
         }
     }
-    void on_is_alive_callback(const ::account::AccountResp & c_callback) override
+    void on_is_alive_callback(const ::account_djinni::AccountResp & c_callback) override
     {
         @autoreleasepool {
             [djinni_private_get_proxied_objc_object() onIsAliveCallback:(::djinni_generated::AccountResp::fromCpp(c_callback))];

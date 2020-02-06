@@ -6,7 +6,7 @@
 #include <string>
 #include <utility>
 
-namespace account {
+namespace account_djinni {
 
 /** token信息 */
 struct TokenMsg final {
@@ -17,4 +17,4 @@ struct TokenMsg final {
     {}
 };
 
-}  // namespace account
+}  // namespace account_djinni

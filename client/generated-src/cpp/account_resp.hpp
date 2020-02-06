@@ -7,7 +7,7 @@
 #include <string>
 #include <utility>
 
-namespace account {
+namespace account_djinni {
 
 /** 账号结果返回 */
 struct AccountResp final {
@@ -28,4 +28,4 @@ struct AccountResp final {
     {}
 };
 
-}  // namespace account
+}  // namespace account_djinni

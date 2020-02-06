@@ -10,7 +10,7 @@ namespace djinni_generated {
 
 class NativeTokenMsg final {
 public:
-    using CppType = ::account::TokenMsg;
+    using CppType = ::account_djinni::TokenMsg;
     using JniType = jobject;
 
     using Boxed = NativeTokenMsg;

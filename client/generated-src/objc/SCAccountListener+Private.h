@@ -13,8 +13,8 @@ namespace djinni_generated {
 class AccountListener
 {
 public:
-    using CppType = std::shared_ptr<::account::AccountListener>;
-    using CppOptType = std::shared_ptr<::account::AccountListener>;
+    using CppType = std::shared_ptr<::account_djinni::AccountListener>;
+    using CppOptType = std::shared_ptr<::account_djinni::AccountListener>;
     using ObjcType = id<SCAccountListener>;
 
     using Boxed = AccountListener;

@@ -5,7 +5,7 @@
 
 djinni_file="account.djinni"
 # C++ namespace for generated src
-namespace="account"
+namespace="account_djinni"
 # Objective-C class name prefix for generated src
 objc_prefix="SC"
 # Java package name for generated src

@@ -6,7 +6,7 @@
 #include <string>
 #include <utility>
 
-namespace account {
+namespace account_djinni {
 
 /** 登陆信息 */
 struct LoginMsg final {
@@ -21,4 +21,4 @@ struct LoginMsg final {
     {}
 };
 
-}  // namespace account
+}  // namespace account_djinni

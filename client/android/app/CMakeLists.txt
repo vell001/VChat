@@ -18,7 +18,7 @@ file(MAKE_DIRECTORY ${GRPC_BUILD_DIR})
 
 add_subdirectory(${GRPC_SRC_DIR} ${GRPC_BUILD_DIR})
 
-set(GRPC_PROTO_GENS_DIR ${CMAKE_BINARY_DIR}/gens)
+set(GRPC_PROTO_GENS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../generated-protos)
 file(MAKE_DIRECTORY ${GRPC_PROTO_GENS_DIR})
 include_directories(${GRPC_PROTO_GENS_DIR})
 
@@ -67,6 +67,7 @@ set(PROTO_BASE_DIR ../../../server/account/protos/)
 
 android_protobuf_grpc_generate_cpp(
   ACCOUNT_PROTO_SRCS ACCOUNT_PROTO_HDRS ${PROTO_BASE_DIR} ${PROTO_BASE_DIR}/account.proto)
+include_directories(${ACCOUNT_PROTO_HDRS})
 
 add_library(account_proto_lib
   SHARED ${ACCOUNT_PROTO_HDRS} ${ACCOUNT_PROTO_SRCS})
