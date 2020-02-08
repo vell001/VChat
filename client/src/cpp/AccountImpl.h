@@ -5,9 +5,10 @@
 
 #include <vector>
 #include "account_interface.hpp"
-#include "account_resp.hpp"
 #include "account_listener.hpp"
+#include "account_resp.hpp"
 #include "service/AccountService.h"
+#include "Platform.h"
 
 using namespace std;
 

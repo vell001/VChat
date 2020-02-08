@@ -79,22 +79,28 @@ target_link_libraries(account_proto_lib
   log)
 
 #文件目录
-set(LIBRARY_DIRS ${CMAKE_SOURCE_DIR}/src/main/jniLibs)
-set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../src/cpp)
+set(LIBRARY_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src/main/jniLibs)
+set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/main/cpp)
+set(COMMON_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../src/cpp)
 set(GEN_CPP_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../generated-src/cpp)
 set(GEN_JNI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../generated-src/jni)
 set(DJINNI_SUPPORT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../deps/djinni/support-lib/)
 set(DJINNI_SUPPORT_JNI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../deps/djinni/support-lib/jni)
 
-
 #包含头文件目录
+include_directories(${SRC_DIR}/include)
+include_directories(${COMMON_SRC_DIR}/include)
 include_directories(${GEN_CPP_DIR})
 include_directories(${GEN_JNI_DIR})
 include_directories(${DJINNI_SUPPORT_DIR})
 include_directories(${DJINNI_SUPPORT_JNI_DIR})
 
+#引入第三方库
+add_library(libmarsxlog SHARED IMPORTED)
+set_target_properties(libmarsxlog PROPERTIES IMPORTED_LOCATION ${LIBRARY_DIRS}/${ANDROID_ABI}/libmarsxlog.so)
 
 file(GLOB_RECURSE CPP_SRCS "${SRC_DIR}/*.cpp"
+        "${COMMON_SRC_DIR}/*.cpp"
         "${GEN_CPP_DIR}/*.hpp" "${GEN_JNI_DIR}/*.cpp"
         "${DJINNI_SUPPORT_JNI_DIR}/*.cpp")
 
@@ -106,4 +112,5 @@ target_link_libraries(
         ${TARGET_NAME}
         ${log-lib}
         account_proto_lib
+        libmarsxlog
 )

@@ -26,8 +26,8 @@ void AccountImpl::remove_listener(const std::shared_ptr<account_djinni::AccountL
 }
 
 void AccountImpl::signup(const account_djinni::SignupMsg &info) {
-    auto ret = AccountService::getInstance()->signup("user","pwd");
-    account_djinni::AccountResp resp(0, "succ", "test", ret);
+    account_djinni::AccountResp resp(0, "", "", "");
+    AccountService::getInstance()->signup(info, resp);
     callbackFunc(&account_djinni::AccountListener::on_signup_callback, resp);
 }
 
