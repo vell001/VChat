@@ -1,6 +1,7 @@
 load('@bazel_tools//tools/build_defs/repo:git.bzl', 'git_repository', 'new_git_repository')
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+# grpc依赖
 http_archive(
     name = "com_github_grpc_grpc",
     urls = [
@@ -17,3 +18,22 @@ grpc_deps()
 load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
 
 grpc_extra_deps()
+
+# glog依赖
+http_archive(
+    name = "com_github_gflags_gflags",
+    strip_prefix = "gflags-2.2.2",
+    urls = [
+        "https://mirror.bazel.build/github.com/gflags/gflags/archive/v2.2.2.tar.gz",
+        "https://github.com/gflags/gflags/archive/v2.2.2.tar.gz",
+    ],
+)
+
+http_archive(
+    name = "com_github_google_glog",
+    urls = [
+        "https://github.com/google/glog/archive/v0.4.0.tar.gz",
+    ],
+    strip_prefix = "glog-0.4.0",
+    sha256 = "f28359aeba12f30d73d9e4711ef356dc842886968112162bc73002645139c39c",
+)

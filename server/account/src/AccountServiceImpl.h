@@ -5,6 +5,8 @@
 #pragma once
 
 #include "account/protos/account.grpc.pb.h"
+#include <glog/logging.h>
+#include <glog/stl_logging.h>
 
 class AccountServiceImpl final : public account::Account::Service {
 public:

@@ -7,7 +7,9 @@
 #include <string>
 
 #include <grpc++/grpc++.h>
-
+#include <gflags/gflags.h>
+#include <glog/logging.h>
+#include <glog/stl_logging.h>
 #include "AccountServiceImpl.h"
 
 using grpc::Server;
@@ -16,26 +18,30 @@ using grpc::ServerContext;
 using grpc::Status;
 
 void RunServer() {
-  std::string server_address("0.0.0.0:50051");
-  AccountServiceImpl service;
+    std::string server_address("0.0.0.0:50051");
+    AccountServiceImpl service;
 
-  ServerBuilder builder;
-  // Listen on the given address without any authentication mechanism.
-  builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
-  // Register "service" as the instance through which we'll communicate with
-  // clients. In this case it corresponds to an *synchronous* service.
-  builder.RegisterService(&service);
-  // Finally assemble the server.
-  std::unique_ptr<Server> server(builder.BuildAndStart());
-  std::cout << "Server listening on " << server_address << std::endl;
-
-  // Wait for the server to shutdown. Note that some other thread must be
-  // responsible for shutting down the server for this call to ever return.
-  server->Wait();
+    ServerBuilder builder;
+    // Listen on the given address without any authentication mechanism.
+    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+    // Register "service" as the instance through which we'll communicate with
+    // clients. In this case it corresponds to an *synchronous* service.
+    builder.RegisterService(&service);
+    // Finally assemble the server.
+    std::unique_ptr<Server> server(builder.BuildAndStart());
+    LOG(INFO) << "Server listening on " << server_address << std::endl;
+    // Wait for the server to shutdown. Note that some other thread must be
+    // responsible for shutting down the server for this call to ever return.
+    server->Wait();
 }
 
-int main(int argc, char** argv) {
-  RunServer();
+int main(int argc, char **argv) {
+    // Initialize Google's logging library.
+    google::InitGoogleLogging(argv[0]);
 
-  return 0;
+    // Optional: parse command line flags
+    gflags::ParseCommandLineFlags(&argc, &argv, true);
+
+    RunServer();
+    return 0;
 }
