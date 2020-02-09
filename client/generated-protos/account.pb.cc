@@ -14,6 +14,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
+extern PROTOBUF_INTERNAL_EXPORT_account_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TokenMsg_account_2eproto;
 namespace account {
 class SignupMsgDefaultTypeInternal {
  public:
@@ -43,8 +44,9 @@ static void InitDefaultsscc_info_AccountResp_account_2eproto() {
   ::account::AccountResp::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_AccountResp_account_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_AccountResp_account_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AccountResp_account_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_AccountResp_account_2eproto}, {
+      &scc_info_TokenMsg_account_2eproto.base,}};
 
 static void InitDefaultsscc_info_LoginMsg_account_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -116,6 +118,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_account_2eproto::offsets[] PRO
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::account::TokenMsg, token_),
+  PROTOBUF_FIELD_OFFSET(::account::TokenMsg, expiration_time_sec_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::account::AccountResp, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -130,7 +133,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::account::SignupMsg)},
   { 10, -1, sizeof(::account::LoginMsg)},
   { 17, -1, sizeof(::account::TokenMsg)},
-  { 23, -1, sizeof(::account::AccountResp)},
+  { 24, -1, sizeof(::account::AccountResp)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -145,16 +148,17 @@ const char descriptor_table_protodef_account_2eproto[] PROTOBUF_SECTION_VARIABLE
   "\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\023\n\013pho"
   "neNumber\030\003 \001(\t\022\r\n\005email\030\004 \001(\t\022\r\n\005extra\030\005"
   " \001(\t\"-\n\010LoginMsg\022\017\n\007account\030\001 \001(\t\022\020\n\010pas"
-  "sword\030\002 \001(\t\"\031\n\010TokenMsg\022\r\n\005token\030\001 \001(\t\"F"
-  "\n\013AccountResp\022\014\n\004code\030\001 \001(\005\022\013\n\003msg\030\002 \001(\t"
-  "\022\r\n\005token\030\003 \001(\t\022\r\n\005extra\030\004 \001(\t2\336\001\n\007Accou"
-  "nt\0224\n\006signup\022\022.account.SignupMsg\032\024.accou"
-  "nt.AccountResp\"\000\0222\n\005login\022\021.account.Logi"
-  "nMsg\032\024.account.AccountResp\"\000\0223\n\006logout\022\021"
-  ".account.TokenMsg\032\024.account.AccountResp\""
-  "\000\0224\n\007isAlive\022\021.account.TokenMsg\032\024.accoun"
-  "t.AccountResp\"\000B\027\n\025com.vell.chat.account"
-  "b\006proto3"
+  "sword\030\002 \001(\t\"6\n\010TokenMsg\022\r\n\005token\030\001 \001(\t\022\033"
+  "\n\023expiration_time_sec\030\002 \001(\005\"Y\n\013AccountRe"
+  "sp\022\014\n\004code\030\001 \001(\005\022\013\n\003msg\030\002 \001(\t\022 \n\005token\030\003"
+  " \001(\0132\021.account.TokenMsg\022\r\n\005extra\030\004 \001(\t2\336"
+  "\001\n\007Account\0224\n\006signup\022\022.account.SignupMsg"
+  "\032\024.account.AccountResp\"\000\0222\n\005login\022\021.acco"
+  "unt.LoginMsg\032\024.account.AccountResp\"\000\0223\n\006"
+  "logout\022\021.account.TokenMsg\032\024.account.Acco"
+  "untResp\"\000\0224\n\007isAlive\022\021.account.TokenMsg\032"
+  "\024.account.AccountResp\"\000B\027\n\025com.vell.chat"
+  ".accountb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_account_2eproto_deps[1] = {
 };
@@ -167,7 +171,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_acc
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_account_2eproto_once;
 static bool descriptor_table_account_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_account_2eproto = {
-  &descriptor_table_account_2eproto_initialized, descriptor_table_protodef_account_2eproto, "account.proto", 528,
+  &descriptor_table_account_2eproto_initialized, descriptor_table_protodef_account_2eproto, "account.proto", 576,
   &descriptor_table_account_2eproto_once, descriptor_table_account_2eproto_sccs, descriptor_table_account_2eproto_deps, 4, 0,
   schemas, file_default_instances, TableStruct_account_2eproto::offsets,
   file_level_metadata_account_2eproto, 4, file_level_enum_descriptors_account_2eproto, file_level_service_descriptors_account_2eproto,
@@ -791,12 +795,14 @@ TokenMsg::TokenMsg(const TokenMsg& from)
   if (!from._internal_token().empty()) {
     token_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.token_);
   }
+  expiration_time_sec_ = from.expiration_time_sec_;
   // @@protoc_insertion_point(copy_constructor:account.TokenMsg)
 }
 
 void TokenMsg::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TokenMsg_account_2eproto.base);
   token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  expiration_time_sec_ = 0;
 }
 
 TokenMsg::~TokenMsg() {
@@ -824,6 +830,7 @@ void TokenMsg::Clear() {
   (void) cached_has_bits;
 
   token_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  expiration_time_sec_ = 0;
   _internal_metadata_.Clear();
 }
 
@@ -840,6 +847,13 @@ const char* TokenMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           auto str = _internal_mutable_token();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "account.TokenMsg.token"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 expiration_time_sec = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          expiration_time_sec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -879,6 +893,12 @@ failure:
         1, this->_internal_token(), target);
   }
 
+  // int32 expiration_time_sec = 2;
+  if (this->expiration_time_sec() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_expiration_time_sec(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -900,6 +920,13 @@ size_t TokenMsg::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_token());
+  }
+
+  // int32 expiration_time_sec = 2;
+  if (this->expiration_time_sec() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_expiration_time_sec());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -937,6 +964,9 @@ void TokenMsg::MergeFrom(const TokenMsg& from) {
 
     token_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.token_);
   }
+  if (from.expiration_time_sec() != 0) {
+    _internal_set_expiration_time_sec(from._internal_expiration_time_sec());
+  }
 }
 
 void TokenMsg::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -962,6 +992,7 @@ void TokenMsg::InternalSwap(TokenMsg* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   token_.Swap(&other->token_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  swap(expiration_time_sec_, other->expiration_time_sec_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TokenMsg::GetMetadata() const {
@@ -972,11 +1003,18 @@ void TokenMsg::InternalSwap(TokenMsg* other) {
 // ===================================================================
 
 void AccountResp::InitAsDefaultInstance() {
+  ::account::_AccountResp_default_instance_._instance.get_mutable()->token_ = const_cast< ::account::TokenMsg*>(
+      ::account::TokenMsg::internal_default_instance());
 }
 class AccountResp::_Internal {
  public:
+  static const ::account::TokenMsg& token(const AccountResp* msg);
 };
 
+const ::account::TokenMsg&
+AccountResp::_Internal::token(const AccountResp* msg) {
+  return *msg->token_;
+}
 AccountResp::AccountResp()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
@@ -990,13 +1028,14 @@ AccountResp::AccountResp(const AccountResp& from)
   if (!from._internal_msg().empty()) {
     msg_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.msg_);
   }
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_token().empty()) {
-    token_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.token_);
-  }
   extra_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_extra().empty()) {
     extra_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.extra_);
+  }
+  if (from._internal_has_token()) {
+    token_ = new ::account::TokenMsg(*from.token_);
+  } else {
+    token_ = nullptr;
   }
   code_ = from.code_;
   // @@protoc_insertion_point(copy_constructor:account.AccountResp)
@@ -1005,9 +1044,10 @@ AccountResp::AccountResp(const AccountResp& from)
 void AccountResp::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AccountResp_account_2eproto.base);
   msg_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   extra_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  code_ = 0;
+  ::memset(&token_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&code_) -
+      reinterpret_cast<char*>(&token_)) + sizeof(code_));
 }
 
 AccountResp::~AccountResp() {
@@ -1017,8 +1057,8 @@ AccountResp::~AccountResp() {
 
 void AccountResp::SharedDtor() {
   msg_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   extra_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete token_;
 }
 
 void AccountResp::SetCachedSize(int size) const {
@@ -1037,8 +1077,11 @@ void AccountResp::Clear() {
   (void) cached_has_bits;
 
   msg_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  token_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   extra_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == nullptr && token_ != nullptr) {
+    delete token_;
+  }
+  token_ = nullptr;
   code_ = 0;
   _internal_metadata_.Clear();
 }
@@ -1066,12 +1109,10 @@ const char* AccountResp::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string token = 3;
+      // .account.TokenMsg token = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "account.AccountResp.token"));
+          ptr = ctx->ParseMessage(_internal_mutable_token(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1126,14 +1167,12 @@ failure:
         2, this->_internal_msg(), target);
   }
 
-  // string token = 3;
-  if (this->token().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "account.AccountResp.token");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_token(), target);
+  // .account.TokenMsg token = 3;
+  if (this->has_token()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::token(this), target, stream);
   }
 
   // string extra = 4;
@@ -1169,18 +1208,18 @@ size_t AccountResp::ByteSizeLong() const {
         this->_internal_msg());
   }
 
-  // string token = 3;
-  if (this->token().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_token());
-  }
-
   // string extra = 4;
   if (this->extra().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_extra());
+  }
+
+  // .account.TokenMsg token = 3;
+  if (this->has_token()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *token_);
   }
 
   // int32 code = 1;
@@ -1225,13 +1264,12 @@ void AccountResp::MergeFrom(const AccountResp& from) {
 
     msg_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.msg_);
   }
-  if (from.token().size() > 0) {
-
-    token_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.token_);
-  }
   if (from.extra().size() > 0) {
 
     extra_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.extra_);
+  }
+  if (from.has_token()) {
+    _internal_mutable_token()->::account::TokenMsg::MergeFrom(from._internal_token());
   }
   if (from.code() != 0) {
     _internal_set_code(from._internal_code());
@@ -1261,10 +1299,9 @@ void AccountResp::InternalSwap(AccountResp* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   msg_.Swap(&other->msg_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
-  token_.Swap(&other->token_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
   extra_.Swap(&other->extra_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  swap(token_, other->token_);
   swap(code_, other->code_);
 }
 

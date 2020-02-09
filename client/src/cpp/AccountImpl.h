@@ -7,7 +7,8 @@
 #include "account_interface.hpp"
 #include "account_listener.hpp"
 #include "account_resp.hpp"
-#include "service/AccountService.h"
+#include "server/AccountServer.h"
+#include "datacenter/AccountData.h"
 #include "Platform.h"
 
 using namespace std;
@@ -20,6 +21,8 @@ private:
     template<typename _FUNC, typename... Args>
     void callbackFunc(_FUNC func, Args... args);
 public:
+    void init() override;
+
     void add_listener(const std::shared_ptr<account_djinni::AccountListener> &listener) override;
 
     void remove_listener(const std::shared_ptr<account_djinni::AccountListener> &listener) override;
@@ -28,9 +31,16 @@ public:
 
     void login(const account_djinni::LoginMsg &info) override;
 
-    void logout(const account_djinni::TokenMsg &token) override;
+    void logout() override;
 
-    void is_alive(const account_djinni::TokenMsg &token) override;
+    void is_alive() override;
+
+    bool has_login() override;
+
+private:
+    bool inited = false;
+    bool hasLogin = false;
+    std::shared_ptr<account_djinni::AccountInfo> mAccountInfo;
 };
 
 

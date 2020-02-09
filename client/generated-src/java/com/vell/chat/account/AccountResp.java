@@ -11,14 +11,14 @@ public final class AccountResp {
 
     /*package*/ final String mMsg;
 
-    /*package*/ final String mToken;
+    /*package*/ final TokenMsg mToken;
 
     /*package*/ final String mExtra;
 
     public AccountResp(
             int code,
             String msg,
-            String token,
+            TokenMsg token,
             String extra) {
         this.mCode = code;
         this.mMsg = msg;
@@ -35,7 +35,7 @@ public final class AccountResp {
         return mMsg;
     }
 
-    public String getToken() {
+    public TokenMsg getToken() {
         return mToken;
     }
 

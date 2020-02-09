@@ -9,19 +9,28 @@ public final class TokenMsg {
 
     /*package*/ final String mToken;
 
+    /*package*/ final int mExpirationTimeSec;
+
     public TokenMsg(
-            String token) {
+            String token,
+            int expirationTimeSec) {
         this.mToken = token;
+        this.mExpirationTimeSec = expirationTimeSec;
     }
 
     public String getToken() {
         return mToken;
     }
 
+    public int getExpirationTimeSec() {
+        return mExpirationTimeSec;
+    }
+
     @Override
     public String toString() {
         return "TokenMsg{" +
                 "mToken=" + mToken +
+                "," + "mExpirationTimeSec=" + mExpirationTimeSec +
         "}";
     }
 

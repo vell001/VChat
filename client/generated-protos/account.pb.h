@@ -545,6 +545,7 @@ class TokenMsg :
 
   enum : int {
     kTokenFieldNumber = 1,
+    kExpirationTimeSecFieldNumber = 2,
   };
   // string token = 1;
   void clear_token();
@@ -562,12 +563,22 @@ class TokenMsg :
   std::string* _internal_mutable_token();
   public:
 
+  // int32 expiration_time_sec = 2;
+  void clear_expiration_time_sec();
+  ::PROTOBUF_NAMESPACE_ID::int32 expiration_time_sec() const;
+  void set_expiration_time_sec(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_expiration_time_sec() const;
+  void _internal_set_expiration_time_sec(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:account.TokenMsg)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
+  ::PROTOBUF_NAMESPACE_ID::int32 expiration_time_sec_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_account_2eproto;
 };
@@ -680,8 +691,8 @@ class AccountResp :
 
   enum : int {
     kMsgFieldNumber = 2,
-    kTokenFieldNumber = 3,
     kExtraFieldNumber = 4,
+    kTokenFieldNumber = 3,
     kCodeFieldNumber = 1,
   };
   // string msg = 2;
@@ -700,22 +711,6 @@ class AccountResp :
   std::string* _internal_mutable_msg();
   public:
 
-  // string token = 3;
-  void clear_token();
-  const std::string& token() const;
-  void set_token(const std::string& value);
-  void set_token(std::string&& value);
-  void set_token(const char* value);
-  void set_token(const char* value, size_t size);
-  std::string* mutable_token();
-  std::string* release_token();
-  void set_allocated_token(std::string* token);
-  private:
-  const std::string& _internal_token() const;
-  void _internal_set_token(const std::string& value);
-  std::string* _internal_mutable_token();
-  public:
-
   // string extra = 4;
   void clear_extra();
   const std::string& extra() const;
@@ -730,6 +725,21 @@ class AccountResp :
   const std::string& _internal_extra() const;
   void _internal_set_extra(const std::string& value);
   std::string* _internal_mutable_extra();
+  public:
+
+  // .account.TokenMsg token = 3;
+  bool has_token() const;
+  private:
+  bool _internal_has_token() const;
+  public:
+  void clear_token();
+  const ::account::TokenMsg& token() const;
+  ::account::TokenMsg* release_token();
+  ::account::TokenMsg* mutable_token();
+  void set_allocated_token(::account::TokenMsg* token);
+  private:
+  const ::account::TokenMsg& _internal_token() const;
+  ::account::TokenMsg* _internal_mutable_token();
   public:
 
   // int32 code = 1;
@@ -747,8 +757,8 @@ class AccountResp :
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr msg_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr extra_;
+  ::account::TokenMsg* token_;
   ::PROTOBUF_NAMESPACE_ID::int32 code_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_account_2eproto;
@@ -1252,6 +1262,26 @@ inline void TokenMsg::set_allocated_token(std::string* token) {
   // @@protoc_insertion_point(field_set_allocated:account.TokenMsg.token)
 }
 
+// int32 expiration_time_sec = 2;
+inline void TokenMsg::clear_expiration_time_sec() {
+  expiration_time_sec_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 TokenMsg::_internal_expiration_time_sec() const {
+  return expiration_time_sec_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 TokenMsg::expiration_time_sec() const {
+  // @@protoc_insertion_point(field_get:account.TokenMsg.expiration_time_sec)
+  return _internal_expiration_time_sec();
+}
+inline void TokenMsg::_internal_set_expiration_time_sec(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  expiration_time_sec_ = value;
+}
+inline void TokenMsg::set_expiration_time_sec(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_expiration_time_sec(value);
+  // @@protoc_insertion_point(field_set:account.TokenMsg.expiration_time_sec)
+}
+
 // -------------------------------------------------------------------
 
 // AccountResp
@@ -1336,63 +1366,63 @@ inline void AccountResp::set_allocated_msg(std::string* msg) {
   // @@protoc_insertion_point(field_set_allocated:account.AccountResp.msg)
 }
 
-// string token = 3;
-inline void AccountResp::clear_token() {
-  token_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+// .account.TokenMsg token = 3;
+inline bool AccountResp::_internal_has_token() const {
+  return this != internal_default_instance() && token_ != nullptr;
 }
-inline const std::string& AccountResp::token() const {
+inline bool AccountResp::has_token() const {
+  return _internal_has_token();
+}
+inline void AccountResp::clear_token() {
+  if (GetArenaNoVirtual() == nullptr && token_ != nullptr) {
+    delete token_;
+  }
+  token_ = nullptr;
+}
+inline const ::account::TokenMsg& AccountResp::_internal_token() const {
+  const ::account::TokenMsg* p = token_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::account::TokenMsg*>(
+      &::account::_TokenMsg_default_instance_);
+}
+inline const ::account::TokenMsg& AccountResp::token() const {
   // @@protoc_insertion_point(field_get:account.AccountResp.token)
   return _internal_token();
 }
-inline void AccountResp::set_token(const std::string& value) {
-  _internal_set_token(value);
-  // @@protoc_insertion_point(field_set:account.AccountResp.token)
+inline ::account::TokenMsg* AccountResp::release_token() {
+  // @@protoc_insertion_point(field_release:account.AccountResp.token)
+  
+  ::account::TokenMsg* temp = token_;
+  token_ = nullptr;
+  return temp;
 }
-inline std::string* AccountResp::mutable_token() {
+inline ::account::TokenMsg* AccountResp::_internal_mutable_token() {
+  
+  if (token_ == nullptr) {
+    auto* p = CreateMaybeMessage<::account::TokenMsg>(GetArenaNoVirtual());
+    token_ = p;
+  }
+  return token_;
+}
+inline ::account::TokenMsg* AccountResp::mutable_token() {
   // @@protoc_insertion_point(field_mutable:account.AccountResp.token)
   return _internal_mutable_token();
 }
-inline const std::string& AccountResp::_internal_token() const {
-  return token_.GetNoArena();
-}
-inline void AccountResp::_internal_set_token(const std::string& value) {
-  
-  token_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-}
-inline void AccountResp::set_token(std::string&& value) {
-  
-  token_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:account.AccountResp.token)
-}
-inline void AccountResp::set_token(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  token_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:account.AccountResp.token)
-}
-inline void AccountResp::set_token(const char* value, size_t size) {
-  
-  token_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:account.AccountResp.token)
-}
-inline std::string* AccountResp::_internal_mutable_token() {
-  
-  return token_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* AccountResp::release_token() {
-  // @@protoc_insertion_point(field_release:account.AccountResp.token)
-  
-  return token_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void AccountResp::set_allocated_token(std::string* token) {
-  if (token != nullptr) {
+inline void AccountResp::set_allocated_token(::account::TokenMsg* token) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete token_;
+  }
+  if (token) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      token = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, token, submessage_arena);
+    }
     
   } else {
     
   }
-  token_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), token);
+  token_ = token;
   // @@protoc_insertion_point(field_set_allocated:account.AccountResp.token)
 }
 

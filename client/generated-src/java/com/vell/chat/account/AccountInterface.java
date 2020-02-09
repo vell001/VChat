@@ -6,7 +6,9 @@ package com.vell.chat.account;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class AccountInterface {
-    /** 单例 */
+    /** 初始化 */
+    public abstract void init();
+
     public abstract void addListener(AccountListener listener);
 
     public abstract void removeListener(AccountListener listener);
@@ -15,10 +17,15 @@ public abstract class AccountInterface {
 
     public abstract void login(LoginMsg info);
 
-    public abstract void logout(TokenMsg token);
+    public abstract void logout();
 
-    public abstract void isAlive(TokenMsg token);
+    /** 手动发起服务器是否在线检查，会异步定时检查 */
+    public abstract void isAlive();
 
+    /** 是否已经登录 */
+    public abstract boolean hasLogin();
+
+    /** 单例 */
     public static AccountInterface getInstance()
     {
         return CppProxy.getInstance();
@@ -46,6 +53,14 @@ public abstract class AccountInterface {
             _djinni_private_destroy();
             super.finalize();
         }
+
+        @Override
+        public void init()
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            native_init(this.nativeRef);
+        }
+        private native void native_init(long _nativeRef);
 
         @Override
         public void addListener(AccountListener listener)
@@ -80,20 +95,28 @@ public abstract class AccountInterface {
         private native void native_login(long _nativeRef, LoginMsg info);
 
         @Override
-        public void logout(TokenMsg token)
+        public void logout()
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            native_logout(this.nativeRef, token);
+            native_logout(this.nativeRef);
         }
-        private native void native_logout(long _nativeRef, TokenMsg token);
+        private native void native_logout(long _nativeRef);
 
         @Override
-        public void isAlive(TokenMsg token)
+        public void isAlive()
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            native_isAlive(this.nativeRef, token);
+            native_isAlive(this.nativeRef);
         }
-        private native void native_isAlive(long _nativeRef, TokenMsg token);
+        private native void native_isAlive(long _nativeRef);
+
+        @Override
+        public boolean hasLogin()
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            return native_hasLogin(this.nativeRef);
+        }
+        private native boolean native_hasLogin(long _nativeRef);
 
         public static native AccountInterface getInstance();
     }

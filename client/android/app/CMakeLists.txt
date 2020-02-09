@@ -88,7 +88,9 @@ set(DJINNI_SUPPORT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../deps/djinni/support-lib
 set(DJINNI_SUPPORT_JNI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../deps/djinni/support-lib/jni)
 
 #包含头文件目录
+include_directories(${SRC_DIR})
 include_directories(${SRC_DIR}/include)
+include_directories(${COMMON_SRC_DIR})
 include_directories(${COMMON_SRC_DIR}/include)
 include_directories(${GEN_CPP_DIR})
 include_directories(${GEN_JNI_DIR})

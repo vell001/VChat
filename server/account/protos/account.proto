@@ -30,12 +30,13 @@ message LoginMsg {
 // token信息
 message TokenMsg {
   string token = 1;
+  int32 expiration_time_sec = 2;
 }
 
 // 账号结果返回
 message AccountResp {
   int32 code = 1; // 错误码
   string msg = 2;
-  string token = 3;
+  TokenMsg token = 3;
   string extra = 4;
 }

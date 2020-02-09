@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="icon">60sp</dimen>
+    <dimen name="copyright">20sp</dimen>
+    <dimen name="edit_text">18sp</dimen>
+    <dimen name="btn_text">18sp</dimen>
+    <dimen name="et_key_width">80dp</dimen>
+</resources>

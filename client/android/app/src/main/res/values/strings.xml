@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">VChat</string>
+    <string name="copyright">by vellhe</string>
+    <string name="username">用户名: </string>
+    <string name="phone_num">手机号:</string>
+    <string name="email">邮箱: </string>
+
+    <string name="hint_required">【必填】</string>
+    <string name="hint_not_required">【可选】</string>
 </resources>
