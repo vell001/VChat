@@ -8,13 +8,13 @@
 
 - (nonnull instancetype)initWithCode:(int32_t)code
                                  msg:(nonnull NSString *)msg
-                               token:(nonnull NSString *)token
+                               token:(nonnull SCTokenMsg *)token
                                extra:(nonnull NSString *)extra
 {
     if (self = [super init]) {
         _code = code;
         _msg = [msg copy];
-        _token = [token copy];
+        _token = token;
         _extra = [extra copy];
     }
     return self;
@@ -22,7 +22,7 @@
 
 + (nonnull instancetype)accountRespWithCode:(int32_t)code
                                         msg:(nonnull NSString *)msg
-                                      token:(nonnull NSString *)token
+                                      token:(nonnull SCTokenMsg *)token
                                       extra:(nonnull NSString *)extra
 {
     return [(SCAccountResp*)[self alloc] initWithCode:code

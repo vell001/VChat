@@ -3,6 +3,7 @@
 
 #import "SCAccountResp+Private.h"
 #import "DJIMarshal+Private.h"
+#import "SCTokenMsg+Private.h"
 #include <cassert>
 
 namespace djinni_generated {
@@ -12,7 +13,7 @@ auto AccountResp::toCpp(ObjcType obj) -> CppType
     assert(obj);
     return {::djinni::I32::toCpp(obj.code),
             ::djinni::String::toCpp(obj.msg),
-            ::djinni::String::toCpp(obj.token),
+            ::djinni_generated::TokenMsg::toCpp(obj.token),
             ::djinni::String::toCpp(obj.extra)};
 }
 
@@ -20,7 +21,7 @@ auto AccountResp::fromCpp(const CppType& cpp) -> ObjcType
 {
     return [[SCAccountResp alloc] initWithCode:(::djinni::I32::fromCpp(cpp.code))
                                            msg:(::djinni::String::fromCpp(cpp.msg))
-                                         token:(::djinni::String::fromCpp(cpp.token))
+                                         token:(::djinni_generated::TokenMsg::fromCpp(cpp.token))
                                          extra:(::djinni::String::fromCpp(cpp.extra))];
 }
 

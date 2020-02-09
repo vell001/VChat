@@ -3,7 +3,6 @@
 
 #import "SCLoginMsg.h"
 #import "SCSignupMsg.h"
-#import "SCTokenMsg.h"
 #import <Foundation/Foundation.h>
 @class SCAccountInterface;
 @protocol SCAccountListener;
@@ -11,9 +10,12 @@
 
 @interface SCAccountInterface : NSObject
 
+/** 单例 */
 + (nullable SCAccountInterface *)getInstance;
 
-/** 单例 */
+/** 初始化 */
+- (void)init;
+
 - (void)addListener:(nullable id<SCAccountListener>)listener;
 
 - (void)removeListener:(nullable id<SCAccountListener>)listener;
@@ -22,8 +24,12 @@
 
 - (void)login:(nonnull SCLoginMsg *)info;
 
-- (void)logout:(nonnull SCTokenMsg *)token;
+- (void)logout;
 
-- (void)isAlive:(nonnull SCTokenMsg *)token;
+/** 手动发起服务器是否在线检查，会异步定时检查 */
+- (void)isAlive;
+
+/** 是否已经登录 */
+- (BOOL)hasLogin;
 
 @end

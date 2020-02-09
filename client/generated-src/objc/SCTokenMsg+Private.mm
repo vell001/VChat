@@ -10,12 +10,14 @@ namespace djinni_generated {
 auto TokenMsg::toCpp(ObjcType obj) -> CppType
 {
     assert(obj);
-    return {::djinni::String::toCpp(obj.token)};
+    return {::djinni::String::toCpp(obj.token),
+            ::djinni::I32::toCpp(obj.expirationTimeSec)};
 }
 
 auto TokenMsg::fromCpp(const CppType& cpp) -> ObjcType
 {
-    return [[SCTokenMsg alloc] initWithToken:(::djinni::String::fromCpp(cpp.token))];
+    return [[SCTokenMsg alloc] initWithToken:(::djinni::String::fromCpp(cpp.token))
+                           expirationTimeSec:(::djinni::I32::fromCpp(cpp.expiration_time_sec))];
 }
 
 }  // namespace djinni_generated

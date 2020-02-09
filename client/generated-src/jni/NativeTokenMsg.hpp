@@ -25,8 +25,9 @@ private:
     friend ::djinni::JniClass<NativeTokenMsg>;
 
     const ::djinni::GlobalRef<jclass> clazz { ::djinni::jniFindClass("com/vell/chat/account/TokenMsg") };
-    const jmethodID jconstructor { ::djinni::jniGetMethodID(clazz.get(), "<init>", "(Ljava/lang/String;)V") };
+    const jmethodID jconstructor { ::djinni::jniGetMethodID(clazz.get(), "<init>", "(Ljava/lang/String;I)V") };
     const jfieldID field_mToken { ::djinni::jniGetFieldID(clazz.get(), "mToken", "Ljava/lang/String;") };
+    const jfieldID field_mExpirationTimeSec { ::djinni::jniGetFieldID(clazz.get(), "mExpirationTimeSec", "I") };
 };
 
 }  // namespace djinni_generated

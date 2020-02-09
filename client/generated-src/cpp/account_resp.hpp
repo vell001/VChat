@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "token_msg.hpp"
 #include <cstdint>
 #include <string>
 #include <utility>
@@ -14,12 +15,12 @@ struct AccountResp final {
     int32_t code;
     /** 错误码 */
     std::string msg;
-    std::string token;
+    TokenMsg token;
     std::string extra;
 
     AccountResp(int32_t code_,
                 std::string msg_,
-                std::string token_,
+                TokenMsg token_,
                 std::string extra_)
     : code(std::move(code_))
     , msg(std::move(msg_))

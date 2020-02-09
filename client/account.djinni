@@ -1,12 +1,20 @@
 account_interface = interface +c {
-	static get_instance(): account_interface; # 单例
+    # 单例
+	static get_instance(): account_interface; 
+    # 初始化
+    init();
+
     add_listener(listener: account_listener);
     remove_listener(listener: account_listener);
 
 	signup(info: signup_msg);
     login(info: login_msg);
-	logout(token: token_msg);
-	is_alive(token: token_msg);
+	logout();
+
+    # 手动发起服务器是否在线检查，会异步定时检查
+	is_alive(); 
+    # 是否已经登录
+    has_login(): bool; 
 }
 
 account_listener = interface +o +j {
@@ -34,12 +42,23 @@ login_msg = record {
 # token信息
 token_msg = record {
     token: string;
+    expiration_time_sec: i32;
 }
 
 # 账号结果返回
 account_resp = record {
     code: i32; # 错误码
     msg: string;
-    token: string;
+    token: token_msg;
     extra: string;
+}
+
+# 所有账号相关信息，用于持久化到本地
+account_info = record {
+    username: string; # 用户名，唯一存在
+    password: string;
+    phoneNumber: string;
+    email: string;
+    extra: string;
+    token: token_msg;
 }

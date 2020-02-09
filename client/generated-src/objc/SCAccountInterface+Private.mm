@@ -5,10 +5,10 @@
 #import "SCAccountInterface.h"
 #import "DJICppWrapperCache+Private.h"
 #import "DJIError.h"
+#import "DJIMarshal+Private.h"
 #import "SCAccountListener+Private.h"
 #import "SCLoginMsg+Private.h"
 #import "SCSignupMsg+Private.h"
-#import "SCTokenMsg+Private.h"
 #include <exception>
 #include <stdexcept>
 #include <utility>
@@ -40,6 +40,12 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
+- (void)init {
+    try {
+        _cppRefHandle.get()->init();
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
 - (void)addListener:(nullable id<SCAccountListener>)listener {
     try {
         _cppRefHandle.get()->add_listener(::djinni_generated::AccountListener::toCpp(listener));
@@ -64,15 +70,22 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
-- (void)logout:(nonnull SCTokenMsg *)token {
+- (void)logout {
     try {
-        _cppRefHandle.get()->logout(::djinni_generated::TokenMsg::toCpp(token));
+        _cppRefHandle.get()->logout();
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
-- (void)isAlive:(nonnull SCTokenMsg *)token {
+- (void)isAlive {
     try {
-        _cppRefHandle.get()->is_alive(::djinni_generated::TokenMsg::toCpp(token));
+        _cppRefHandle.get()->is_alive();
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (BOOL)hasLogin {
+    try {
+        auto objcpp_result_ = _cppRefHandle.get()->has_login();
+        return ::djinni::Bool::fromCpp(objcpp_result_);
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 

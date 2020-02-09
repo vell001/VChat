@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include <string>
 #include <utility>
 
@@ -11,9 +12,12 @@ namespace account_djinni {
 /** token信息 */
 struct TokenMsg final {
     std::string token;
+    int32_t expiration_time_sec;
 
-    TokenMsg(std::string token_)
+    TokenMsg(std::string token_,
+             int32_t expiration_time_sec_)
     : token(std::move(token_))
+    , expiration_time_sec(std::move(expiration_time_sec_))
     {}
 };
 

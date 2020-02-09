@@ -25,10 +25,10 @@ private:
     friend ::djinni::JniClass<NativeAccountResp>;
 
     const ::djinni::GlobalRef<jclass> clazz { ::djinni::jniFindClass("com/vell/chat/account/AccountResp") };
-    const jmethodID jconstructor { ::djinni::jniGetMethodID(clazz.get(), "<init>", "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V") };
+    const jmethodID jconstructor { ::djinni::jniGetMethodID(clazz.get(), "<init>", "(ILjava/lang/String;Lcom/vell/chat/account/TokenMsg;Ljava/lang/String;)V") };
     const jfieldID field_mCode { ::djinni::jniGetFieldID(clazz.get(), "mCode", "I") };
     const jfieldID field_mMsg { ::djinni::jniGetFieldID(clazz.get(), "mMsg", "Ljava/lang/String;") };
-    const jfieldID field_mToken { ::djinni::jniGetFieldID(clazz.get(), "mToken", "Ljava/lang/String;") };
+    const jfieldID field_mToken { ::djinni::jniGetFieldID(clazz.get(), "mToken", "Lcom/vell/chat/account/TokenMsg;") };
     const jfieldID field_mExtra { ::djinni::jniGetFieldID(clazz.get(), "mExtra", "Ljava/lang/String;") };
 };
 

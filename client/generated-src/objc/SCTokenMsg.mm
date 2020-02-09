@@ -7,21 +7,25 @@
 @implementation SCTokenMsg
 
 - (nonnull instancetype)initWithToken:(nonnull NSString *)token
+                    expirationTimeSec:(int32_t)expirationTimeSec
 {
     if (self = [super init]) {
         _token = [token copy];
+        _expirationTimeSec = expirationTimeSec;
     }
     return self;
 }
 
 + (nonnull instancetype)tokenMsgWithToken:(nonnull NSString *)token
+                        expirationTimeSec:(int32_t)expirationTimeSec
 {
-    return [(SCTokenMsg*)[self alloc] initWithToken:token];
+    return [(SCTokenMsg*)[self alloc] initWithToken:token
+                                  expirationTimeSec:expirationTimeSec];
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ %p token:%@>", self.class, (void *)self, self.token];
+    return [NSString stringWithFormat:@"<%@ %p token:%@ expirationTimeSec:%@>", self.class, (void *)self, self.token, @(self.expirationTimeSec)];
 }
 
 @end
