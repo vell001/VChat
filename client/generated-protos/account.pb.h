@@ -47,7 +47,7 @@ struct TableStruct_account_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -55,9 +55,15 @@ struct TableStruct_account_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_account_2eproto;
 namespace account {
+class AccountInfo;
+class AccountInfoDefaultTypeInternal;
+extern AccountInfoDefaultTypeInternal _AccountInfo_default_instance_;
 class AccountResp;
 class AccountRespDefaultTypeInternal;
 extern AccountRespDefaultTypeInternal _AccountResp_default_instance_;
+class AccountRespWithInfo;
+class AccountRespWithInfoDefaultTypeInternal;
+extern AccountRespWithInfoDefaultTypeInternal _AccountRespWithInfo_default_instance_;
 class LoginMsg;
 class LoginMsgDefaultTypeInternal;
 extern LoginMsgDefaultTypeInternal _LoginMsg_default_instance_;
@@ -69,7 +75,9 @@ class TokenMsgDefaultTypeInternal;
 extern TokenMsgDefaultTypeInternal _TokenMsg_default_instance_;
 }  // namespace account
 PROTOBUF_NAMESPACE_OPEN
+template<> ::account::AccountInfo* Arena::CreateMaybeMessage<::account::AccountInfo>(Arena*);
 template<> ::account::AccountResp* Arena::CreateMaybeMessage<::account::AccountResp>(Arena*);
+template<> ::account::AccountRespWithInfo* Arena::CreateMaybeMessage<::account::AccountRespWithInfo>(Arena*);
 template<> ::account::LoginMsg* Arena::CreateMaybeMessage<::account::LoginMsg>(Arena*);
 template<> ::account::SignupMsg* Arena::CreateMaybeMessage<::account::SignupMsg>(Arena*);
 template<> ::account::TokenMsg* Arena::CreateMaybeMessage<::account::TokenMsg>(Arena*);
@@ -760,6 +768,393 @@ class AccountResp :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr extra_;
   ::account::TokenMsg* token_;
   ::PROTOBUF_NAMESPACE_ID::int32 code_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_account_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AccountRespWithInfo :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:account.AccountRespWithInfo) */ {
+ public:
+  AccountRespWithInfo();
+  virtual ~AccountRespWithInfo();
+
+  AccountRespWithInfo(const AccountRespWithInfo& from);
+  AccountRespWithInfo(AccountRespWithInfo&& from) noexcept
+    : AccountRespWithInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline AccountRespWithInfo& operator=(const AccountRespWithInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AccountRespWithInfo& operator=(AccountRespWithInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const AccountRespWithInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const AccountRespWithInfo* internal_default_instance() {
+    return reinterpret_cast<const AccountRespWithInfo*>(
+               &_AccountRespWithInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(AccountRespWithInfo& a, AccountRespWithInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AccountRespWithInfo* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AccountRespWithInfo* New() const final {
+    return CreateMaybeMessage<AccountRespWithInfo>(nullptr);
+  }
+
+  AccountRespWithInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<AccountRespWithInfo>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const AccountRespWithInfo& from);
+  void MergeFrom(const AccountRespWithInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(AccountRespWithInfo* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "account.AccountRespWithInfo";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_account_2eproto);
+    return ::descriptor_table_account_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMsgFieldNumber = 2,
+    kExtraFieldNumber = 4,
+    kInfoFieldNumber = 3,
+    kCodeFieldNumber = 1,
+  };
+  // string msg = 2;
+  void clear_msg();
+  const std::string& msg() const;
+  void set_msg(const std::string& value);
+  void set_msg(std::string&& value);
+  void set_msg(const char* value);
+  void set_msg(const char* value, size_t size);
+  std::string* mutable_msg();
+  std::string* release_msg();
+  void set_allocated_msg(std::string* msg);
+  private:
+  const std::string& _internal_msg() const;
+  void _internal_set_msg(const std::string& value);
+  std::string* _internal_mutable_msg();
+  public:
+
+  // string extra = 4;
+  void clear_extra();
+  const std::string& extra() const;
+  void set_extra(const std::string& value);
+  void set_extra(std::string&& value);
+  void set_extra(const char* value);
+  void set_extra(const char* value, size_t size);
+  std::string* mutable_extra();
+  std::string* release_extra();
+  void set_allocated_extra(std::string* extra);
+  private:
+  const std::string& _internal_extra() const;
+  void _internal_set_extra(const std::string& value);
+  std::string* _internal_mutable_extra();
+  public:
+
+  // .account.AccountInfo info = 3;
+  bool has_info() const;
+  private:
+  bool _internal_has_info() const;
+  public:
+  void clear_info();
+  const ::account::AccountInfo& info() const;
+  ::account::AccountInfo* release_info();
+  ::account::AccountInfo* mutable_info();
+  void set_allocated_info(::account::AccountInfo* info);
+  private:
+  const ::account::AccountInfo& _internal_info() const;
+  ::account::AccountInfo* _internal_mutable_info();
+  public:
+
+  // int32 code = 1;
+  void clear_code();
+  ::PROTOBUF_NAMESPACE_ID::int32 code() const;
+  void set_code(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_code() const;
+  void _internal_set_code(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:account.AccountRespWithInfo)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr msg_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr extra_;
+  ::account::AccountInfo* info_;
+  ::PROTOBUF_NAMESPACE_ID::int32 code_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_account_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AccountInfo :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:account.AccountInfo) */ {
+ public:
+  AccountInfo();
+  virtual ~AccountInfo();
+
+  AccountInfo(const AccountInfo& from);
+  AccountInfo(AccountInfo&& from) noexcept
+    : AccountInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline AccountInfo& operator=(const AccountInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AccountInfo& operator=(AccountInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const AccountInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const AccountInfo* internal_default_instance() {
+    return reinterpret_cast<const AccountInfo*>(
+               &_AccountInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(AccountInfo& a, AccountInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AccountInfo* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AccountInfo* New() const final {
+    return CreateMaybeMessage<AccountInfo>(nullptr);
+  }
+
+  AccountInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<AccountInfo>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const AccountInfo& from);
+  void MergeFrom(const AccountInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(AccountInfo* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "account.AccountInfo";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_account_2eproto);
+    return ::descriptor_table_account_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUsernameFieldNumber = 1,
+    kPhoneNumberFieldNumber = 3,
+    kEmailFieldNumber = 4,
+    kExtraFieldNumber = 5,
+    kTokenFieldNumber = 2,
+  };
+  // string username = 1;
+  void clear_username();
+  const std::string& username() const;
+  void set_username(const std::string& value);
+  void set_username(std::string&& value);
+  void set_username(const char* value);
+  void set_username(const char* value, size_t size);
+  std::string* mutable_username();
+  std::string* release_username();
+  void set_allocated_username(std::string* username);
+  private:
+  const std::string& _internal_username() const;
+  void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
+  public:
+
+  // string phoneNumber = 3;
+  void clear_phonenumber();
+  const std::string& phonenumber() const;
+  void set_phonenumber(const std::string& value);
+  void set_phonenumber(std::string&& value);
+  void set_phonenumber(const char* value);
+  void set_phonenumber(const char* value, size_t size);
+  std::string* mutable_phonenumber();
+  std::string* release_phonenumber();
+  void set_allocated_phonenumber(std::string* phonenumber);
+  private:
+  const std::string& _internal_phonenumber() const;
+  void _internal_set_phonenumber(const std::string& value);
+  std::string* _internal_mutable_phonenumber();
+  public:
+
+  // string email = 4;
+  void clear_email();
+  const std::string& email() const;
+  void set_email(const std::string& value);
+  void set_email(std::string&& value);
+  void set_email(const char* value);
+  void set_email(const char* value, size_t size);
+  std::string* mutable_email();
+  std::string* release_email();
+  void set_allocated_email(std::string* email);
+  private:
+  const std::string& _internal_email() const;
+  void _internal_set_email(const std::string& value);
+  std::string* _internal_mutable_email();
+  public:
+
+  // string extra = 5;
+  void clear_extra();
+  const std::string& extra() const;
+  void set_extra(const std::string& value);
+  void set_extra(std::string&& value);
+  void set_extra(const char* value);
+  void set_extra(const char* value, size_t size);
+  std::string* mutable_extra();
+  std::string* release_extra();
+  void set_allocated_extra(std::string* extra);
+  private:
+  const std::string& _internal_extra() const;
+  void _internal_set_extra(const std::string& value);
+  std::string* _internal_mutable_extra();
+  public:
+
+  // .account.TokenMsg token = 2;
+  bool has_token() const;
+  private:
+  bool _internal_has_token() const;
+  public:
+  void clear_token();
+  const ::account::TokenMsg& token() const;
+  ::account::TokenMsg* release_token();
+  ::account::TokenMsg* mutable_token();
+  void set_allocated_token(::account::TokenMsg* token);
+  private:
+  const ::account::TokenMsg& _internal_token() const;
+  ::account::TokenMsg* _internal_mutable_token();
+  public:
+
+  // @@protoc_insertion_point(class_scope:account.AccountInfo)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr phonenumber_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr extra_;
+  ::account::TokenMsg* token_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_account_2eproto;
 };
@@ -1486,9 +1881,521 @@ inline void AccountResp::set_allocated_extra(std::string* extra) {
   // @@protoc_insertion_point(field_set_allocated:account.AccountResp.extra)
 }
 
+// -------------------------------------------------------------------
+
+// AccountRespWithInfo
+
+// int32 code = 1;
+inline void AccountRespWithInfo::clear_code() {
+  code_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AccountRespWithInfo::_internal_code() const {
+  return code_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AccountRespWithInfo::code() const {
+  // @@protoc_insertion_point(field_get:account.AccountRespWithInfo.code)
+  return _internal_code();
+}
+inline void AccountRespWithInfo::_internal_set_code(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  code_ = value;
+}
+inline void AccountRespWithInfo::set_code(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_code(value);
+  // @@protoc_insertion_point(field_set:account.AccountRespWithInfo.code)
+}
+
+// string msg = 2;
+inline void AccountRespWithInfo::clear_msg() {
+  msg_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& AccountRespWithInfo::msg() const {
+  // @@protoc_insertion_point(field_get:account.AccountRespWithInfo.msg)
+  return _internal_msg();
+}
+inline void AccountRespWithInfo::set_msg(const std::string& value) {
+  _internal_set_msg(value);
+  // @@protoc_insertion_point(field_set:account.AccountRespWithInfo.msg)
+}
+inline std::string* AccountRespWithInfo::mutable_msg() {
+  // @@protoc_insertion_point(field_mutable:account.AccountRespWithInfo.msg)
+  return _internal_mutable_msg();
+}
+inline const std::string& AccountRespWithInfo::_internal_msg() const {
+  return msg_.GetNoArena();
+}
+inline void AccountRespWithInfo::_internal_set_msg(const std::string& value) {
+  
+  msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void AccountRespWithInfo::set_msg(std::string&& value) {
+  
+  msg_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:account.AccountRespWithInfo.msg)
+}
+inline void AccountRespWithInfo::set_msg(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:account.AccountRespWithInfo.msg)
+}
+inline void AccountRespWithInfo::set_msg(const char* value, size_t size) {
+  
+  msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:account.AccountRespWithInfo.msg)
+}
+inline std::string* AccountRespWithInfo::_internal_mutable_msg() {
+  
+  return msg_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* AccountRespWithInfo::release_msg() {
+  // @@protoc_insertion_point(field_release:account.AccountRespWithInfo.msg)
+  
+  return msg_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void AccountRespWithInfo::set_allocated_msg(std::string* msg) {
+  if (msg != nullptr) {
+    
+  } else {
+    
+  }
+  msg_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), msg);
+  // @@protoc_insertion_point(field_set_allocated:account.AccountRespWithInfo.msg)
+}
+
+// .account.AccountInfo info = 3;
+inline bool AccountRespWithInfo::_internal_has_info() const {
+  return this != internal_default_instance() && info_ != nullptr;
+}
+inline bool AccountRespWithInfo::has_info() const {
+  return _internal_has_info();
+}
+inline void AccountRespWithInfo::clear_info() {
+  if (GetArenaNoVirtual() == nullptr && info_ != nullptr) {
+    delete info_;
+  }
+  info_ = nullptr;
+}
+inline const ::account::AccountInfo& AccountRespWithInfo::_internal_info() const {
+  const ::account::AccountInfo* p = info_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::account::AccountInfo*>(
+      &::account::_AccountInfo_default_instance_);
+}
+inline const ::account::AccountInfo& AccountRespWithInfo::info() const {
+  // @@protoc_insertion_point(field_get:account.AccountRespWithInfo.info)
+  return _internal_info();
+}
+inline ::account::AccountInfo* AccountRespWithInfo::release_info() {
+  // @@protoc_insertion_point(field_release:account.AccountRespWithInfo.info)
+  
+  ::account::AccountInfo* temp = info_;
+  info_ = nullptr;
+  return temp;
+}
+inline ::account::AccountInfo* AccountRespWithInfo::_internal_mutable_info() {
+  
+  if (info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::account::AccountInfo>(GetArenaNoVirtual());
+    info_ = p;
+  }
+  return info_;
+}
+inline ::account::AccountInfo* AccountRespWithInfo::mutable_info() {
+  // @@protoc_insertion_point(field_mutable:account.AccountRespWithInfo.info)
+  return _internal_mutable_info();
+}
+inline void AccountRespWithInfo::set_allocated_info(::account::AccountInfo* info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete info_;
+  }
+  if (info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  info_ = info;
+  // @@protoc_insertion_point(field_set_allocated:account.AccountRespWithInfo.info)
+}
+
+// string extra = 4;
+inline void AccountRespWithInfo::clear_extra() {
+  extra_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& AccountRespWithInfo::extra() const {
+  // @@protoc_insertion_point(field_get:account.AccountRespWithInfo.extra)
+  return _internal_extra();
+}
+inline void AccountRespWithInfo::set_extra(const std::string& value) {
+  _internal_set_extra(value);
+  // @@protoc_insertion_point(field_set:account.AccountRespWithInfo.extra)
+}
+inline std::string* AccountRespWithInfo::mutable_extra() {
+  // @@protoc_insertion_point(field_mutable:account.AccountRespWithInfo.extra)
+  return _internal_mutable_extra();
+}
+inline const std::string& AccountRespWithInfo::_internal_extra() const {
+  return extra_.GetNoArena();
+}
+inline void AccountRespWithInfo::_internal_set_extra(const std::string& value) {
+  
+  extra_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void AccountRespWithInfo::set_extra(std::string&& value) {
+  
+  extra_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:account.AccountRespWithInfo.extra)
+}
+inline void AccountRespWithInfo::set_extra(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  extra_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:account.AccountRespWithInfo.extra)
+}
+inline void AccountRespWithInfo::set_extra(const char* value, size_t size) {
+  
+  extra_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:account.AccountRespWithInfo.extra)
+}
+inline std::string* AccountRespWithInfo::_internal_mutable_extra() {
+  
+  return extra_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* AccountRespWithInfo::release_extra() {
+  // @@protoc_insertion_point(field_release:account.AccountRespWithInfo.extra)
+  
+  return extra_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void AccountRespWithInfo::set_allocated_extra(std::string* extra) {
+  if (extra != nullptr) {
+    
+  } else {
+    
+  }
+  extra_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), extra);
+  // @@protoc_insertion_point(field_set_allocated:account.AccountRespWithInfo.extra)
+}
+
+// -------------------------------------------------------------------
+
+// AccountInfo
+
+// string username = 1;
+inline void AccountInfo::clear_username() {
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& AccountInfo::username() const {
+  // @@protoc_insertion_point(field_get:account.AccountInfo.username)
+  return _internal_username();
+}
+inline void AccountInfo::set_username(const std::string& value) {
+  _internal_set_username(value);
+  // @@protoc_insertion_point(field_set:account.AccountInfo.username)
+}
+inline std::string* AccountInfo::mutable_username() {
+  // @@protoc_insertion_point(field_mutable:account.AccountInfo.username)
+  return _internal_mutable_username();
+}
+inline const std::string& AccountInfo::_internal_username() const {
+  return username_.GetNoArena();
+}
+inline void AccountInfo::_internal_set_username(const std::string& value) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void AccountInfo::set_username(std::string&& value) {
+  
+  username_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:account.AccountInfo.username)
+}
+inline void AccountInfo::set_username(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:account.AccountInfo.username)
+}
+inline void AccountInfo::set_username(const char* value, size_t size) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:account.AccountInfo.username)
+}
+inline std::string* AccountInfo::_internal_mutable_username() {
+  
+  return username_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* AccountInfo::release_username() {
+  // @@protoc_insertion_point(field_release:account.AccountInfo.username)
+  
+  return username_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void AccountInfo::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  username_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), username);
+  // @@protoc_insertion_point(field_set_allocated:account.AccountInfo.username)
+}
+
+// .account.TokenMsg token = 2;
+inline bool AccountInfo::_internal_has_token() const {
+  return this != internal_default_instance() && token_ != nullptr;
+}
+inline bool AccountInfo::has_token() const {
+  return _internal_has_token();
+}
+inline void AccountInfo::clear_token() {
+  if (GetArenaNoVirtual() == nullptr && token_ != nullptr) {
+    delete token_;
+  }
+  token_ = nullptr;
+}
+inline const ::account::TokenMsg& AccountInfo::_internal_token() const {
+  const ::account::TokenMsg* p = token_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::account::TokenMsg*>(
+      &::account::_TokenMsg_default_instance_);
+}
+inline const ::account::TokenMsg& AccountInfo::token() const {
+  // @@protoc_insertion_point(field_get:account.AccountInfo.token)
+  return _internal_token();
+}
+inline ::account::TokenMsg* AccountInfo::release_token() {
+  // @@protoc_insertion_point(field_release:account.AccountInfo.token)
+  
+  ::account::TokenMsg* temp = token_;
+  token_ = nullptr;
+  return temp;
+}
+inline ::account::TokenMsg* AccountInfo::_internal_mutable_token() {
+  
+  if (token_ == nullptr) {
+    auto* p = CreateMaybeMessage<::account::TokenMsg>(GetArenaNoVirtual());
+    token_ = p;
+  }
+  return token_;
+}
+inline ::account::TokenMsg* AccountInfo::mutable_token() {
+  // @@protoc_insertion_point(field_mutable:account.AccountInfo.token)
+  return _internal_mutable_token();
+}
+inline void AccountInfo::set_allocated_token(::account::TokenMsg* token) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete token_;
+  }
+  if (token) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      token = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, token, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  token_ = token;
+  // @@protoc_insertion_point(field_set_allocated:account.AccountInfo.token)
+}
+
+// string phoneNumber = 3;
+inline void AccountInfo::clear_phonenumber() {
+  phonenumber_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& AccountInfo::phonenumber() const {
+  // @@protoc_insertion_point(field_get:account.AccountInfo.phoneNumber)
+  return _internal_phonenumber();
+}
+inline void AccountInfo::set_phonenumber(const std::string& value) {
+  _internal_set_phonenumber(value);
+  // @@protoc_insertion_point(field_set:account.AccountInfo.phoneNumber)
+}
+inline std::string* AccountInfo::mutable_phonenumber() {
+  // @@protoc_insertion_point(field_mutable:account.AccountInfo.phoneNumber)
+  return _internal_mutable_phonenumber();
+}
+inline const std::string& AccountInfo::_internal_phonenumber() const {
+  return phonenumber_.GetNoArena();
+}
+inline void AccountInfo::_internal_set_phonenumber(const std::string& value) {
+  
+  phonenumber_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void AccountInfo::set_phonenumber(std::string&& value) {
+  
+  phonenumber_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:account.AccountInfo.phoneNumber)
+}
+inline void AccountInfo::set_phonenumber(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  phonenumber_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:account.AccountInfo.phoneNumber)
+}
+inline void AccountInfo::set_phonenumber(const char* value, size_t size) {
+  
+  phonenumber_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:account.AccountInfo.phoneNumber)
+}
+inline std::string* AccountInfo::_internal_mutable_phonenumber() {
+  
+  return phonenumber_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* AccountInfo::release_phonenumber() {
+  // @@protoc_insertion_point(field_release:account.AccountInfo.phoneNumber)
+  
+  return phonenumber_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void AccountInfo::set_allocated_phonenumber(std::string* phonenumber) {
+  if (phonenumber != nullptr) {
+    
+  } else {
+    
+  }
+  phonenumber_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), phonenumber);
+  // @@protoc_insertion_point(field_set_allocated:account.AccountInfo.phoneNumber)
+}
+
+// string email = 4;
+inline void AccountInfo::clear_email() {
+  email_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& AccountInfo::email() const {
+  // @@protoc_insertion_point(field_get:account.AccountInfo.email)
+  return _internal_email();
+}
+inline void AccountInfo::set_email(const std::string& value) {
+  _internal_set_email(value);
+  // @@protoc_insertion_point(field_set:account.AccountInfo.email)
+}
+inline std::string* AccountInfo::mutable_email() {
+  // @@protoc_insertion_point(field_mutable:account.AccountInfo.email)
+  return _internal_mutable_email();
+}
+inline const std::string& AccountInfo::_internal_email() const {
+  return email_.GetNoArena();
+}
+inline void AccountInfo::_internal_set_email(const std::string& value) {
+  
+  email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void AccountInfo::set_email(std::string&& value) {
+  
+  email_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:account.AccountInfo.email)
+}
+inline void AccountInfo::set_email(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:account.AccountInfo.email)
+}
+inline void AccountInfo::set_email(const char* value, size_t size) {
+  
+  email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:account.AccountInfo.email)
+}
+inline std::string* AccountInfo::_internal_mutable_email() {
+  
+  return email_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* AccountInfo::release_email() {
+  // @@protoc_insertion_point(field_release:account.AccountInfo.email)
+  
+  return email_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void AccountInfo::set_allocated_email(std::string* email) {
+  if (email != nullptr) {
+    
+  } else {
+    
+  }
+  email_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), email);
+  // @@protoc_insertion_point(field_set_allocated:account.AccountInfo.email)
+}
+
+// string extra = 5;
+inline void AccountInfo::clear_extra() {
+  extra_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& AccountInfo::extra() const {
+  // @@protoc_insertion_point(field_get:account.AccountInfo.extra)
+  return _internal_extra();
+}
+inline void AccountInfo::set_extra(const std::string& value) {
+  _internal_set_extra(value);
+  // @@protoc_insertion_point(field_set:account.AccountInfo.extra)
+}
+inline std::string* AccountInfo::mutable_extra() {
+  // @@protoc_insertion_point(field_mutable:account.AccountInfo.extra)
+  return _internal_mutable_extra();
+}
+inline const std::string& AccountInfo::_internal_extra() const {
+  return extra_.GetNoArena();
+}
+inline void AccountInfo::_internal_set_extra(const std::string& value) {
+  
+  extra_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void AccountInfo::set_extra(std::string&& value) {
+  
+  extra_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:account.AccountInfo.extra)
+}
+inline void AccountInfo::set_extra(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  extra_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:account.AccountInfo.extra)
+}
+inline void AccountInfo::set_extra(const char* value, size_t size) {
+  
+  extra_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:account.AccountInfo.extra)
+}
+inline std::string* AccountInfo::_internal_mutable_extra() {
+  
+  return extra_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* AccountInfo::release_extra() {
+  // @@protoc_insertion_point(field_release:account.AccountInfo.extra)
+  
+  return extra_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void AccountInfo::set_allocated_extra(std::string* extra) {
+  if (extra != nullptr) {
+    
+  } else {
+    
+  }
+  extra_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), extra);
+  // @@protoc_insertion_point(field_set_allocated:account.AccountInfo.extra)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

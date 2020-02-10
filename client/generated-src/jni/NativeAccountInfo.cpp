@@ -15,7 +15,6 @@ auto NativeAccountInfo::fromCpp(JNIEnv* jniEnv, const CppType& c) -> ::djinni::L
     const auto& data = ::djinni::JniClass<NativeAccountInfo>::get();
     auto r = ::djinni::LocalRef<JniType>{jniEnv->NewObject(data.clazz.get(), data.jconstructor,
                                                            ::djinni::get(::djinni::String::fromCpp(jniEnv, c.username)),
-                                                           ::djinni::get(::djinni::String::fromCpp(jniEnv, c.password)),
                                                            ::djinni::get(::djinni::String::fromCpp(jniEnv, c.phoneNumber)),
                                                            ::djinni::get(::djinni::String::fromCpp(jniEnv, c.email)),
                                                            ::djinni::get(::djinni::String::fromCpp(jniEnv, c.extra)),
@@ -25,11 +24,10 @@ auto NativeAccountInfo::fromCpp(JNIEnv* jniEnv, const CppType& c) -> ::djinni::L
 }
 
 auto NativeAccountInfo::toCpp(JNIEnv* jniEnv, JniType j) -> CppType {
-    ::djinni::JniLocalScope jscope(jniEnv, 7);
+    ::djinni::JniLocalScope jscope(jniEnv, 6);
     assert(j != nullptr);
     const auto& data = ::djinni::JniClass<NativeAccountInfo>::get();
     return {::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mUsername)),
-            ::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mPassword)),
             ::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mPhoneNumber)),
             ::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mEmail)),
             ::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mExtra)),

@@ -3,11 +3,13 @@
 
 #pragma once
 
+#include <cstdint>
 #include <memory>
 
 namespace account_djinni {
 
 class AccountListener;
+struct AccountInfo;
 struct LoginMsg;
 struct SignupMsg;
 
@@ -21,15 +23,19 @@ public:
     /** 初始化 */
     virtual void init() = 0;
 
+    /** 全局事件监听 */
     virtual void add_listener(const std::shared_ptr<AccountListener> & listener) = 0;
 
     virtual void remove_listener(const std::shared_ptr<AccountListener> & listener) = 0;
 
-    virtual void signup(const SignupMsg & info) = 0;
+    virtual void signup(const SignupMsg & info, int32_t seqId) = 0;
 
-    virtual void login(const LoginMsg & info) = 0;
+    /** seqId 函数请求id，在account_listener里callback */
+    virtual void login(const LoginMsg & info, int32_t seqId) = 0;
 
-    virtual void logout() = 0;
+    virtual void logout(int32_t seqId) = 0;
+
+    virtual AccountInfo getAccountInfo() = 0;
 
     /** 手动发起服务器是否在线检查，会异步定时检查 */
     virtual void is_alive() = 0;

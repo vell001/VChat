@@ -3,6 +3,7 @@
 
 #include "NativeAccountInterface.hpp"  // my header
 #include "Marshal.hpp"
+#include "NativeAccountInfo.hpp"
 #include "NativeAccountListener.hpp"
 #include "NativeLoginMsg.hpp"
 #include "NativeSignupMsg.hpp"
@@ -58,31 +59,43 @@ CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProx
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
-CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProxy_native_1signup(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jobject j_info)
+CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProxy_native_1signup(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jobject j_info, jint j_seqId)
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
         const auto& ref = ::djinni::objectFromHandleAddress<::account_djinni::AccountInterface>(nativeRef);
-        ref->signup(::djinni_generated::NativeSignupMsg::toCpp(jniEnv, j_info));
+        ref->signup(::djinni_generated::NativeSignupMsg::toCpp(jniEnv, j_info),
+                    ::djinni::I32::toCpp(jniEnv, j_seqId));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
-CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProxy_native_1login(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jobject j_info)
+CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProxy_native_1login(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jobject j_info, jint j_seqId)
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
         const auto& ref = ::djinni::objectFromHandleAddress<::account_djinni::AccountInterface>(nativeRef);
-        ref->login(::djinni_generated::NativeLoginMsg::toCpp(jniEnv, j_info));
+        ref->login(::djinni_generated::NativeLoginMsg::toCpp(jniEnv, j_info),
+                   ::djinni::I32::toCpp(jniEnv, j_seqId));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
-CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProxy_native_1logout(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef)
+CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProxy_native_1logout(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jint j_seqId)
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
         const auto& ref = ::djinni::objectFromHandleAddress<::account_djinni::AccountInterface>(nativeRef);
-        ref->logout();
+        ref->logout(::djinni::I32::toCpp(jniEnv, j_seqId));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
+}
+
+CJNIEXPORT jobject JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProxy_native_1getAccountInfo(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::account_djinni::AccountInterface>(nativeRef);
+        auto r = ref->getAccountInfo();
+        return ::djinni::release(::djinni_generated::NativeAccountInfo::fromCpp(jniEnv, r));
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
 }
 
 CJNIEXPORT void JNICALL Java_com_vell_chat_account_AccountInterface_00024CppProxy_native_1isAlive(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef)

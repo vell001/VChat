@@ -48,19 +48,19 @@ class Account final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status signup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::account::AccountResp* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>> Asyncsignup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>>(AsyncsignupRaw(context, request, cq));
+    virtual ::grpc::Status signup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::account::AccountRespWithInfo* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>> Asyncsignup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>>(AsyncsignupRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>> PrepareAsyncsignup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>>(PrepareAsyncsignupRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>> PrepareAsyncsignup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>>(PrepareAsyncsignupRaw(context, request, cq));
     }
-    virtual ::grpc::Status login(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::account::AccountResp* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>> Asynclogin(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>>(AsyncloginRaw(context, request, cq));
+    virtual ::grpc::Status login(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::account::AccountRespWithInfo* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>> Asynclogin(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>>(AsyncloginRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>> PrepareAsynclogin(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>>(PrepareAsyncloginRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>> PrepareAsynclogin(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>>(PrepareAsyncloginRaw(context, request, cq));
     }
     virtual ::grpc::Status logout(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::account::AccountResp* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>> Asynclogout(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) {
@@ -79,14 +79,14 @@ class Account final {
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
-      virtual void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      virtual void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      virtual void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      virtual void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       virtual void logout(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
       virtual void logout(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
       virtual void logout(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
@@ -98,10 +98,10 @@ class Account final {
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* AsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* PrepareAsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* AsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* PrepareAsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>* AsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>* PrepareAsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>* AsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>* PrepareAsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* AsynclogoutRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* PrepareAsynclogoutRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* AsyncisAliveRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) = 0;
@@ -110,19 +110,19 @@ class Account final {
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status signup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::account::AccountResp* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>> Asyncsignup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>>(AsyncsignupRaw(context, request, cq));
+    ::grpc::Status signup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::account::AccountRespWithInfo* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>> Asyncsignup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>>(AsyncsignupRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>> PrepareAsyncsignup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>>(PrepareAsyncsignupRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>> PrepareAsyncsignup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>>(PrepareAsyncsignupRaw(context, request, cq));
     }
-    ::grpc::Status login(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::account::AccountResp* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>> Asynclogin(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>>(AsyncloginRaw(context, request, cq));
+    ::grpc::Status login(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::account::AccountRespWithInfo* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>> Asynclogin(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>>(AsyncloginRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>> PrepareAsynclogin(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>>(PrepareAsyncloginRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>> PrepareAsynclogin(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>>(PrepareAsyncloginRaw(context, request, cq));
     }
     ::grpc::Status logout(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::account::AccountResp* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>> Asynclogout(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) {
@@ -141,14 +141,14 @@ class Account final {
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
-      void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
-      void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
-      void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
-      void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
-      void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) override;
+      void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) override;
+      void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) override;
+      void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) override;
+      void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void logout(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
       void logout(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
       void logout(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
@@ -168,10 +168,10 @@ class Account final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class experimental_async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* AsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* PrepareAsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* AsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* PrepareAsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>* AsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>* PrepareAsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>* AsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>* PrepareAsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* AsynclogoutRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* PrepareAsynclogoutRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* AsyncisAliveRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) override;
@@ -187,8 +187,8 @@ class Account final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status signup(::grpc::ServerContext* context, const ::account::SignupMsg* request, ::account::AccountResp* response);
-    virtual ::grpc::Status login(::grpc::ServerContext* context, const ::account::LoginMsg* request, ::account::AccountResp* response);
+    virtual ::grpc::Status signup(::grpc::ServerContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response);
+    virtual ::grpc::Status login(::grpc::ServerContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response);
     virtual ::grpc::Status logout(::grpc::ServerContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response);
     virtual ::grpc::Status isAlive(::grpc::ServerContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response);
   };
@@ -204,11 +204,11 @@ class Account final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void Requestsignup(::grpc::ServerContext* context, ::account::SignupMsg* request, ::grpc::ServerAsyncResponseWriter< ::account::AccountResp>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestsignup(::grpc::ServerContext* context, ::account::SignupMsg* request, ::grpc::ServerAsyncResponseWriter< ::account::AccountRespWithInfo>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -224,11 +224,11 @@ class Account final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void Requestlogin(::grpc::ServerContext* context, ::account::LoginMsg* request, ::grpc::ServerAsyncResponseWriter< ::account::AccountResp>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void Requestlogin(::grpc::ServerContext* context, ::account::LoginMsg* request, ::grpc::ServerAsyncResponseWriter< ::account::AccountRespWithInfo>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -280,11 +280,11 @@ class Account final {
    public:
     ExperimentalWithCallbackMethod_signup() {
       ::grpc::Service::experimental().MarkMethodCallback(0,
-        new ::grpc_impl::internal::CallbackUnaryHandler< ::account::SignupMsg, ::account::AccountResp>(
-          [this](::grpc::experimental::CallbackServerContext* context, const ::account::SignupMsg* request, ::account::AccountResp* response) { return this->signup(context, request, response); }));}
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::account::SignupMsg, ::account::AccountRespWithInfo>(
+          [this](::grpc::experimental::CallbackServerContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response) { return this->signup(context, request, response); }));}
     void SetMessageAllocatorFor_signup(
-        ::grpc::experimental::MessageAllocator< ::account::SignupMsg, ::account::AccountResp>* allocator) {
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::SignupMsg, ::account::AccountResp>*>(
+        ::grpc::experimental::MessageAllocator< ::account::SignupMsg, ::account::AccountRespWithInfo>* allocator) {
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::SignupMsg, ::account::AccountRespWithInfo>*>(
           ::grpc::Service::experimental().GetHandler(0))
               ->SetMessageAllocator(allocator);
     }
@@ -292,11 +292,11 @@ class Account final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::experimental::ServerUnaryReactor* signup(::grpc::experimental::CallbackServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountResp* /*response*/) { return nullptr; }
+    virtual ::grpc::experimental::ServerUnaryReactor* signup(::grpc::experimental::CallbackServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) { return nullptr; }
   };
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_login : public BaseClass {
@@ -305,11 +305,11 @@ class Account final {
    public:
     ExperimentalWithCallbackMethod_login() {
       ::grpc::Service::experimental().MarkMethodCallback(1,
-        new ::grpc_impl::internal::CallbackUnaryHandler< ::account::LoginMsg, ::account::AccountResp>(
-          [this](::grpc::experimental::CallbackServerContext* context, const ::account::LoginMsg* request, ::account::AccountResp* response) { return this->login(context, request, response); }));}
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::account::LoginMsg, ::account::AccountRespWithInfo>(
+          [this](::grpc::experimental::CallbackServerContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response) { return this->login(context, request, response); }));}
     void SetMessageAllocatorFor_login(
-        ::grpc::experimental::MessageAllocator< ::account::LoginMsg, ::account::AccountResp>* allocator) {
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::LoginMsg, ::account::AccountResp>*>(
+        ::grpc::experimental::MessageAllocator< ::account::LoginMsg, ::account::AccountRespWithInfo>* allocator) {
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::LoginMsg, ::account::AccountRespWithInfo>*>(
           ::grpc::Service::experimental().GetHandler(1))
               ->SetMessageAllocator(allocator);
     }
@@ -317,11 +317,11 @@ class Account final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::experimental::ServerUnaryReactor* login(::grpc::experimental::CallbackServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountResp* /*response*/) { return nullptr; }
+    virtual ::grpc::experimental::ServerUnaryReactor* login(::grpc::experimental::CallbackServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) { return nullptr; }
   };
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_logout : public BaseClass {
@@ -386,7 +386,7 @@ class Account final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -403,7 +403,7 @@ class Account final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -454,7 +454,7 @@ class Account final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -474,7 +474,7 @@ class Account final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -536,7 +536,7 @@ class Account final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -556,7 +556,7 @@ class Account final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -609,18 +609,18 @@ class Account final {
    public:
     WithStreamedUnaryMethod_signup() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::account::SignupMsg, ::account::AccountResp>(std::bind(&WithStreamedUnaryMethod_signup<BaseClass>::Streamedsignup, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler< ::account::SignupMsg, ::account::AccountRespWithInfo>(std::bind(&WithStreamedUnaryMethod_signup<BaseClass>::Streamedsignup, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_signup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status signup(::grpc::ServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status Streamedsignup(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::account::SignupMsg,::account::AccountResp>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedsignup(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::account::SignupMsg,::account::AccountRespWithInfo>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_login : public BaseClass {
@@ -629,18 +629,18 @@ class Account final {
    public:
     WithStreamedUnaryMethod_login() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::account::LoginMsg, ::account::AccountResp>(std::bind(&WithStreamedUnaryMethod_login<BaseClass>::Streamedlogin, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler< ::account::LoginMsg, ::account::AccountRespWithInfo>(std::bind(&WithStreamedUnaryMethod_login<BaseClass>::Streamedlogin, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_login() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+    ::grpc::Status login(::grpc::ServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status Streamedlogin(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::account::LoginMsg,::account::AccountResp>* server_unary_streamer) = 0;
+    virtual ::grpc::Status Streamedlogin(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::account::LoginMsg,::account::AccountRespWithInfo>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_logout : public BaseClass {

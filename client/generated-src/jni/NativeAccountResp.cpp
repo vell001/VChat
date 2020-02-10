@@ -16,6 +16,7 @@ auto NativeAccountResp::fromCpp(JNIEnv* jniEnv, const CppType& c) -> ::djinni::L
     auto r = ::djinni::LocalRef<JniType>{jniEnv->NewObject(data.clazz.get(), data.jconstructor,
                                                            ::djinni::get(::djinni::I32::fromCpp(jniEnv, c.code)),
                                                            ::djinni::get(::djinni::String::fromCpp(jniEnv, c.msg)),
+                                                           ::djinni::get(::djinni::String::fromCpp(jniEnv, c.username)),
                                                            ::djinni::get(::djinni_generated::NativeTokenMsg::fromCpp(jniEnv, c.token)),
                                                            ::djinni::get(::djinni::String::fromCpp(jniEnv, c.extra)))};
     ::djinni::jniExceptionCheck(jniEnv);
@@ -23,11 +24,12 @@ auto NativeAccountResp::fromCpp(JNIEnv* jniEnv, const CppType& c) -> ::djinni::L
 }
 
 auto NativeAccountResp::toCpp(JNIEnv* jniEnv, JniType j) -> CppType {
-    ::djinni::JniLocalScope jscope(jniEnv, 5);
+    ::djinni::JniLocalScope jscope(jniEnv, 6);
     assert(j != nullptr);
     const auto& data = ::djinni::JniClass<NativeAccountResp>::get();
     return {::djinni::I32::toCpp(jniEnv, jniEnv->GetIntField(j, data.field_mCode)),
             ::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mMsg)),
+            ::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mUsername)),
             ::djinni_generated::NativeTokenMsg::toCpp(jniEnv, jniEnv->GetObjectField(j, data.field_mToken)),
             ::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mExtra))};
 }

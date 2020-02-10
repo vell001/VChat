@@ -33,9 +33,9 @@ private:
         JavaProxy(JniType j);
         ~JavaProxy();
 
-        void on_signup_callback(const ::account_djinni::AccountResp & callback) override;
-        void on_login_callback(const ::account_djinni::AccountResp & callback) override;
-        void on_logout_callback(const ::account_djinni::AccountResp & callback) override;
+        void on_signup_callback(const ::account_djinni::AccountResp & callback, int32_t seqId, const ::account_djinni::AccountInfo & info) override;
+        void on_login_callback(const ::account_djinni::AccountResp & callback, int32_t seqId, const ::account_djinni::AccountInfo & info) override;
+        void on_logout_callback(const ::account_djinni::AccountResp & callback, int32_t seqId) override;
         void on_is_alive_callback(const ::account_djinni::AccountResp & callback) override;
 
     private:
@@ -43,9 +43,9 @@ private:
     };
 
     const ::djinni::GlobalRef<jclass> clazz { ::djinni::jniFindClass("com/vell/chat/account/AccountListener") };
-    const jmethodID method_onSignupCallback { ::djinni::jniGetMethodID(clazz.get(), "onSignupCallback", "(Lcom/vell/chat/account/AccountResp;)V") };
-    const jmethodID method_onLoginCallback { ::djinni::jniGetMethodID(clazz.get(), "onLoginCallback", "(Lcom/vell/chat/account/AccountResp;)V") };
-    const jmethodID method_onLogoutCallback { ::djinni::jniGetMethodID(clazz.get(), "onLogoutCallback", "(Lcom/vell/chat/account/AccountResp;)V") };
+    const jmethodID method_onSignupCallback { ::djinni::jniGetMethodID(clazz.get(), "onSignupCallback", "(Lcom/vell/chat/account/AccountResp;ILcom/vell/chat/account/AccountInfo;)V") };
+    const jmethodID method_onLoginCallback { ::djinni::jniGetMethodID(clazz.get(), "onLoginCallback", "(Lcom/vell/chat/account/AccountResp;ILcom/vell/chat/account/AccountInfo;)V") };
+    const jmethodID method_onLogoutCallback { ::djinni::jniGetMethodID(clazz.get(), "onLogoutCallback", "(Lcom/vell/chat/account/AccountResp;I)V") };
     const jmethodID method_onIsAliveCallback { ::djinni::jniGetMethodID(clazz.get(), "onIsAliveCallback", "(Lcom/vell/chat/account/AccountResp;)V") };
 };
 

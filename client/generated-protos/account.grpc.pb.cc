@@ -40,60 +40,60 @@ Account::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   , rpcmethod_isAlive_(Account_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status Account::Stub::signup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::account::AccountResp* response) {
+::grpc::Status Account::Stub::signup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::account::AccountRespWithInfo* response) {
   return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_signup_, context, request, response);
 }
 
-void Account::Stub::experimental_async::signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)> f) {
+void Account::Stub::experimental_async::signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)> f) {
   ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_signup_, context, request, response, std::move(f));
 }
 
-void Account::Stub::experimental_async::signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)> f) {
+void Account::Stub::experimental_async::signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)> f) {
   ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_signup_, context, request, response, std::move(f));
 }
 
-void Account::Stub::experimental_async::signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Account::Stub::experimental_async::signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_signup_, context, request, response, reactor);
 }
 
-void Account::Stub::experimental_async::signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Account::Stub::experimental_async::signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_signup_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::account::AccountResp>* Account::Stub::AsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountResp>::Create(channel_.get(), cq, rpcmethod_signup_, context, request, true);
+::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>* Account::Stub::AsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountRespWithInfo>::Create(channel_.get(), cq, rpcmethod_signup_, context, request, true);
 }
 
-::grpc::ClientAsyncResponseReader< ::account::AccountResp>* Account::Stub::PrepareAsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountResp>::Create(channel_.get(), cq, rpcmethod_signup_, context, request, false);
+::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>* Account::Stub::PrepareAsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountRespWithInfo>::Create(channel_.get(), cq, rpcmethod_signup_, context, request, false);
 }
 
-::grpc::Status Account::Stub::login(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::account::AccountResp* response) {
+::grpc::Status Account::Stub::login(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::account::AccountRespWithInfo* response) {
   return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_login_, context, request, response);
 }
 
-void Account::Stub::experimental_async::login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)> f) {
+void Account::Stub::experimental_async::login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)> f) {
   ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_login_, context, request, response, std::move(f));
 }
 
-void Account::Stub::experimental_async::login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)> f) {
+void Account::Stub::experimental_async::login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)> f) {
   ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_login_, context, request, response, std::move(f));
 }
 
-void Account::Stub::experimental_async::login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Account::Stub::experimental_async::login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_login_, context, request, response, reactor);
 }
 
-void Account::Stub::experimental_async::login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Account::Stub::experimental_async::login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_login_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::account::AccountResp>* Account::Stub::AsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountResp>::Create(channel_.get(), cq, rpcmethod_login_, context, request, true);
+::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>* Account::Stub::AsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountRespWithInfo>::Create(channel_.get(), cq, rpcmethod_login_, context, request, true);
 }
 
-::grpc::ClientAsyncResponseReader< ::account::AccountResp>* Account::Stub::PrepareAsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountResp>::Create(channel_.get(), cq, rpcmethod_login_, context, request, false);
+::grpc::ClientAsyncResponseReader< ::account::AccountRespWithInfo>* Account::Stub::PrepareAsyncloginRaw(::grpc::ClientContext* context, const ::account::LoginMsg& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountRespWithInfo>::Create(channel_.get(), cq, rpcmethod_login_, context, request, false);
 }
 
 ::grpc::Status Account::Stub::logout(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::account::AccountResp* response) {
@@ -156,12 +156,12 @@ Account::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Account_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Account::Service, ::account::SignupMsg, ::account::AccountResp>(
+      new ::grpc::internal::RpcMethodHandler< Account::Service, ::account::SignupMsg, ::account::AccountRespWithInfo>(
           std::mem_fn(&Account::Service::signup), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Account_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Account::Service, ::account::LoginMsg, ::account::AccountResp>(
+      new ::grpc::internal::RpcMethodHandler< Account::Service, ::account::LoginMsg, ::account::AccountRespWithInfo>(
           std::mem_fn(&Account::Service::login), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Account_method_names[2],
@@ -178,14 +178,14 @@ Account::Service::Service() {
 Account::Service::~Service() {
 }
 
-::grpc::Status Account::Service::signup(::grpc::ServerContext* context, const ::account::SignupMsg* request, ::account::AccountResp* response) {
+::grpc::Status Account::Service::signup(::grpc::ServerContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Account::Service::login(::grpc::ServerContext* context, const ::account::LoginMsg* request, ::account::AccountResp* response) {
+::grpc::Status Account::Service::login(::grpc::ServerContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response) {
   (void) context;
   (void) request;
   (void) response;

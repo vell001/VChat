@@ -15,15 +15,19 @@ struct AccountResp final {
     int32_t code;
     /** 错误码 */
     std::string msg;
+    std::string username;
+    /** 用户名，唯一存在 */
     TokenMsg token;
     std::string extra;
 
     AccountResp(int32_t code_,
                 std::string msg_,
+                std::string username_,
                 TokenMsg token_,
                 std::string extra_)
     : code(std::move(code_))
     , msg(std::move(msg_))
+    , username(std::move(username_))
     , token(std::move(token_))
     , extra(std::move(extra_))
     {}

@@ -25,9 +25,8 @@ private:
     friend ::djinni::JniClass<NativeAccountInfo>;
 
     const ::djinni::GlobalRef<jclass> clazz { ::djinni::jniFindClass("com/vell/chat/account/AccountInfo") };
-    const jmethodID jconstructor { ::djinni::jniGetMethodID(clazz.get(), "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/vell/chat/account/TokenMsg;)V") };
+    const jmethodID jconstructor { ::djinni::jniGetMethodID(clazz.get(), "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/vell/chat/account/TokenMsg;)V") };
     const jfieldID field_mUsername { ::djinni::jniGetFieldID(clazz.get(), "mUsername", "Ljava/lang/String;") };
-    const jfieldID field_mPassword { ::djinni::jniGetFieldID(clazz.get(), "mPassword", "Ljava/lang/String;") };
     const jfieldID field_mPhoneNumber { ::djinni::jniGetFieldID(clazz.get(), "mPhoneNumber", "Ljava/lang/String;") };
     const jfieldID field_mEmail { ::djinni::jniGetFieldID(clazz.get(), "mEmail", "Ljava/lang/String;") };
     const jfieldID field_mExtra { ::djinni::jniGetFieldID(clazz.get(), "mExtra", "Ljava/lang/String;") };
