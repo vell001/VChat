@@ -13,6 +13,7 @@ auto AccountResp::toCpp(ObjcType obj) -> CppType
     assert(obj);
     return {::djinni::I32::toCpp(obj.code),
             ::djinni::String::toCpp(obj.msg),
+            ::djinni::String::toCpp(obj.username),
             ::djinni_generated::TokenMsg::toCpp(obj.token),
             ::djinni::String::toCpp(obj.extra)};
 }
@@ -21,6 +22,7 @@ auto AccountResp::fromCpp(const CppType& cpp) -> ObjcType
 {
     return [[SCAccountResp alloc] initWithCode:(::djinni::I32::fromCpp(cpp.code))
                                            msg:(::djinni::String::fromCpp(cpp.msg))
+                                      username:(::djinni::String::fromCpp(cpp.username))
                                          token:(::djinni_generated::TokenMsg::fromCpp(cpp.token))
                                          extra:(::djinni::String::fromCpp(cpp.extra))];
 }

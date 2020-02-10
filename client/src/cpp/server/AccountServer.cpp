@@ -2,6 +2,7 @@
 // Created by vellhe on 2020-02-06.
 //
 
+#include <GlobalValues.h>
 #include "AccountServer.h"
 
 std::shared_ptr<AccountServer> AccountServer::getInstance() {
@@ -13,29 +14,37 @@ std::shared_ptr<AccountServer> AccountServer::getInstance() {
 }
 
 void
-AccountServer::signup(const account_djinni::SignupMsg &info, account_djinni::AccountResp &resp) {
+AccountServer::signup(const account_djinni::SignupMsg &info, account_djinni::AccountResp &resp, account_djinni::AccountInfo &accountInfo) {
     account::SignupMsg signupMsg;
     signupMsg.set_username(info.username);
     signupMsg.set_password(info.password);
 
     TLog("signup: %s", info.username.c_str());
-    account::AccountResp reply;
+    account::AccountRespWithInfo reply;
     grpc::ClientContext context;
     grpc::Status status = stub_->signup(&context, signupMsg, &reply);
 
     if (status.ok()) {
+        account::AccountInfo replyAccountInfo = reply.info();
         resp.extra = reply.extra();
         resp.msg = reply.msg();
-        account_djinni::TokenMsg tokenMsg(reply.token().token(), reply.token().expiration_time_sec());
+        account_djinni::TokenMsg tokenMsg(replyAccountInfo.token().token(), replyAccountInfo.token().expiration_time_sec());
         resp.token = tokenMsg;
         resp.code = reply.code();
+
+        accountInfo.username = replyAccountInfo.username();
+        accountInfo.phoneNumber = replyAccountInfo.phonenumber();
+        accountInfo.email = replyAccountInfo.email();
+        accountInfo.extra = replyAccountInfo.extra();
     } else {
-        resp.code = -1;
+        resp.code = global::AccountRespCode::ReqErr;
+        resp.msg = status.error_message();
+        resp.extra = status.error_details();
     }
 }
 
 void
-AccountServer::login(const account_djinni::LoginMsg &info, account_djinni::AccountResp &resp) {
+AccountServer::login(const account_djinni::LoginMsg &info, account_djinni::AccountResp &resp, account_djinni::AccountInfo &accountInfo) {
 
 }
 

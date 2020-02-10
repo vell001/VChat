@@ -4,16 +4,14 @@
 #import "SCTokenMsg.h"
 #import <Foundation/Foundation.h>
 
-/** 所有账号相关信息，用于持久化到本地 */
+/** 所有账号相关信息 */
 @interface SCAccountInfo : NSObject
 - (nonnull instancetype)initWithUsername:(nonnull NSString *)username
-                                password:(nonnull NSString *)password
                              phoneNumber:(nonnull NSString *)phoneNumber
                                    email:(nonnull NSString *)email
                                    extra:(nonnull NSString *)extra
                                    token:(nonnull SCTokenMsg *)token;
 + (nonnull instancetype)accountInfoWithUsername:(nonnull NSString *)username
-                                       password:(nonnull NSString *)password
                                     phoneNumber:(nonnull NSString *)phoneNumber
                                           email:(nonnull NSString *)email
                                           extra:(nonnull NSString *)extra
@@ -22,8 +20,6 @@
 @property (nonatomic, readonly, nonnull) NSString * username;
 
 /** 用户名，唯一存在 */
-@property (nonatomic, readonly, nonnull) NSString * password;
-
 @property (nonatomic, readonly, nonnull) NSString * phoneNumber;
 
 @property (nonatomic, readonly, nonnull) NSString * email;

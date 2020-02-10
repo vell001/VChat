@@ -3,19 +3,23 @@
 
 #pragma once
 
+#include <cstdint>
+
 namespace account_djinni {
 
+struct AccountInfo;
 struct AccountResp;
 
+/** 全局事件监听 */
 class AccountListener {
 public:
     virtual ~AccountListener() {}
 
-    virtual void on_signup_callback(const AccountResp & callback) = 0;
+    virtual void on_signup_callback(const AccountResp & callback, int32_t seqId, const AccountInfo & info) = 0;
 
-    virtual void on_login_callback(const AccountResp & callback) = 0;
+    virtual void on_login_callback(const AccountResp & callback, int32_t seqId, const AccountInfo & info) = 0;
 
-    virtual void on_logout_callback(const AccountResp & callback) = 0;
+    virtual void on_logout_callback(const AccountResp & callback, int32_t seqId) = 0;
 
     virtual void on_is_alive_callback(const AccountResp & callback) = 0;
 };

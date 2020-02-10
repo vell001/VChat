@@ -8,10 +8,12 @@
 @interface SCAccountResp : NSObject
 - (nonnull instancetype)initWithCode:(int32_t)code
                                  msg:(nonnull NSString *)msg
+                            username:(nonnull NSString *)username
                                token:(nonnull SCTokenMsg *)token
                                extra:(nonnull NSString *)extra;
 + (nonnull instancetype)accountRespWithCode:(int32_t)code
                                         msg:(nonnull NSString *)msg
+                                   username:(nonnull NSString *)username
                                       token:(nonnull SCTokenMsg *)token
                                       extra:(nonnull NSString *)extra;
 
@@ -20,6 +22,9 @@
 /** 错误码 */
 @property (nonatomic, readonly, nonnull) NSString * msg;
 
+@property (nonatomic, readonly, nonnull) NSString * username;
+
+/** 用户名，唯一存在 */
 @property (nonatomic, readonly, nonnull) SCTokenMsg * token;
 
 @property (nonatomic, readonly, nonnull) NSString * extra;

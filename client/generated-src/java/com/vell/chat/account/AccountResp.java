@@ -11,6 +11,8 @@ public final class AccountResp {
 
     /*package*/ final String mMsg;
 
+    /*package*/ final String mUsername;
+
     /*package*/ final TokenMsg mToken;
 
     /*package*/ final String mExtra;
@@ -18,10 +20,12 @@ public final class AccountResp {
     public AccountResp(
             int code,
             String msg,
+            String username,
             TokenMsg token,
             String extra) {
         this.mCode = code;
         this.mMsg = msg;
+        this.mUsername = username;
         this.mToken = token;
         this.mExtra = extra;
     }
@@ -35,6 +39,11 @@ public final class AccountResp {
         return mMsg;
     }
 
+    public String getUsername() {
+        return mUsername;
+    }
+
+    /** 用户名，唯一存在 */
     public TokenMsg getToken() {
         return mToken;
     }
@@ -48,6 +57,7 @@ public final class AccountResp {
         return "AccountResp{" +
                 "mCode=" + mCode +
                 "," + "mMsg=" + mMsg +
+                "," + "mUsername=" + mUsername +
                 "," + "mToken=" + mToken +
                 "," + "mExtra=" + mExtra +
         "}";

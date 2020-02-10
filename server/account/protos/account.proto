@@ -6,8 +6,8 @@ package account;
 
 // 账号服务
 service Account {
-  rpc signup (SignupMsg) returns (AccountResp) {}
-  rpc login (LoginMsg) returns (AccountResp) {}
+  rpc signup (SignupMsg) returns (AccountRespWithInfo) {}
+  rpc login (LoginMsg) returns (AccountRespWithInfo) {}
   rpc logout (TokenMsg) returns (AccountResp) {}
   rpc isAlive (TokenMsg) returns (AccountResp) {}
 }
@@ -39,4 +39,19 @@ message AccountResp {
   string msg = 2;
   TokenMsg token = 3;
   string extra = 4;
+}
+
+message AccountRespWithInfo {
+  int32 code = 1; // 错误码
+  string msg = 2;
+  AccountInfo info = 3;
+  string extra = 4;
+}
+
+message AccountInfo{
+    string username = 1; // 用户名，唯一存在
+    TokenMsg token = 2;
+    string phoneNumber = 3;
+    string email = 4;
+    string extra = 5;
 }

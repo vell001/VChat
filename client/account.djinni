@@ -4,12 +4,15 @@ account_interface = interface +c {
     # 初始化
     init();
 
+    # 全局事件监听
     add_listener(listener: account_listener);
     remove_listener(listener: account_listener);
 
-	signup(info: signup_msg);
-    login(info: login_msg);
-	logout();
+	signup(info: signup_msg, seqId: i32); # seqId 函数请求id，在account_listener里callback
+    login(info: login_msg, seqId: i32);
+	logout(seqId: i32);
+
+    getAccountInfo(): account_info;
 
     # 手动发起服务器是否在线检查，会异步定时检查
 	is_alive(); 
@@ -17,10 +20,11 @@ account_interface = interface +c {
     has_login(): bool; 
 }
 
+# 全局事件监听
 account_listener = interface +o +j {
-    on_signup_callback(callback: account_resp);
-    on_login_callback(callback: account_resp);
-    on_logout_callback(callback: account_resp);
+    on_signup_callback(callback: account_resp, seqId: i32, info: account_info);
+    on_login_callback(callback: account_resp, seqId: i32, info: account_info);
+    on_logout_callback(callback: account_resp, seqId: i32);
     on_is_alive_callback(callback: account_resp);
 }
 
@@ -49,14 +53,14 @@ token_msg = record {
 account_resp = record {
     code: i32; # 错误码
     msg: string;
+    username: string; # 用户名，唯一存在
     token: token_msg;
     extra: string;
 }
 
-# 所有账号相关信息，用于持久化到本地
+# 所有账号相关信息
 account_info = record {
     username: string; # 用户名，唯一存在
-    password: string;
     phoneNumber: string;
     email: string;
     extra: string;

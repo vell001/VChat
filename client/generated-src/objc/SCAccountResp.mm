@@ -8,12 +8,14 @@
 
 - (nonnull instancetype)initWithCode:(int32_t)code
                                  msg:(nonnull NSString *)msg
+                            username:(nonnull NSString *)username
                                token:(nonnull SCTokenMsg *)token
                                extra:(nonnull NSString *)extra
 {
     if (self = [super init]) {
         _code = code;
         _msg = [msg copy];
+        _username = [username copy];
         _token = token;
         _extra = [extra copy];
     }
@@ -22,18 +24,20 @@
 
 + (nonnull instancetype)accountRespWithCode:(int32_t)code
                                         msg:(nonnull NSString *)msg
+                                   username:(nonnull NSString *)username
                                       token:(nonnull SCTokenMsg *)token
                                       extra:(nonnull NSString *)extra
 {
     return [(SCAccountResp*)[self alloc] initWithCode:code
                                                   msg:msg
+                                             username:username
                                                 token:token
                                                 extra:extra];
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ %p code:%@ msg:%@ token:%@ extra:%@>", self.class, (void *)self, @(self.code), self.msg, self.token, self.extra];
+    return [NSString stringWithFormat:@"<%@ %p code:%@ msg:%@ username:%@ token:%@ extra:%@>", self.class, (void *)self, @(self.code), self.msg, self.username, self.token, self.extra];
 }
 
 @end

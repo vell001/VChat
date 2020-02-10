@@ -7,7 +7,6 @@
 @implementation SCAccountInfo
 
 - (nonnull instancetype)initWithUsername:(nonnull NSString *)username
-                                password:(nonnull NSString *)password
                              phoneNumber:(nonnull NSString *)phoneNumber
                                    email:(nonnull NSString *)email
                                    extra:(nonnull NSString *)extra
@@ -15,7 +14,6 @@
 {
     if (self = [super init]) {
         _username = [username copy];
-        _password = [password copy];
         _phoneNumber = [phoneNumber copy];
         _email = [email copy];
         _extra = [extra copy];
@@ -25,14 +23,12 @@
 }
 
 + (nonnull instancetype)accountInfoWithUsername:(nonnull NSString *)username
-                                       password:(nonnull NSString *)password
                                     phoneNumber:(nonnull NSString *)phoneNumber
                                           email:(nonnull NSString *)email
                                           extra:(nonnull NSString *)extra
                                           token:(nonnull SCTokenMsg *)token
 {
     return [(SCAccountInfo*)[self alloc] initWithUsername:username
-                                                 password:password
                                               phoneNumber:phoneNumber
                                                     email:email
                                                     extra:extra
@@ -41,7 +37,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ %p username:%@ password:%@ phoneNumber:%@ email:%@ extra:%@ token:%@>", self.class, (void *)self, self.username, self.password, self.phoneNumber, self.email, self.extra, self.token];
+    return [NSString stringWithFormat:@"<%@ %p username:%@ phoneNumber:%@ email:%@ extra:%@ token:%@>", self.class, (void *)self, self.username, self.phoneNumber, self.email, self.extra, self.token];
 }
 
 @end

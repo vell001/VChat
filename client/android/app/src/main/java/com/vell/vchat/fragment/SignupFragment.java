@@ -15,7 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.vell.chat.account.AccountInterface;
 import com.vell.chat.account.SignupMsg;
 import com.vell.vchat.R;
 
@@ -50,7 +49,7 @@ public class SignupFragment extends BaseFragment {
         mBtnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccountInterface.getInstance().signup(new SignupMsg(mEtUsername.getText().toString(),
+                actionSignup(new SignupMsg(mEtUsername.getText().toString(),
                         mEtPassword.getText().toString(),
                         mEtPhoneNum.getText().toString(),
                         mEtEmail.getText().toString(), ""));

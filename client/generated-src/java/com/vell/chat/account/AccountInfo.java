@@ -3,13 +3,11 @@
 
 package com.vell.chat.account;
 
-/** 所有账号相关信息，用于持久化到本地 */
+/** 所有账号相关信息 */
 public final class AccountInfo {
 
 
     /*package*/ final String mUsername;
-
-    /*package*/ final String mPassword;
 
     /*package*/ final String mPhoneNumber;
 
@@ -21,13 +19,11 @@ public final class AccountInfo {
 
     public AccountInfo(
             String username,
-            String password,
             String phoneNumber,
             String email,
             String extra,
             TokenMsg token) {
         this.mUsername = username;
-        this.mPassword = password;
         this.mPhoneNumber = phoneNumber;
         this.mEmail = email;
         this.mExtra = extra;
@@ -39,10 +35,6 @@ public final class AccountInfo {
     }
 
     /** 用户名，唯一存在 */
-    public String getPassword() {
-        return mPassword;
-    }
-
     public String getPhoneNumber() {
         return mPhoneNumber;
     }
@@ -63,7 +55,6 @@ public final class AccountInfo {
     public String toString() {
         return "AccountInfo{" +
                 "mUsername=" + mUsername +
-                "," + "mPassword=" + mPassword +
                 "," + "mPhoneNumber=" + mPhoneNumber +
                 "," + "mEmail=" + mEmail +
                 "," + "mExtra=" + mExtra +

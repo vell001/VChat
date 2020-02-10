@@ -12,7 +12,6 @@ auto AccountInfo::toCpp(ObjcType obj) -> CppType
 {
     assert(obj);
     return {::djinni::String::toCpp(obj.username),
-            ::djinni::String::toCpp(obj.password),
             ::djinni::String::toCpp(obj.phoneNumber),
             ::djinni::String::toCpp(obj.email),
             ::djinni::String::toCpp(obj.extra),
@@ -22,7 +21,6 @@ auto AccountInfo::toCpp(ObjcType obj) -> CppType
 auto AccountInfo::fromCpp(const CppType& cpp) -> ObjcType
 {
     return [[SCAccountInfo alloc] initWithUsername:(::djinni::String::fromCpp(cpp.username))
-                                          password:(::djinni::String::fromCpp(cpp.password))
                                        phoneNumber:(::djinni::String::fromCpp(cpp.phoneNumber))
                                              email:(::djinni::String::fromCpp(cpp.email))
                                              extra:(::djinni::String::fromCpp(cpp.extra))

@@ -10,6 +10,7 @@
 #include "signup_msg.hpp"
 #include "token_msg.hpp"
 #include "account_resp.hpp"
+#include "account_info.hpp"
 #include "../Platform.h"
 using namespace std;
 
@@ -20,9 +21,9 @@ public:
         stub_ = account::Account::NewStub(channel);
     }
 
-    void signup(const account_djinni::SignupMsg &info, account_djinni::AccountResp &resp);
+    void signup(const account_djinni::SignupMsg &info, account_djinni::AccountResp &resp, account_djinni::AccountInfo &accountInfo);
 
-    void login(const account_djinni::LoginMsg &info, account_djinni::AccountResp &resp);
+    void login(const account_djinni::LoginMsg &info, account_djinni::AccountResp &resp, account_djinni::AccountInfo &accountInfo);
 
     void logout(const account_djinni::TokenMsg &token, account_djinni::AccountResp &resp);
 

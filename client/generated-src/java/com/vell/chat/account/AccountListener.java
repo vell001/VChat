@@ -3,12 +3,13 @@
 
 package com.vell.chat.account;
 
+/** 全局事件监听 */
 public abstract class AccountListener {
-    public abstract void onSignupCallback(AccountResp callback);
+    public abstract void onSignupCallback(AccountResp callback, int seqId, AccountInfo info);
 
-    public abstract void onLoginCallback(AccountResp callback);
+    public abstract void onLoginCallback(AccountResp callback, int seqId, AccountInfo info);
 
-    public abstract void onLogoutCallback(AccountResp callback);
+    public abstract void onLogoutCallback(AccountResp callback, int seqId);
 
     public abstract void onIsAliveCallback(AccountResp callback);
 }

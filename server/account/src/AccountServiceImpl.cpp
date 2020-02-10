@@ -10,7 +10,7 @@ AccountServiceImpl::~AccountServiceImpl() {
 }
 
 grpc::Status AccountServiceImpl::signup(::grpc::ServerContext *context, const ::account::SignupMsg *request,
-                                        ::account::AccountResp *response) {
+                                        ::account::AccountRespWithInfo *response) {
     const std::string& username = request->username();
     const std::string& password = request->password();
     LOG(INFO) << "signup username: " << username;
@@ -20,7 +20,7 @@ grpc::Status AccountServiceImpl::signup(::grpc::ServerContext *context, const ::
 }
 
 grpc::Status AccountServiceImpl::login(::grpc::ServerContext *context, const ::account::LoginMsg *request,
-                                       ::account::AccountResp *response) {
+                                       ::account::AccountRespWithInfo *response) {
     return Service::login(context, request, response);
 }
 

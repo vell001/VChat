@@ -7,6 +7,8 @@ cmake_minimum_required(VERSION 3.2.1)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_VERBOSE_MAKEFILE on)
 
+add_definitions(-DEXPERIMENTAL_AUTO_CPP_THREAD_ATTACH)
+
 # grpc 编译
 set(PROTOBUF_PROTOC_EXECUTABLE "/usr/local/bin/protoc" CACHE STRING "Protoc binary on host")
 set(GRPC_CPP_PLUGIN_EXECUTABLE "/usr/local/bin/grpc_cpp_plugin" CACHE STRING "gRPC CPP plugin binary on host")
@@ -101,6 +103,12 @@ include_directories(${DJINNI_SUPPORT_JNI_DIR})
 add_library(libmarsxlog SHARED IMPORTED)
 set_target_properties(libmarsxlog PROPERTIES IMPORTED_LOCATION ${LIBRARY_DIRS}/${ANDROID_ABI}/libmarsxlog.so)
 
+# 引入handler库
+set(HANDLER_SRC_DIR ${COMMON_SRC_DIR}/deps/handler)
+set(HANDLER_BUILD_DIR ${CMAKE_BINARY_DIR}/handler/outputs/${ANDROID_ABI})
+file(MAKE_DIRECTORY ${HANDLER_BUILD_DIR})
+add_subdirectory(${HANDLER_SRC_DIR} ${HANDLER_BUILD_DIR})
+
 file(GLOB_RECURSE CPP_SRCS "${SRC_DIR}/*.cpp"
         "${COMMON_SRC_DIR}/*.cpp"
         "${GEN_CPP_DIR}/*.hpp" "${GEN_JNI_DIR}/*.cpp"
@@ -115,4 +123,5 @@ target_link_libraries(
         ${log-lib}
         account_proto_lib
         libmarsxlog
+        handler
 )

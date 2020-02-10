@@ -4,12 +4,15 @@
 #pragma once
 
 #include <vector>
+#include "Platform.h"
 #include "account_interface.hpp"
 #include "account_listener.hpp"
 #include "account_resp.hpp"
 #include "server/AccountServer.h"
 #include "datacenter/AccountData.h"
-#include "Platform.h"
+#include "utils/TimeUtils.h"
+#include "Handler.h"
+#include "GlobalValues.h"
 
 using namespace std;
 
@@ -21,26 +24,34 @@ private:
     template<typename _FUNC, typename... Args>
     void callbackFunc(_FUNC func, Args... args);
 public:
+    static std::shared_ptr<AccountImpl> getInstance();
     void init() override;
 
     void add_listener(const std::shared_ptr<account_djinni::AccountListener> &listener) override;
 
     void remove_listener(const std::shared_ptr<account_djinni::AccountListener> &listener) override;
 
-    void signup(const account_djinni::SignupMsg &info) override;
+    void signup(const account_djinni::SignupMsg &info, int32_t seqId) override;
 
-    void login(const account_djinni::LoginMsg &info) override;
+    void login(const account_djinni::LoginMsg &info, int32_t seqId) override;
 
-    void logout() override;
+    void logout(int32_t seqId) override;
+
+    account_djinni::AccountInfo getAccountInfo() override;
 
     void is_alive() override;
 
     bool has_login() override;
 
+    void heartbeat();
 private:
     bool inited = false;
     bool hasLogin = false;
     std::shared_ptr<account_djinni::AccountInfo> mAccountInfo;
+    std::shared_ptr<Handler> serverHandler = std::shared_ptr<Handler>(new Handler); // 服务端异步请求处理
+
+    bool isAccountInfoValid(std::shared_ptr<account_djinni::AccountInfo> accountInfo);
+    void resetLocalAccountInfo(); // 重置本地的账号信息
 };
 
 

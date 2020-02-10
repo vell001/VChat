@@ -9,15 +9,19 @@ public abstract class AccountInterface {
     /** 初始化 */
     public abstract void init();
 
+    /** 全局事件监听 */
     public abstract void addListener(AccountListener listener);
 
     public abstract void removeListener(AccountListener listener);
 
-    public abstract void signup(SignupMsg info);
+    public abstract void signup(SignupMsg info, int seqId);
 
-    public abstract void login(LoginMsg info);
+    /** seqId 函数请求id，在account_listener里callback */
+    public abstract void login(LoginMsg info, int seqId);
 
-    public abstract void logout();
+    public abstract void logout(int seqId);
+
+    public abstract AccountInfo getAccountInfo();
 
     /** 手动发起服务器是否在线检查，会异步定时检查 */
     public abstract void isAlive();
@@ -79,28 +83,36 @@ public abstract class AccountInterface {
         private native void native_removeListener(long _nativeRef, AccountListener listener);
 
         @Override
-        public void signup(SignupMsg info)
+        public void signup(SignupMsg info, int seqId)
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            native_signup(this.nativeRef, info);
+            native_signup(this.nativeRef, info, seqId);
         }
-        private native void native_signup(long _nativeRef, SignupMsg info);
+        private native void native_signup(long _nativeRef, SignupMsg info, int seqId);
 
         @Override
-        public void login(LoginMsg info)
+        public void login(LoginMsg info, int seqId)
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            native_login(this.nativeRef, info);
+            native_login(this.nativeRef, info, seqId);
         }
-        private native void native_login(long _nativeRef, LoginMsg info);
+        private native void native_login(long _nativeRef, LoginMsg info, int seqId);
 
         @Override
-        public void logout()
+        public void logout(int seqId)
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            native_logout(this.nativeRef);
+            native_logout(this.nativeRef, seqId);
         }
-        private native void native_logout(long _nativeRef);
+        private native void native_logout(long _nativeRef, int seqId);
+
+        @Override
+        public AccountInfo getAccountInfo()
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            return native_getAccountInfo(this.nativeRef);
+        }
+        private native AccountInfo native_getAccountInfo(long _nativeRef);
 
         @Override
         public void isAlive()

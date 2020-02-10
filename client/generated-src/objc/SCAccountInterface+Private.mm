@@ -6,6 +6,7 @@
 #import "DJICppWrapperCache+Private.h"
 #import "DJIError.h"
 #import "DJIMarshal+Private.h"
+#import "SCAccountInfo+Private.h"
 #import "SCAccountListener+Private.h"
 #import "SCLoginMsg+Private.h"
 #import "SCSignupMsg+Private.h"
@@ -58,21 +59,32 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
-- (void)signup:(nonnull SCSignupMsg *)info {
+- (void)signup:(nonnull SCSignupMsg *)info
+         seqId:(int32_t)seqId {
     try {
-        _cppRefHandle.get()->signup(::djinni_generated::SignupMsg::toCpp(info));
+        _cppRefHandle.get()->signup(::djinni_generated::SignupMsg::toCpp(info),
+                                    ::djinni::I32::toCpp(seqId));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
-- (void)login:(nonnull SCLoginMsg *)info {
+- (void)login:(nonnull SCLoginMsg *)info
+        seqId:(int32_t)seqId {
     try {
-        _cppRefHandle.get()->login(::djinni_generated::LoginMsg::toCpp(info));
+        _cppRefHandle.get()->login(::djinni_generated::LoginMsg::toCpp(info),
+                                   ::djinni::I32::toCpp(seqId));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
-- (void)logout {
+- (void)logout:(int32_t)seqId {
     try {
-        _cppRefHandle.get()->logout();
+        _cppRefHandle.get()->logout(::djinni::I32::toCpp(seqId));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (nonnull SCAccountInfo *)getAccountInfo {
+    try {
+        auto objcpp_result_ = _cppRefHandle.get()->getAccountInfo();
+        return ::djinni_generated::AccountInfo::fromCpp(objcpp_result_);
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 

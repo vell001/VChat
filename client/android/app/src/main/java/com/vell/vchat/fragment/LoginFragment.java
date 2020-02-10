@@ -57,7 +57,7 @@ public class LoginFragment extends BaseFragment {
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AccountInterface.getInstance().login(new LoginMsg(mEtAccount.getText().toString(), mEtPassword.getText().toString()));
+//                AccountInterface.getInstance().login(new LoginMsg(mEtAccount.getText().toString(), mEtPassword.getText().toString()));
             }
         });
 

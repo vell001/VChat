@@ -13,10 +13,10 @@ public:
     ~AccountServiceImpl() override;
 
     grpc::Status signup(::grpc::ServerContext *context, const ::account::SignupMsg *request,
-                        ::account::AccountResp *response) override;
+                        ::account::AccountRespWithInfo *response) override;
 
     grpc::Status login(::grpc::ServerContext *context, const ::account::LoginMsg *request,
-                       ::account::AccountResp *response) override;
+                       ::account::AccountRespWithInfo *response) override;
 
     grpc::Status logout(::grpc::ServerContext *context, const ::account::TokenMsg *request,
                         ::account::AccountResp *response) override;
