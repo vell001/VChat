@@ -15,8 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.vell.chat.account.AccountInterface;
-import com.vell.chat.account.LoginMsg;
 import com.vell.vchat.R;
 
 import static com.vell.vchat.GlobalValues.KEY_ACCOUNT;

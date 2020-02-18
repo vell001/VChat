@@ -7,12 +7,14 @@
 #include "account.pb.h"
 
 #include <functional>
+#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
 #include <grpcpp/impl/codegen/client_context.h>
 #include <grpcpp/impl/codegen/completion_queue.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
 #include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
@@ -23,19 +25,6 @@
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-
-namespace grpc_impl {
-class CompletionQueue;
-class ServerCompletionQueue;
-class ServerContext;
-}  // namespace grpc_impl
-
-namespace grpc {
-namespace experimental {
-template <typename RequestT, typename ResponseT>
-class MessageAllocator;
-}  // namespace experimental
-}  // namespace grpc
 
 namespace account {
 
@@ -81,21 +70,59 @@ class Account final {
       virtual ~experimental_async_interface() {}
       virtual void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) = 0;
       virtual void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
       virtual void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
       virtual void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
       virtual void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) = 0;
       virtual void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
       virtual void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
       virtual void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
       virtual void logout(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
       virtual void logout(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void logout(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
       virtual void logout(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void logout(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
       virtual void logout(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
       virtual void isAlive(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
       virtual void isAlive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void isAlive(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
       virtual void isAlive(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void isAlive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
       virtual void isAlive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
     };
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    typedef class experimental_async_interface async_interface;
+    #endif
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    async_interface* async() { return experimental_async(); }
+    #endif
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountRespWithInfo>* AsyncsignupRaw(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::grpc::CompletionQueue* cq) = 0;
@@ -143,20 +170,52 @@ class Account final {
      public:
       void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) override;
       void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
       void signup(::grpc::ClientContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
       void signup(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
       void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) override;
       void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
       void login(::grpc::ClientContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
       void login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountRespWithInfo* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
       void logout(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
       void logout(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void logout(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
       void logout(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void logout(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
       void logout(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
       void isAlive(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
       void isAlive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void isAlive(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
       void isAlive(::grpc::ClientContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void isAlive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
       void isAlive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -279,13 +338,28 @@ class Account final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     ExperimentalWithCallbackMethod_signup() {
-      ::grpc::Service::experimental().MarkMethodCallback(0,
-        new ::grpc_impl::internal::CallbackUnaryHandler< ::account::SignupMsg, ::account::AccountRespWithInfo>(
-          [this](::grpc::experimental::CallbackServerContext* context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response) { return this->signup(context, request, response); }));}
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(0,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::account::SignupMsg, ::account::AccountRespWithInfo>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::account::SignupMsg* request, ::account::AccountRespWithInfo* response) { return this->signup(context, request, response); }));}
     void SetMessageAllocatorFor_signup(
         ::grpc::experimental::MessageAllocator< ::account::SignupMsg, ::account::AccountRespWithInfo>* allocator) {
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::SignupMsg, ::account::AccountRespWithInfo>*>(
-          ::grpc::Service::experimental().GetHandler(0))
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::SignupMsg, ::account::AccountRespWithInfo>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_signup() override {
@@ -296,7 +370,14 @@ class Account final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::experimental::ServerUnaryReactor* signup(::grpc::experimental::CallbackServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) { return nullptr; }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* signup(
+      ::grpc::CallbackServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* signup(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::account::SignupMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/)
+    #endif
+      { return nullptr; }
   };
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_login : public BaseClass {
@@ -304,13 +385,28 @@ class Account final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     ExperimentalWithCallbackMethod_login() {
-      ::grpc::Service::experimental().MarkMethodCallback(1,
-        new ::grpc_impl::internal::CallbackUnaryHandler< ::account::LoginMsg, ::account::AccountRespWithInfo>(
-          [this](::grpc::experimental::CallbackServerContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response) { return this->login(context, request, response); }));}
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(1,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::account::LoginMsg, ::account::AccountRespWithInfo>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response) { return this->login(context, request, response); }));}
     void SetMessageAllocatorFor_login(
         ::grpc::experimental::MessageAllocator< ::account::LoginMsg, ::account::AccountRespWithInfo>* allocator) {
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::LoginMsg, ::account::AccountRespWithInfo>*>(
-          ::grpc::Service::experimental().GetHandler(1))
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::LoginMsg, ::account::AccountRespWithInfo>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_login() override {
@@ -321,7 +417,14 @@ class Account final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::experimental::ServerUnaryReactor* login(::grpc::experimental::CallbackServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/) { return nullptr; }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* login(
+      ::grpc::CallbackServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* login(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::account::LoginMsg* /*request*/, ::account::AccountRespWithInfo* /*response*/)
+    #endif
+      { return nullptr; }
   };
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_logout : public BaseClass {
@@ -329,13 +432,28 @@ class Account final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     ExperimentalWithCallbackMethod_logout() {
-      ::grpc::Service::experimental().MarkMethodCallback(2,
-        new ::grpc_impl::internal::CallbackUnaryHandler< ::account::TokenMsg, ::account::AccountResp>(
-          [this](::grpc::experimental::CallbackServerContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response) { return this->logout(context, request, response); }));}
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(2,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::account::TokenMsg, ::account::AccountResp>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::account::TokenMsg* request, ::account::AccountResp* response) { return this->logout(context, request, response); }));}
     void SetMessageAllocatorFor_logout(
         ::grpc::experimental::MessageAllocator< ::account::TokenMsg, ::account::AccountResp>* allocator) {
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::TokenMsg, ::account::AccountResp>*>(
-          ::grpc::Service::experimental().GetHandler(2))
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::TokenMsg, ::account::AccountResp>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_logout() override {
@@ -346,7 +464,14 @@ class Account final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::experimental::ServerUnaryReactor* logout(::grpc::experimental::CallbackServerContext* /*context*/, const ::account::TokenMsg* /*request*/, ::account::AccountResp* /*response*/) { return nullptr; }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* logout(
+      ::grpc::CallbackServerContext* /*context*/, const ::account::TokenMsg* /*request*/, ::account::AccountResp* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* logout(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::account::TokenMsg* /*request*/, ::account::AccountResp* /*response*/)
+    #endif
+      { return nullptr; }
   };
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_isAlive : public BaseClass {
@@ -354,13 +479,28 @@ class Account final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     ExperimentalWithCallbackMethod_isAlive() {
-      ::grpc::Service::experimental().MarkMethodCallback(3,
-        new ::grpc_impl::internal::CallbackUnaryHandler< ::account::TokenMsg, ::account::AccountResp>(
-          [this](::grpc::experimental::CallbackServerContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response) { return this->isAlive(context, request, response); }));}
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(3,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::account::TokenMsg, ::account::AccountResp>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::account::TokenMsg* request, ::account::AccountResp* response) { return this->isAlive(context, request, response); }));}
     void SetMessageAllocatorFor_isAlive(
         ::grpc::experimental::MessageAllocator< ::account::TokenMsg, ::account::AccountResp>* allocator) {
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::TokenMsg, ::account::AccountResp>*>(
-          ::grpc::Service::experimental().GetHandler(3))
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::TokenMsg, ::account::AccountResp>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_isAlive() override {
@@ -371,8 +511,19 @@ class Account final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::experimental::ServerUnaryReactor* isAlive(::grpc::experimental::CallbackServerContext* /*context*/, const ::account::TokenMsg* /*request*/, ::account::AccountResp* /*response*/) { return nullptr; }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* isAlive(
+      ::grpc::CallbackServerContext* /*context*/, const ::account::TokenMsg* /*request*/, ::account::AccountResp* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* isAlive(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::account::TokenMsg* /*request*/, ::account::AccountResp* /*response*/)
+    #endif
+      { return nullptr; }
   };
+  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+  typedef ExperimentalWithCallbackMethod_signup<ExperimentalWithCallbackMethod_login<ExperimentalWithCallbackMethod_logout<ExperimentalWithCallbackMethod_isAlive<Service > > > > CallbackService;
+  #endif
+
   typedef ExperimentalWithCallbackMethod_signup<ExperimentalWithCallbackMethod_login<ExperimentalWithCallbackMethod_logout<ExperimentalWithCallbackMethod_isAlive<Service > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_signup : public BaseClass {
@@ -528,9 +679,20 @@ class Account final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     ExperimentalWithRawCallbackMethod_signup() {
-      ::grpc::Service::experimental().MarkMethodRawCallback(0,
-        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
-          [this](::grpc::experimental::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->signup(context, request, response); }));
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(0,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->signup(context, request, response); }));
     }
     ~ExperimentalWithRawCallbackMethod_signup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -540,7 +702,14 @@ class Account final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::experimental::ServerUnaryReactor* signup(::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/) { return nullptr; }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* signup(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* signup(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
   };
   template <class BaseClass>
   class ExperimentalWithRawCallbackMethod_login : public BaseClass {
@@ -548,9 +717,20 @@ class Account final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     ExperimentalWithRawCallbackMethod_login() {
-      ::grpc::Service::experimental().MarkMethodRawCallback(1,
-        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
-          [this](::grpc::experimental::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->login(context, request, response); }));
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(1,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->login(context, request, response); }));
     }
     ~ExperimentalWithRawCallbackMethod_login() override {
       BaseClassMustBeDerivedFromService(this);
@@ -560,7 +740,14 @@ class Account final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::experimental::ServerUnaryReactor* login(::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/) { return nullptr; }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* login(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* login(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
   };
   template <class BaseClass>
   class ExperimentalWithRawCallbackMethod_logout : public BaseClass {
@@ -568,9 +755,20 @@ class Account final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     ExperimentalWithRawCallbackMethod_logout() {
-      ::grpc::Service::experimental().MarkMethodRawCallback(2,
-        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
-          [this](::grpc::experimental::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->logout(context, request, response); }));
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(2,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->logout(context, request, response); }));
     }
     ~ExperimentalWithRawCallbackMethod_logout() override {
       BaseClassMustBeDerivedFromService(this);
@@ -580,7 +778,14 @@ class Account final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::experimental::ServerUnaryReactor* logout(::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/) { return nullptr; }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* logout(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* logout(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
   };
   template <class BaseClass>
   class ExperimentalWithRawCallbackMethod_isAlive : public BaseClass {
@@ -588,9 +793,20 @@ class Account final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     ExperimentalWithRawCallbackMethod_isAlive() {
-      ::grpc::Service::experimental().MarkMethodRawCallback(3,
-        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
-          [this](::grpc::experimental::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->isAlive(context, request, response); }));
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(3,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->isAlive(context, request, response); }));
     }
     ~ExperimentalWithRawCallbackMethod_isAlive() override {
       BaseClassMustBeDerivedFromService(this);
@@ -600,7 +816,14 @@ class Account final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::experimental::ServerUnaryReactor* isAlive(::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/) { return nullptr; }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* isAlive(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* isAlive(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_signup : public BaseClass {

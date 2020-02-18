@@ -15,6 +15,7 @@ import com.vell.chat.account.AccountInterface;
 import com.vell.chat.account.AccountListener;
 import com.vell.chat.account.AccountResp;
 import com.vell.chat.account.SignupMsg;
+import com.vell.vchat.fragment.AccountInfoFragment;
 import com.vell.vchat.fragment.BaseFragment;
 import com.vell.vchat.fragment.LoginFragment;
 
@@ -28,9 +29,17 @@ public class AccountAct extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_account);
 
+        AccountInterface.getInstance().init();
         AccountInterface.getInstance().addListener(accountListener);
 
-        showFragment(LoginFragment.class, null);
+        // 判断登陆状态
+        if(AccountInterface.getInstance().hasLogin()){
+            // 显示用户信息
+            showFragment(AccountInfoFragment.class, null);
+        } else {
+            // 显示登陆页
+            showFragment(LoginFragment.class, null);
+        }
     }
 
     private BaseFragment mLastShowFragment = null;

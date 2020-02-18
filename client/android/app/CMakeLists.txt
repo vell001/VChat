@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 3.2.1)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_VERBOSE_MAKEFILE on)
 
+# djinni异步线程可访问jni接口
 add_definitions(-DEXPERIMENTAL_AUTO_CPP_THREAD_ATTACH)
 
 # grpc 编译
