@@ -37,3 +37,16 @@ http_archive(
     strip_prefix = "glog-0.4.0",
     sha256 = "f28359aeba12f30d73d9e4711ef356dc842886968112162bc73002645139c39c",
 )
+
+# jsoncpp
+http_archive(
+    name = "com_github_cschuet_jsoncpp",
+    strip_prefix = "jsoncpp-e1c68e5ceed5ed7b103aee853d1aac8900e06cce",
+    urls = [
+        "https://github.com/cschuet/jsoncpp/archive/e1c68e5ceed5ed7b103aee853d1aac8900e06cce.tar.gz",
+    ],
+)
+
+load("@com_github_cschuet_jsoncpp//:bazel/repositories.bzl", "repositories")
+
+repositories()

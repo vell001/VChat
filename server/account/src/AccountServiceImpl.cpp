@@ -4,7 +4,6 @@
 
 #include "AccountServiceImpl.h"
 
-
 AccountServiceImpl::~AccountServiceImpl() {
 
 }
@@ -33,3 +32,4 @@ grpc::Status AccountServiceImpl::isAlive(::grpc::ServerContext *context, const :
                                          ::account::AccountResp *response) {
     return Service::isAlive(context, request, response);
 }
+

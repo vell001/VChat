@@ -10,7 +10,9 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 #include <glog/stl_logging.h>
+#include <manager/DBManager.h>
 #include "AccountServiceImpl.h"
+#include "config/GlobalConfig.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -18,6 +20,23 @@ using grpc::ServerContext;
 using grpc::Status;
 
 void RunServer() {
+    // 读取配置文件
+    auto config = GlobalConfig::getInstance();
+    config->init("global_config.json");
+
+    // 初始化数据库
+    int code = DBManager::getInstance()->init(
+            config->getDBHost(),
+            config->getDBPort(),
+            config->getDBName(),
+            config->getDBUser(),
+            config->getDBPassword(),
+            config->getDBCharset()
+    );
+    if (code != global::DBCode::OK) {
+        LOG(ERROR) << "数据库初始化失败: " << code << std::endl;
+        return;
+    }
     std::string server_address("0.0.0.0:50051");
     AccountServiceImpl service;
 

@@ -23,51 +23,13 @@ cc_grpc_library(
 
 cc_binary(
     name = 'account_server',
-    srcs = ['src/account_server.cc',
-            'src/AccountServiceImpl.cpp',
-            'src/AccountServiceImpl.h',
-            ],
+    srcs = glob(["**/*.cc","**/*.cpp","**/*.h","**/*.hpp"]),
+    includes = ["src", "include"],
     deps = [
         ':account_cc_grpc',
         '@com_github_grpc_grpc//:grpc++',
         '@com_github_google_glog//:glog',
+        '@com_github_open_source_parsers_jsoncpp//:jsoncpp',
     ],
-    linkopts = ['-ldl'],
-)
-
-proto_library(
-    name = "helloworld_proto",
-    srcs = ["protos/helloworld.proto"],
-)
-
-cc_proto_library(
-    name = "helloworld_cc_proto",
-    deps = [":helloworld_proto"],
-)
-
-cc_grpc_library(
-    name = "helloworld_cc_grpc",
-    srcs = [":helloworld_proto"],
-    grpc_only = True,
-    deps = [":helloworld_cc_proto"],
-)
-
-cc_binary(
-    name = 'greeter_client',
-    srcs = ['src/greeter_client.cc'],
-    deps = [
-        ':helloworld_cc_grpc',
-        '@com_github_grpc_grpc//:grpc++',
-    ],
-    linkopts = ['-ldl'],
-)
-
-cc_binary(
-    name = 'greeter_server',
-    srcs = ['src/greeter_server.cc'],
-    deps = [
-        ':helloworld_cc_grpc',
-        '@com_github_grpc_grpc//:grpc++',
-    ],
-    linkopts = ['-ldl'],
+    linkopts = ['-ldl', "-lmysqlclient"],
 )

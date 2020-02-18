@@ -6,3 +6,5 @@ bazel-bin
 bazel-out
 bazel-server
 bazel-testlogs
+bazel-app
+cmake-build-debug

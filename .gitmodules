@@ -4,3 +4,6 @@
 [submodule "client/deps/grpc"]
 	path = client/deps/grpc
 	url = https://github.com/grpc/grpc.git
+[submodule "server/deps/glog"]
+	path = server/deps/glog
+	url = https://github.com/google/glog.git
