@@ -14,12 +14,15 @@ import com.vell.chat.account.AccountInfo;
 import com.vell.chat.account.AccountInterface;
 import com.vell.chat.account.AccountListener;
 import com.vell.chat.account.AccountResp;
+import com.vell.chat.account.LoginMsg;
 import com.vell.chat.account.SignupMsg;
 import com.vell.vchat.fragment.AccountInfoFragment;
 import com.vell.vchat.fragment.BaseFragment;
 import com.vell.vchat.fragment.LoginFragment;
 
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.vell.vchat.GlobalValues.KEY_ACCOUNT;
 
 public class AccountAct extends FragmentActivity {
     private static final String TAG = AccountAct.class.getSimpleName();
@@ -33,7 +36,7 @@ public class AccountAct extends FragmentActivity {
         AccountInterface.getInstance().addListener(accountListener);
 
         // 判断登陆状态
-        if(AccountInterface.getInstance().hasLogin()){
+        if (AccountInterface.getInstance().hasLogin()) {
             // 显示用户信息
             showFragment(AccountInfoFragment.class, null);
         } else {
@@ -74,7 +77,12 @@ public class AccountAct extends FragmentActivity {
         signupSeqId = genSeqId();
         AccountInterface.getInstance().signup(info, signupSeqId);
     }
+
     public int loginSeqId = -1;
+    public void actionLogin(LoginMsg info) {
+        loginSeqId = genSeqId();
+        AccountInterface.getInstance().login(info, loginSeqId);
+    }
 
     private AccountListener accountListener = new AccountListener() {
         @Override
@@ -82,6 +90,12 @@ public class AccountAct extends FragmentActivity {
             Log.d(TAG, "onSignupCallback: " + callback.toString());
             if (seqId != signupSeqId) {
                 return;
+            }
+            if (callback.getCode() == GlobalValues.CODE_AccountResp_OK) {
+                // 注册成功，跳转到登录页
+                Bundle bundle = new Bundle();
+                bundle.putString(KEY_ACCOUNT, info.getUsername());
+                showFragment(LoginFragment.class, bundle);
             }
             runOnUiThread(new Runnable() {
                 @Override
@@ -92,12 +106,21 @@ public class AccountAct extends FragmentActivity {
         }
 
         @Override
-        public void onLoginCallback(AccountResp callback, int seqId, AccountInfo info) {
+        public void onLoginCallback(final AccountResp callback, int seqId, AccountInfo info) {
             if (seqId != loginSeqId) {
                 return;
             }
+            if (callback.getCode() == GlobalValues.CODE_AccountResp_OK) {
+                // 注册成功，跳转到账号信息页
+                showFragment(AccountInfoFragment.class, null);
+            }
             Log.d(TAG, "onLoginCallback: " + callback.toString());
-            Toast.makeText(AccountAct.this, "onLoginCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(AccountAct.this, "onLoginCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
         @Override

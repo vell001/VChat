@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import com.vell.chat.account.LoginMsg;
 import com.vell.chat.account.SignupMsg;
 import com.vell.vchat.AccountAct;
 
@@ -25,7 +26,14 @@ public class BaseFragment extends Fragment {
         ((AccountAct) activity).actionSignup(info);
     }
 
-    public void updateArguments(Bundle args) {
+    public void actionLogin(LoginMsg info) {
+        Activity activity = getActivity();
+        if (!(activity instanceof AccountAct)) {
+            return;
+        }
+        ((AccountAct) activity).actionLogin(info);
+    }
 
+    public void updateArguments(Bundle args) {
     }
 }

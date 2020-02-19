@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.vell.chat.account.LoginMsg;
 import com.vell.vchat.R;
 
 import static com.vell.vchat.GlobalValues.KEY_ACCOUNT;
@@ -37,12 +38,16 @@ public class LoginFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Bundle bundle = getArguments();
-        if(bundle==null){
+        updateArguments(getArguments());
+    }
+
+    @Override
+    public void updateArguments(Bundle bundle) {
+        if (bundle == null) {
             return;
         }
 
-        mEtAccount.setText(bundle.getString(KEY_ACCOUNT,""));
+        mEtAccount.setText(bundle.getString(KEY_ACCOUNT, ""));
     }
 
     private void initView(View root) {
@@ -55,7 +60,7 @@ public class LoginFragment extends BaseFragment {
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AccountInterface.getInstance().login(new LoginMsg(mEtAccount.getText().toString(), mEtPassword.getText().toString()));
+                actionLogin(new LoginMsg(mEtAccount.getText().toString(), mEtPassword.getText().toString()));
             }
         });
 
