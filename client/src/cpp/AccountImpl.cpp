@@ -55,7 +55,6 @@ void AccountImpl::signup(const account_djinni::SignupMsg &info, int32_t seqId) {
         account_djinni::AccountInfo accountInfo("", "", "", "", account_djinni::TokenMsg("", 0));
         AccountServer::getInstance()->signup(info, resp, accountInfo);
 
-//        JNIEnvPtr envPtr;
         for (auto listener:getInstance()->listeners) {
             listener.get()->on_signup_callback(resp, seqId, accountInfo);
         }
@@ -64,7 +63,16 @@ void AccountImpl::signup(const account_djinni::SignupMsg &info, int32_t seqId) {
 }
 
 void AccountImpl::login(const account_djinni::LoginMsg &info, int32_t seqId) {
+    serverHandler->post([info, seqId]() {
+        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0), "");
+        account_djinni::AccountInfo accountInfo("", "", "", "", account_djinni::TokenMsg("", 0));
+        AccountServer::getInstance()->login(info, resp, accountInfo);
 
+//        for (auto listener:getInstance()->listeners) {
+//            listener.get()->on_login_callback(resp, seqId, accountInfo);
+//        }
+        getInstance()->callbackFunc(&account_djinni::AccountListener::on_login_callback, resp, seqId, accountInfo);
+    });
 }
 
 void AccountImpl::logout(int32_t seqId) {
