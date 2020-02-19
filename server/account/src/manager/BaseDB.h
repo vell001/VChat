@@ -7,6 +7,12 @@
 #include <string>
 #include <vector>
 #include "GlobalValues.h"
+#include <memory>
+
+typedef std::shared_ptr<std::vector<std::shared_ptr<std::vector<std::string> > > > DB_TABLE_PTR;
+typedef std::vector<std::shared_ptr<std::vector<std::string> > > DB_TABLE;
+typedef std::shared_ptr<std::vector<std::string> > DB_ROW_PTR;
+typedef std::vector<std::string> DB_ROW;
 
 class BaseDB {
 public:
@@ -16,5 +22,5 @@ public:
     virtual void disconnect() {}
 
     virtual int
-    execSQL(const char *sql, int retColSize, std::vector<std::vector<std::string> > &ret) { return global::DBCode::ERR; }
+    execSQL(const char *sql, int retColSize, DB_TABLE_PTR ret) { return global::DBCode::ERR; }
 };

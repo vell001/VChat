@@ -8,6 +8,8 @@
 #include "BaseDB.h"
 #include <memory>
 #include <glog/logging.h>
+#include <model/AccountModel.h>
+#include "utils/StringUtils.h"
 
 class DBManager {
 public:
@@ -16,8 +18,11 @@ public:
     int init(const std::string &host, int port, const std::string &dbName, const std::string &user,
              const std::string &password, const std::string &charset);
 
+    std::shared_ptr<AccountModel> getAccountByUsername(const std::string &username, int &code);
+    int addAccount(std::shared_ptr<AccountModel> accountModel);
 private:
     std::shared_ptr<BaseDB> db = nullptr;
+    int createAccountTable();
 };
 
 

@@ -27,23 +27,24 @@ void MysqlDB::disconnect() {
     mysql_close(&mysql);
 }
 
-int MysqlDB::execSQL(const char *sql, int retColSize, std::vector<std::vector<std::string> > &ret) {
+int MysqlDB::execSQL(const char *sql, int retColSize, DB_TABLE_PTR ret) {
     int query_result = -1;
     try {
-        query_result = mysql_query(&mysql, sql);
+        query_result = mysql_real_query(&mysql, sql, (unsigned int) strlen(sql));
     } catch (const std::exception &e) {
-        //释放写锁
+        LOG(ERROR) << "mysql_query error: " << query_result << " sql: " << sql;
         return global::DBCode::QUERY_ERR;
     }
 
     if (query_result != 0) {
+        LOG(ERROR) << "mysql_query error: " << query_result << " sql: " << sql;
         return global::DBCode::QUERY_ERR;
     }
 
     MYSQL_ROW row;
     MYSQL_RES *res;
 
-    if (retColSize < 0) {
+    if (retColSize < 0 || ret == nullptr) {
         // 不需要查询结果，直接返回
         return global::DBCode::OK;
     }
@@ -51,15 +52,19 @@ int MysqlDB::execSQL(const char *sql, int retColSize, std::vector<std::vector<st
     res = mysql_store_result(&mysql);
     if (res == nullptr) {
         // 结果为空
-        return global::DBCode::QUERY_RET_EMPTY;
+        return global::DBCode::OK;
     }
 
     while (row = mysql_fetch_row(res)) {
-        std::vector<std::string> retRow;
+        auto retRow = DB_ROW_PTR(new DB_ROW());
         for (uint i = 0; i < retColSize; i++) {
-            retRow.emplace_back(std::string(row[i]));
+            if (row[i] == nullptr) {
+                retRow->emplace_back(std::string());
+            } else {
+                retRow->emplace_back(std::string(row[i]));
+            }
         }
-        ret.push_back(retRow);
+        ret->push_back(retRow);
     }
 
     mysql_free_result(res);

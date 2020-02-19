@@ -30,6 +30,7 @@ cc_binary(
         '@com_github_grpc_grpc//:grpc++',
         '@com_github_google_glog//:glog',
         '@com_github_open_source_parsers_jsoncpp//:jsoncpp',
+        '@com_github_redis_hiredis//:hiredis',
     ],
-    linkopts = ['-ldl', "-lmysqlclient"],
+    linkopts = ['-ldl', "-lmysqlclient", "-lcrypto++"],
 )

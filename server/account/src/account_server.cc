@@ -13,6 +13,7 @@
 #include <manager/DBManager.h>
 #include "AccountServiceImpl.h"
 #include "config/GlobalConfig.h"
+#include <manager/CacheManager.h>
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -24,7 +25,7 @@ void RunServer() {
     auto config = GlobalConfig::getInstance();
     config->init("global_config.json");
 
-    // 初始化数据库
+    // 初始化数据库服务
     int code = DBManager::getInstance()->init(
             config->getDBHost(),
             config->getDBPort(),
@@ -34,9 +35,20 @@ void RunServer() {
             config->getDBCharset()
     );
     if (code != global::DBCode::OK) {
-        LOG(ERROR) << "数据库初始化失败: " << code << std::endl;
+        LOG(ERROR) << "数据库服务初始化失败: " << code << std::endl;
         return;
     }
+
+    // 初始化缓存服务
+    code = CacheManager::getInstance()->init(
+            config->getRedisHost(),
+            config->getRedisPort()
+    );
+    if (code != global::CacheCode::OK) {
+        LOG(ERROR) << "缓存服务初始化失败: " << code << std::endl;
+        return;
+    }
+
     std::string server_address("0.0.0.0:50051");
     AccountServiceImpl service;
 

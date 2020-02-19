@@ -7,6 +7,9 @@
 #include "account/protos/account.grpc.pb.h"
 #include <glog/logging.h>
 #include <glog/stl_logging.h>
+#include <manager/DBManager.h>
+#include <utils/StringUtils.h>
+#include <utils/CryptUtils.h>
 
 class AccountServiceImpl final : public account::Account::Service {
 public:
@@ -23,5 +26,10 @@ public:
 
     grpc::Status isAlive(::grpc::ServerContext *context, const ::account::TokenMsg *request,
                          ::account::AccountResp *response) override;
+
+private:
+    bool isUsernameValid(const std::string &username);
+    bool isPasswordValid(const std::string &password);
+    std::string encodePassword(const std::string &password, const std::string &passwordSalt);
 };
 

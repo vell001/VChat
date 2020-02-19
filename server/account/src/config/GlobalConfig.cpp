@@ -52,3 +52,11 @@ std::string GlobalConfig::getDBPassword() {
 std::string GlobalConfig::getDBCharset() {
     return config.get("charset", std::string("utf8")).asString();
 }
+
+std::string GlobalConfig::getRedisHost() {
+    return config.get("redis_host", "127.0.0.1").asString();
+}
+
+int GlobalConfig::getRedisPort() {
+    return config.get("redis_port", 6379).asInt();
+}

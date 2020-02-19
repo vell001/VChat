@@ -29,6 +29,10 @@ public:
     string getDBPassword();
 
     string getDBCharset();
+
+    string getRedisHost();
+
+    int getRedisPort();
 };
 
 

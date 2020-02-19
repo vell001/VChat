@@ -6,6 +6,7 @@
 
 #include "mysql/mysql.h"
 #include "manager/BaseDB.h"
+#include <glog/logging.h>
 
 class MysqlDB : public BaseDB {
 public:
@@ -16,7 +17,7 @@ public:
 
     void disconnect() override;
 
-    int execSQL(const char *sql, int retColSize, std::vector<std::vector<std::string> > &ret) override;
+    int execSQL(const char *sql, int retColSize, DB_TABLE_PTR ret) override;
 
 private:
     MYSQL mysql;
