@@ -36,6 +36,7 @@ int MysqlDB::execSQL(const char *sql, int retColSize, DB_TABLE_PTR ret) {
         return global::DBCode::QUERY_ERR;
     }
 
+    // TODO 考虑连接断开重连 CR_SERVER_LOST or SERVER_GONE_ERROR
     if (query_result != 0) {
         LOG(ERROR) << "mysql_query error: " << query_result << " sql: " << sql;
         return global::DBCode::QUERY_ERR;

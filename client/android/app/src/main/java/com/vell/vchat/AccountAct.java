@@ -1,6 +1,14 @@
 package com.vell.vchat;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,7 +30,7 @@ import com.vell.vchat.fragment.LoginFragment;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.vell.vchat.GlobalValues.KEY_ACCOUNT;
+import static com.vell.vchat.GlobalValues.KEY_account;
 
 public class AccountAct extends FragmentActivity {
     private static final String TAG = AccountAct.class.getSimpleName();
@@ -70,18 +78,78 @@ public class AccountAct extends FragmentActivity {
         ft.commitAllowingStateLoss();
     }
 
+    private Dialog loadingDialog = null;
+
+    private void showLoadingDialog(String msg) {
+        // 先关闭之前的loading页
+        closeLoadingDialog();
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View v = inflater.inflate(R.layout.dialog_loading, null);// 得到加载view
+        LinearLayout layout = v.findViewById(R.id.dialog_loading_view);// 加载布局
+        TextView tvTips = v.findViewById(R.id.tv_tips);// 提示文字
+        tvTips.setText(msg);// 设置加载信息
+
+        loadingDialog = new Dialog(this, R.style.Theme_AppCompat_Dialog_Alert);// 创建自定义样式dialog
+        loadingDialog.setCancelable(false); // 是否可以按“返回键”消失
+        loadingDialog.setCanceledOnTouchOutside(false); // 点击加载框以外的区域
+        loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));// 设置布局
+        Window window = loadingDialog.getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setGravity(Gravity.CENTER);
+        window.setAttributes(lp);
+        window.setWindowAnimations(R.style.Theme_AppCompat_Dialog_Alert);
+        loadingDialog.show();
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("title")
+//                .setMessage("message")
+//                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//
+//                    }
+//                })
+//                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//
+//                    }
+//                });
+//        loadingDialog = builder.create();
+    }
+
+    private void closeLoadingDialog() {
+        if (loadingDialog != null) {
+            loadingDialog.dismiss();
+            loadingDialog = null;
+        }
+    }
+
     private int signupSeqId = -1;
-    public int logoutSeqId = -1;
 
     public void actionSignup(SignupMsg info) {
+        showLoadingDialog("注册中...");
         signupSeqId = genSeqId();
         AccountInterface.getInstance().signup(info, signupSeqId);
     }
 
     public int loginSeqId = -1;
+
     public void actionLogin(LoginMsg info) {
+        showLoadingDialog("登录中...");
         loginSeqId = genSeqId();
         AccountInterface.getInstance().login(info, loginSeqId);
+    }
+
+    public int logoutSeqId = -1;
+
+    public void actionLogout() {
+        showLoadingDialog("退出中...");
+        logoutSeqId = genSeqId();
+        AccountInterface.getInstance().logout(logoutSeqId);
     }
 
     private AccountListener accountListener = new AccountListener() {
@@ -94,7 +162,7 @@ public class AccountAct extends FragmentActivity {
             if (callback.getCode() == GlobalValues.CODE_AccountResp_OK) {
                 // 注册成功，跳转到登录页
                 Bundle bundle = new Bundle();
-                bundle.putString(KEY_ACCOUNT, info.getUsername());
+                bundle.putString(KEY_account, info.getUsername());
                 showFragment(LoginFragment.class, bundle);
             }
             runOnUiThread(new Runnable() {
@@ -103,6 +171,7 @@ public class AccountAct extends FragmentActivity {
                     Toast.makeText(AccountAct.this, "onSignupCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
                 }
             });
+            closeLoadingDialog();
         }
 
         @Override
@@ -121,12 +190,26 @@ public class AccountAct extends FragmentActivity {
                     Toast.makeText(AccountAct.this, "onLoginCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
                 }
             });
+            closeLoadingDialog();
         }
 
         @Override
-        public void onLogoutCallback(AccountResp callback, int seqId) {
+        public void onLogoutCallback(final AccountResp callback, int seqId) {
+            if (seqId != logoutSeqId) {
+                return;
+            }
+            if (callback.getCode() == GlobalValues.CODE_AccountResp_OK) {
+                // 登出成功，跳转到登录页
+                showFragment(LoginFragment.class, null);
+            }
             Log.d(TAG, "onLogoutCallback: " + callback.toString());
-            Toast.makeText(AccountAct.this, "onLogoutCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(AccountAct.this, "onLogoutCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
+            closeLoadingDialog();
         }
 
         @Override

@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 import com.vell.chat.account.LoginMsg;
 import com.vell.vchat.R;
 
-import static com.vell.vchat.GlobalValues.KEY_ACCOUNT;
+import static com.vell.vchat.GlobalValues.KEY_account;
 
 public class LoginFragment extends BaseFragment {
     private EditText mEtAccount;
@@ -47,7 +47,7 @@ public class LoginFragment extends BaseFragment {
             return;
         }
 
-        mEtAccount.setText(bundle.getString(KEY_ACCOUNT, ""));
+        mEtAccount.setText(bundle.getString(KEY_account, ""));
     }
 
     private void initView(View root) {

@@ -12,6 +12,7 @@
 #include "account_resp.hpp"
 #include "account_info.hpp"
 #include "../Platform.h"
+#include <GlobalValues.h>
 using namespace std;
 
 class AccountServer {

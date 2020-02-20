@@ -33,6 +33,12 @@ public:
     string getRedisHost();
 
     int getRedisPort();
+
+    string getAESKeyHex();
+
+    string getAESIvHex();
+
+    int getTokenExpirationPeriodSec();
 };
 
 

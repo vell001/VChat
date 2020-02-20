@@ -60,3 +60,15 @@ std::string GlobalConfig::getRedisHost() {
 int GlobalConfig::getRedisPort() {
     return config.get("redis_port", 6379).asInt();
 }
+
+string GlobalConfig::getAESKeyHex() {
+    return config.get("aes_key", "DFB370401839D4ABD1698202B2281C149AB32FA7C30C9847868513D6D77C05BF").asString();
+}
+
+string GlobalConfig::getAESIvHex() {
+    return config.get("aes_iv", "1CC67545BD8208A8236698F0AF49A58A").asString();
+}
+
+int GlobalConfig::getTokenExpirationPeriodSec() {
+    return config.get("token_expiration_period_sec", 3600 * 24).asInt();
+}

@@ -14,6 +14,15 @@ namespace global{
     const int AccountRespCode::Login_AccountNotExist = 1001;
     const int AccountRespCode::Login_PasswordErr =1002;
     const int AccountRespCode::Login_CreateTokenFail = 1003;
+    const int AccountRespCode::Login_ParamErr = 1004;
+    const int AccountRespCode::Login_GetUserErr = 1005;
+
+    const int AccountRespCode::Signup_ParamErr = 2001;
+    const int AccountRespCode::Signup_UserExist = 2001;
+    const int AccountRespCode::Signup_AddUserErr = 2002;
+
+    const int AccountRespCode::Logout_TokenNotExist = 3001;
+    const int AccountRespCode::Logout_TokenDeleteErr = 3002;
 
     const int AccountRespCode::IsAlive_TokenNotExist = 4001;
     const int AccountRespCode::IsAlive_TokenExpired = 4002;

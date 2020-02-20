@@ -2,6 +2,7 @@
 // Created by vellhe on 2020/2/4.
 //
 
+
 #include "AccountServiceImpl.h"
 
 AccountServiceImpl::~AccountServiceImpl() {
@@ -41,8 +42,8 @@ grpc::Status AccountServiceImpl::signup(::grpc::ServerContext *context, const ::
     LOG(INFO) << "create passwordSalt";
     auto accountModel = std::shared_ptr<AccountModel>(new AccountModel);
     // 生成随机盐
-    std::string passwordSalt = randStr(32);
-//    std::string passwordSalt = CryptUtils::genRandStr(32);
+//    std::string passwordSalt = randStr(32);
+    std::string passwordSalt = CryptUtils::genRandStr(32);
     LOG(INFO) << "passwordSalt: " << passwordSalt;
     // 计算加密后的密码
     std::string encodedPassword = encodePassword(password, passwordSalt);
@@ -132,12 +133,31 @@ grpc::Status AccountServiceImpl::login(::grpc::ServerContext *context, const ::a
         return status;
     }
 
+    // 生成token
+    double expirationTimeSec = nowSec() + GlobalConfig::getInstance()->getTokenExpirationPeriodSec();
+    std::string token = genToken(dbAccountModel->getPasswordSalt(), expirationTimeSec);
+    LOG(INFO) << "token: " << token;
+    if (token.empty()) {
+        LOG(ERROR) << "token error: " << token;
+        response->set_code(global::AccountRespCode::Login_CreateTokenFail);
+        response->set_msg("token生成错误");
+        return status;
+    }
+
+    // 保存token到缓存
+    CacheManager::getInstance()->saveToken(token, expirationTimeSec);
+
     // 登录成功
+    auto tokenMsg = new account::TokenMsg();
+    tokenMsg->set_token(token);
+    tokenMsg->set_expiration_time_sec(expirationTimeSec);
+
     auto accountInfo = new account::AccountInfo();
     accountInfo->set_username(dbAccountModel->getUsername());
     accountInfo->set_phonenumber(dbAccountModel->getPhoneNumber());
     accountInfo->set_email(dbAccountModel->getEmail());
     accountInfo->set_extra(dbAccountModel->getExtra());
+    accountInfo->set_allocated_token(tokenMsg);
 
     response->set_code(global::AccountRespCode::OK);
     response->set_msg("登录成功");
@@ -147,12 +167,50 @@ grpc::Status AccountServiceImpl::login(::grpc::ServerContext *context, const ::a
 
 grpc::Status AccountServiceImpl::logout(::grpc::ServerContext *context, const ::account::TokenMsg *request,
                                         ::account::AccountResp *response) {
-    return Service::logout(context, request, response);
+    grpc::Status status(grpc::StatusCode::OK, "");
+    const auto &token = request->token();
+    double expirationTimeSec;
+    if (!CacheManager::getInstance()->getToken(token, expirationTimeSec)) {
+        response->set_code(global::AccountRespCode::Logout_TokenNotExist);
+        response->set_msg("登出失败");
+        return status;
+    }
+
+    if (CacheManager::getInstance()->deleteToken(token)) {
+        response->set_code(global::AccountRespCode::OK);
+        response->set_msg("登出成功");
+        return status;
+    } else {
+        response->set_code(global::AccountRespCode::Logout_TokenDeleteErr);
+        response->set_msg("登出失败");
+        return status;
+    }
 }
 
 grpc::Status AccountServiceImpl::isAlive(::grpc::ServerContext *context, const ::account::TokenMsg *request,
                                          ::account::AccountResp *response) {
-    return Service::isAlive(context, request, response);
+    grpc::Status status(grpc::StatusCode::OK, "");
+    const auto &token = request->token();
+    double expirationTimeSec;
+    if (!CacheManager::getInstance()->getToken(token, expirationTimeSec)) {
+        response->set_code(global::AccountRespCode::IsAlive_TokenNotExist);
+        response->set_msg("token不存在");
+        return status;
+    }
+
+    double nowS = nowSec();
+    if (nowS >= expirationTimeSec) {
+        // token已过期, 删除cache
+        CacheManager::getInstance()->deleteToken(token);
+
+        response->set_code(global::AccountRespCode::IsAlive_TokenExpired);
+        response->set_msg("token已过期");
+        return status;
+    }
+
+    response->set_code(global::AccountRespCode::OK);
+    response->set_msg("在线");
+    return status;
 }
 
 bool AccountServiceImpl::isUsernameValid(const std::string &username) {
@@ -173,4 +231,13 @@ bool AccountServiceImpl::isPasswordValid(const std::string &password) {
 
 std::string AccountServiceImpl::encodePassword(const std::string &password, const std::string &passwordSalt) {
     return CryptUtils::hashEncode(password + passwordSalt);
+}
+
+std::string AccountServiceImpl::genToken(const std::string &baseInfo, double expirationTimeSec) {
+    std::string salt = CryptUtils::genRandStr(32);
+    std::string data = strFmt("%s:%s:%.6f", baseInfo.c_str(), salt.c_str(), expirationTimeSec);
+    LOG(INFO) << "genToken data: " << data;
+    std::string aesKey = CryptUtils::hexDecode(GlobalConfig::getInstance()->getAESKeyHex());
+    std::string aesIv = CryptUtils::hexDecode(GlobalConfig::getInstance()->getAESIvHex());
+    return CryptUtils::aesEncrypt(data, aesKey, aesIv);
 }

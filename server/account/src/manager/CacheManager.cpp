@@ -22,10 +22,38 @@ int CacheManager::init(const std::string &host, int port) {
     }
 
     std::string username;
-    cache->getValue("username",username);
-    cache->setValue("username","vell002");
-    cache->getValue("username",username);
-    LOG(INFO) << "username: " <<username;
+    cache->getValue("username", username);
+    cache->setValue("username", "vell002");
+    cache->getValue("username", username);
+    LOG(INFO) << "username: " << username;
     cache->deleteKey("username");
     return code;
+}
+
+bool CacheManager::saveToken(const std::string &token, double expirationTimeSec) {
+    if (cache) {
+        int code = cache->setValue(token, double2Str(expirationTimeSec));
+        return code == global::CacheCode::OK;
+    }
+    return false;
+}
+
+bool CacheManager::deleteToken(const std::string &token) {
+    if (cache) {
+        int code = cache->deleteKey(token);
+        return code == global::CacheCode::OK;
+    }
+    return false;
+}
+
+bool CacheManager::getToken(const std::string &token, double &expirationTimeSec) {
+    if (cache) {
+        std::string dataStr;
+        int code = cache->getValue(token, dataStr);
+        if (code == global::CacheCode::OK) {
+            expirationTimeSec = str2Double(dataStr);
+            return true;
+        }
+    }
+    return false;
 }

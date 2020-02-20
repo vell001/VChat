@@ -3,7 +3,6 @@
 //
 
 #include "AccountData.h"
-#include "../../../../../../Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/string"
 
 std::shared_ptr<AccountData> AccountData::getInstance() {
     static std::shared_ptr<AccountData> instance;
@@ -14,9 +13,20 @@ std::shared_ptr<AccountData> AccountData::getInstance() {
 }
 
 std::shared_ptr<account_djinni::AccountInfo> AccountData::getAccountInfo() {
-    return nullptr;
+    if(accountInfo == nullptr) {
+        // 从文件中加载
+
+    }
+    return accountInfo;
 }
 
 void AccountData::setAccountInfo(std::shared_ptr<account_djinni::AccountInfo> info) {
+    if(info == nullptr) {
+        // 删除账号信息
 
+    } else {
+        // 保存到本地文件
+
+    }
+    accountInfo = info;
 }

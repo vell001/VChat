@@ -18,7 +18,7 @@ import androidx.annotation.Nullable;
 import com.vell.chat.account.SignupMsg;
 import com.vell.vchat.R;
 
-import static com.vell.vchat.GlobalValues.KEY_ACCOUNT;
+import static com.vell.vchat.GlobalValues.KEY_account;
 
 public class SignupFragment extends BaseFragment {
     private EditText mEtUsername;
@@ -60,7 +60,7 @@ public class SignupFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString(KEY_ACCOUNT, mEtUsername.getText().toString());
+                bundle.putString(KEY_account, mEtUsername.getText().toString());
                 showFragment(LoginFragment.class, bundle);
             }
         });

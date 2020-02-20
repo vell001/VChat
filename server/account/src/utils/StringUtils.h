@@ -22,7 +22,19 @@ std::string strFmt(const std::string &fmt_str, ...);
 
 bool startsWith(const char *str, const char *pre);
 
-int strAsInt(const std::string &s);
+template<class T>
+std::string T_as_string(const T &t);
+
+
+/* static */
+template<class T>
+T string_as_T(const std::string &s);
+
+int str2Int(const std::string &s);
+
+std::string double2Str(double d);
+
+double str2Double(const std::string &s);
 
 bool regMatch(const std::string &pattern, const std::string &text);
 

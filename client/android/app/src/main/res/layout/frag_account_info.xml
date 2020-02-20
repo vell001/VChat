@@ -12,9 +12,54 @@
         android:layout_marginTop="100dp"
         android:layout_marginBottom="30dp"
         android:text="@string/app_name"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/icon" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/line_margin"
+            android:gravity="center_vertical"
+            android:text="@string/welcome"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/primary_text" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/primary_text" />
+    </LinearLayout>
+
     <TextView
+        android:id="@+id/tv_account_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/line_margin"
+        android:textColor="@color/colorHint"
+        android:textSize="@dimen/hint_text" />
+
+    <TextView
+        android:id="@+id/tv_token_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/line_margin"
+        android:textColor="@color/colorHint"
+        android:textSize="@dimen/hint_text" />
+
+    <Button
+        android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="欢迎"/>
+        android:layout_marginTop="@dimen/line_margin"
+        android:text="@string/logout"
+        android:textSize="@dimen/btn_text" />
 </LinearLayout>

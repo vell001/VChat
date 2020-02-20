@@ -5,6 +5,7 @@
 #pragma once
 
 #include "mysql/mysql.h"
+#include "mysql/errmsg.h"
 #include "manager/BaseDB.h"
 #include <glog/logging.h>
 

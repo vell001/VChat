@@ -47,6 +47,9 @@ namespace global {
         const static int Signup_UserExist;
         const static int Signup_AddUserErr;
 
+        const static int Logout_TokenNotExist;
+        const static int Logout_TokenDeleteErr;
+
         const static int IsAlive_TokenNotExist;
         const static int IsAlive_TokenExpired;
         const static int IsAlive_TokenUpdate;

@@ -28,9 +28,8 @@ void AccountImpl::init() {
         hasLogin = false;
     } else {
         hasLogin = true;
-        mAccountInfo = accountInfo;
         // 启动心跳
-        serverHandler->post((Message::Function) std::bind(&AccountImpl::heartbeat, this));
+        startHeartbeat();
     }
     inited = true;
 }
@@ -55,32 +54,86 @@ void AccountImpl::signup(const account_djinni::SignupMsg &info, int32_t seqId) {
         account_djinni::AccountInfo accountInfo("", "", "", "", account_djinni::TokenMsg("", 0));
         AccountServer::getInstance()->signup(info, resp, accountInfo);
 
-        for (auto listener:getInstance()->listeners) {
-            listener.get()->on_signup_callback(resp, seqId, accountInfo);
-        }
-//        getInstance()->callbackFunc(&account_djinni::AccountListener::on_signup_callback, resp, seqId, accountInfo);
+        getInstance()->callbackFunc(&account_djinni::AccountListener::on_signup_callback, resp,
+                                    seqId, accountInfo);
     });
 }
 
 void AccountImpl::login(const account_djinni::LoginMsg &info, int32_t seqId) {
-    serverHandler->post([info, seqId]() {
+    serverHandler->post([this, info, seqId]() {
         account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0), "");
-        account_djinni::AccountInfo accountInfo("", "", "", "", account_djinni::TokenMsg("", 0));
-        AccountServer::getInstance()->login(info, resp, accountInfo);
+        auto accountInfo = std::shared_ptr<account_djinni::AccountInfo>(
+                new account_djinni::AccountInfo("", "", "", "", account_djinni::TokenMsg("", 0)));
+        AccountServer::getInstance()->login(info, resp, *accountInfo);
 
-//        for (auto listener:getInstance()->listeners) {
-//            listener.get()->on_login_callback(resp, seqId, accountInfo);
-//        }
-        getInstance()->callbackFunc(&account_djinni::AccountListener::on_login_callback, resp, seqId, accountInfo);
+        if (resp.code == global::AccountRespCode::OK) {
+            // 登录成功，保存用户信息
+            AccountData::getInstance()->setAccountInfo(accountInfo);
+
+            // 启动心跳
+            this->startHeartbeat();
+        }
+
+        getInstance()->callbackFunc(&account_djinni::AccountListener::on_login_callback, resp,
+                                    seqId, *accountInfo);
     });
 }
 
 void AccountImpl::logout(int32_t seqId) {
+    serverHandler->post([this, seqId]() {
+        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0), "");
+        auto accountInfo = AccountData::getInstance()->getAccountInfo();
+        if (accountInfo == nullptr || accountInfo->token.token.empty()) {
+            resp.code = global::AccountRespCode::Logout_TokenNotExist;
+            resp.msg = "本地没有账号信息";
+        } else {
+            AccountServer::getInstance()->logout(accountInfo->token, resp);
+        }
 
+        if (resp.code == global::AccountRespCode::OK) {
+            // 登出成功，重置用户信息
+            this->resetLocalAccountInfo();
+
+            // 停止心跳
+            this->stopHeartbeat();
+        }
+
+        this->callbackFunc(&account_djinni::AccountListener::on_login_callback, resp,
+                           seqId, *accountInfo);
+    });
 }
 
 void AccountImpl::is_alive() {
+    serverHandler->post([this]() {
+        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0), "");
+        auto accountInfo = AccountData::getInstance()->getAccountInfo();
+        if (accountInfo == nullptr || accountInfo->token.token.empty()) {
+            resp.code = global::AccountRespCode::IsAlive_TokenNotExist;
+            resp.msg = "本地没有账号信息";
+        } else {
+            AccountServer::getInstance()->is_alive(accountInfo->token, resp);
+        }
 
+        LOGI(FILE_TAG, "heartbeat resp: %d,%s%s", resp.code, resp.msg.c_str(),
+             resp.extra.c_str());
+
+        if (resp.code == global::AccountRespCode::ReqErr) {
+            // 请求失败, TODO 暂时不管，后续区分失败原因
+        } else if (resp.code == global::AccountRespCode::IsAlive_TokenNotExist ||
+                   resp.code == global::AccountRespCode::IsAlive_TokenExpired) {
+            // 服务端登录信息无效，重置本地信息，重新登录
+            this->resetLocalAccountInfo();
+
+            // 停止心跳
+            stopHeartbeat();
+
+            callbackFunc(&account_djinni::AccountListener::on_is_alive_callback, resp);
+        } else if (resp.code == global::AccountRespCode::IsAlive_TokenUpdate) {
+            // 更新Token
+            accountInfo->token = resp.token;
+            AccountData::getInstance()->setAccountInfo(accountInfo);
+        }
+    });
 }
 
 template<typename _FUNC, typename... Args>
@@ -111,45 +164,59 @@ bool AccountImpl::isAccountInfoValid(std::shared_ptr<account_djinni::AccountInfo
 
 void AccountImpl::heartbeat() {
     // 心跳检测账号信息
-    LOGI(FILE_TAG, "heartbeat start");
+    while (heartbeating) {
+        LOGI(FILE_TAG, "===== heartbeat =====");
+        is_alive();
 
-    account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0), "");
-    AccountServer::getInstance()->is_alive(mAccountInfo->token, resp);
-
-    LOGI(FILE_TAG, "heartbeat resp: %d,%s%s", resp.code, resp.msg.c_str(),
-         resp.extra.c_str());
-
-    if (resp.code == global::AccountRespCode::ReqErr) {
-        // 请求失败, TODO 暂时不管，后续区分失败原因
-    } else if (resp.code == global::AccountRespCode::IsAlive_TokenNotExist ||
-               resp.code == global::AccountRespCode::IsAlive_TokenExpired) {
-        // 服务端登录信息无效，重置本地信息，重新登录
-        resetLocalAccountInfo();
-        callbackFunc(&account_djinni::AccountListener::on_is_alive_callback, resp);
-    } else if (resp.code == global::AccountRespCode::IsAlive_TokenUpdate) {
-        // 更新Token
-        mAccountInfo->token = resp.token;
-        AccountData::getInstance()->setAccountInfo(mAccountInfo);
+        double sleepTimeSec = global::AccountVariable::heartbeatIntervalSec;
+        if (sleepTimeSec > 0)
+        {
+            std::chrono::milliseconds sleepTime((long) (sleepTimeSec * 1000));
+            std::this_thread::sleep_for(sleepTime);
+            TLog("sleep time %f ms ", sleepTimeSec*1000);
+        }
     }
-
-    // 启动下一次心跳
-    double nextTime = (nowSec() + global::AccountVariable::heartbeatIntervalSec) * 1000;
-    serverHandler->postAtTime((Message::Function) std::bind(&AccountImpl::heartbeat, this),
-                              (long) nextTime);
+//    if (heartbeating) {
+//        // 启动下一次心跳
+//        double nextTime = (nowSec() + global::AccountVariable::heartbeatIntervalSec) * 1000;
+//        heartbeatHandler->postAtTime((Message::Function) std::bind(&AccountImpl::heartbeat, this),
+//                                     (long) nextTime);
+//        LOGI(FILE_TAG, "===== heartbeat nextTime: %f %f %ld =====", nowSec(), nextTime,
+//             (long) nextTime);
+//    } else {
+//        LOGI(FILE_TAG, "===== heartbeat stopped =====");
+//    }
 }
+
+void AccountImpl::startHeartbeat() {
+    LOGI(FILE_TAG, "startHeartbeat");
+    heartbeating = true;
+    heartbeatHandler->post((Message::Function) std::bind(&AccountImpl::heartbeat, this));
+}
+
+void AccountImpl::stopHeartbeat() {
+    LOGI(FILE_TAG, "stopHeartbeat");
+    heartbeating = false;
+}
+
 
 void AccountImpl::resetLocalAccountInfo() {
     hasLogin = false;
-    mAccountInfo->token.token = "";
-    mAccountInfo->token.expiration_time_sec = 0;
-    AccountData::getInstance()->setAccountInfo(mAccountInfo);
+    auto accountInfo = AccountData::getInstance()->getAccountInfo();
+    if (accountInfo == nullptr) {
+        accountInfo->token.token = "";
+        accountInfo->token.expiration_time_sec = 0;
+        AccountData::getInstance()->setAccountInfo(accountInfo);
+    }
 }
 
 account_djinni::AccountInfo AccountImpl::getAccountInfo() {
-    if (mAccountInfo != nullptr) {
-        return *mAccountInfo;
+    auto accountInfo = AccountData::getInstance()->getAccountInfo();
+    if (accountInfo != nullptr) {
+        return *accountInfo;
     }
     return account_djinni::AccountInfo("", "", "", "", account_djinni::TokenMsg("", 0));
 }
+
 
 

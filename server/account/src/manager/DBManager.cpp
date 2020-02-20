@@ -89,7 +89,7 @@ std::shared_ptr<AccountModel> DBManager::getAccountByUsername(const std::string 
         std::vector<std::string> &row = *((*selectAccountRet)[0]);
         std::shared_ptr<AccountModel> accountModel = std::shared_ptr<AccountModel>(new AccountModel());
 
-        accountModel->setId(strAsInt(row[0]));
+        accountModel->setId(str2Int(row[0]));
         accountModel->setUsername(row[1]);
         accountModel->setPassword(row[2]);
         accountModel->setPasswordSalt(row[3]);

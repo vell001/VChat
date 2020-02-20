@@ -34,6 +34,14 @@ public class BaseFragment extends Fragment {
         ((AccountAct) activity).actionLogin(info);
     }
 
+    public void actionLogout() {
+        Activity activity = getActivity();
+        if (!(activity instanceof AccountAct)) {
+            return;
+        }
+        ((AccountAct) activity).actionLogout();
+    }
+
     public void updateArguments(Bundle args) {
     }
 }

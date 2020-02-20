@@ -43,15 +43,20 @@ public:
 
     bool has_login() override;
 
-    void heartbeat();
+    void startHeartbeat();
+
+    void stopHeartbeat();
 private:
     bool inited = false;
     bool hasLogin = false;
-    std::shared_ptr<account_djinni::AccountInfo> mAccountInfo;
+    bool heartbeating = false;
+
     std::shared_ptr<Handler> serverHandler = std::shared_ptr<Handler>(new Handler); // 服务端异步请求处理
+    std::shared_ptr<Handler> heartbeatHandler = std::shared_ptr<Handler>(new Handler); // 心跳处理
 
     bool isAccountInfoValid(std::shared_ptr<account_djinni::AccountInfo> accountInfo);
     void resetLocalAccountInfo(); // 重置本地的账号信息
+    void heartbeat();
 };
 
 

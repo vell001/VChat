@@ -10,6 +10,9 @@
 #include <manager/DBManager.h>
 #include <utils/StringUtils.h>
 #include <utils/CryptUtils.h>
+#include <utils/TimeUtils.h>
+#include <config/GlobalConfig.h>
+#include <manager/CacheManager.h>
 
 class AccountServiceImpl final : public account::Account::Service {
 public:
@@ -31,5 +34,6 @@ private:
     bool isUsernameValid(const std::string &username);
     bool isPasswordValid(const std::string &password);
     std::string encodePassword(const std::string &password, const std::string &passwordSalt);
+    std::string genToken(const std::string &baseInfo, double expirationTimeSec);
 };
 

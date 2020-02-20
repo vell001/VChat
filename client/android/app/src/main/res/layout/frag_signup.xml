@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="30dp"
+        android:textColor="@color/colorPrimary"
         android:text="@string/app_name"
         android:textSize="@dimen/icon" />
 
@@ -106,7 +107,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@null"
-            android:hint="请输入密码"
+            android:hint="@string/hint_et_password"
             android:inputType="textPassword"
             android:maxLength="32"
             android:maxLines="1"
@@ -130,7 +131,7 @@
             android:id="@+id/btn_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="注册"
+            android:text="@string/signup"
             android:textSize="@dimen/btn_text" />
 
         <TextView
@@ -140,8 +141,7 @@
             android:layout_weight="1"
             android:gravity="bottom|end"
             android:padding="5dp"
-
-            android:text="已有账号"
+            android:text="@string/goto_login"
             android:textSize="@dimen/btn_text" />
     </LinearLayout>
 </LinearLayout>

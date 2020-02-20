@@ -7,4 +7,12 @@
 
     <string name="hint_required">【必填】</string>
     <string name="hint_not_required">【可选】</string>
+    <string name="hint_et_password">请输入密码</string>
+    <string name="welcome">欢迎</string>
+    <string name="logout">退出登录</string>
+    <string name="signup">注册</string>
+    <string name="goto_login">已有账号</string>
+    <string name="hint_et_account">用户名、手机号、邮箱</string>
+    <string name="login">登录</string>
+    <string name="goto_signup">立即注册</string>
 </resources>

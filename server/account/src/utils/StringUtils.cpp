@@ -36,10 +36,42 @@ bool startsWith(const char *str, const char *pre) {
     return lenstr < lenpre ? false : strncmp(pre, str, lenpre) == 0;
 }
 
-int strAsInt(const std::string &s) {
+template<class T>
+std::string T_as_string(const T &t) {
+    // Convert from a T to a string
+    // Type T must support << operator
+    std::ostringstream ost;
+    ost << t;
+    return ost.str();
+}
+
+template<class T>
+T string_as_T(const std::string &s) {
+    // Convert from a string to a T
+    // Type T must support >> operator
+    T t;
+    std::istringstream ist(s);
+    ist >> t;
+    return t;
+}
+
+int str2Int(const std::string &s) {
     // Convert from a string to a T
     // Type T must support >> operator
     int t;
+    std::istringstream ist(s);
+    ist >> t;
+    return t;
+}
+
+std::string double2Str(double d) {
+    std::ostringstream ost;
+    ost << d;
+    return ost.str();
+}
+
+double str2Double(const std::string &s) {
+    double t;
     std::istringstream ist(s);
     ist >> t;
     return t;
@@ -70,3 +102,4 @@ std::string randStr(int len) {
     }
     return str;
 }
+
