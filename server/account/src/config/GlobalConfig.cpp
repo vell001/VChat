@@ -20,7 +20,8 @@ void GlobalConfig::init(const std::string &configPath) {
 //    }
 
     Json::Reader reader;
-    if (!reader.parse(configPath, config, false)) {
+    std::ifstream in(configPath);
+    if (!reader.parse(in, config, false)) {
         LOG(ERROR) << "读取配置文件失败，使用默认参数: " << configPath;
         return;
     }
@@ -42,15 +43,15 @@ std::string GlobalConfig::getDBName() {
 }
 
 std::string GlobalConfig::getDBUser() {
-    return config.get("user", std::string("root")).asString();
+    return config.get("db_user", std::string("root")).asString();
 }
 
 std::string GlobalConfig::getDBPassword() {
-    return config.get("password", std::string("vell001")).asString();
+    return config.get("db_password", std::string("vell001")).asString();
 }
 
 std::string GlobalConfig::getDBCharset() {
-    return config.get("charset", std::string("utf8")).asString();
+    return config.get("db_charset", std::string("utf8")).asString();
 }
 
 std::string GlobalConfig::getRedisHost() {

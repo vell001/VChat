@@ -23,7 +23,7 @@ using grpc::Status;
 void RunServer() {
     // 读取配置文件
     auto config = GlobalConfig::getInstance();
-    config->init("global_config.json");
+    config->init("./global_config.json");
 
     // 初始化数据库服务
     int code = DBManager::getInstance()->init(

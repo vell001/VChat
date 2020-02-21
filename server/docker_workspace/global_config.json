@@ -1,0 +1,13 @@
+{
+   "db_host": "192.168.1.3",
+   "db_port": 3306,
+   "db_name": "account",
+   "db_user": "root",
+   "db_password": "vell001",
+   "db_charset": "utf8",
+   "redis_host": "127.0.0.1",
+   "redis_port": 6379,
+   "aes_key": "DFB370401839D4ABD1698202B2281C149AB32FA7C30C9847868513D6D77C05BF",
+   "aes_iv": "1CC67545BD8208A8236698F0AF49A58A",
+   "token_expiration_period_sec": 60
+}

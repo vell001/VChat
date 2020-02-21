@@ -44,7 +44,7 @@ AccountServer::signup(const account_djinni::SignupMsg &info, account_djinni::Acc
         accountInfo.extra = replyAccountInfo.extra();
     } else {
         resp.code = global::AccountRespCode::ReqErr;
-        resp.msg = status.error_message();
+        resp.msg = "网络错误";
         resp.extra = status.error_details();
     }
 }
@@ -79,7 +79,7 @@ AccountServer::login(const account_djinni::LoginMsg &info, account_djinni::Accou
         accountInfo.token = tokenMsg;
     } else {
         resp.code = global::AccountRespCode::ReqErr;
-        resp.msg = status.error_message();
+        resp.msg = "网络错误";
         resp.extra = status.error_details();
     }
 }
@@ -106,7 +106,7 @@ AccountServer::logout(const account_djinni::TokenMsg &token, account_djinni::Acc
         resp.code = reply.code();
     } else {
         resp.code = global::AccountRespCode::ReqErr;
-        resp.msg = status.error_message();
+        resp.msg = "网络错误";
         resp.extra = status.error_details();
     }
 }
@@ -133,7 +133,7 @@ AccountServer::is_alive(const account_djinni::TokenMsg &token, account_djinni::A
         resp.code = reply.code();
     } else {
         resp.code = global::AccountRespCode::ReqErr;
-        resp.msg = status.error_message();
+        resp.msg = "网络错误";
         resp.extra = status.error_details();
     }
 }
