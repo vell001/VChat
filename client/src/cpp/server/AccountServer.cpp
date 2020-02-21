@@ -7,17 +7,21 @@
 
 std::shared_ptr<AccountServer> AccountServer::getInstance() {
     static std::shared_ptr<AccountServer> instance;
-    if(instance == nullptr) {
+    if (instance == nullptr) {
         instance = std::shared_ptr<AccountServer>(new AccountServer());
     }
     return instance;
 }
 
 void
-AccountServer::signup(const account_djinni::SignupMsg &info, account_djinni::AccountResp &resp, account_djinni::AccountInfo &accountInfo) {
+AccountServer::signup(const account_djinni::SignupMsg &info, account_djinni::AccountResp &resp,
+                      account_djinni::AccountInfo &accountInfo) {
     account::SignupMsg signupMsg;
     signupMsg.set_username(info.username);
     signupMsg.set_password(info.password);
+    signupMsg.set_phonenumber(info.phoneNumber);
+    signupMsg.set_email(info.email);
+    signupMsg.set_extra(info.extra);
 
     TLog("signup: %s", info.username.c_str());
     account::AccountRespWithInfo reply;
@@ -28,7 +32,8 @@ AccountServer::signup(const account_djinni::SignupMsg &info, account_djinni::Acc
         account::AccountInfo replyAccountInfo = reply.info();
         resp.extra = reply.extra();
         resp.msg = reply.msg();
-        account_djinni::TokenMsg tokenMsg(replyAccountInfo.token().token(), replyAccountInfo.token().expiration_time_sec());
+        account_djinni::TokenMsg tokenMsg(replyAccountInfo.token().token(),
+                                          replyAccountInfo.token().expiration_time_sec());
         resp.token = tokenMsg;
         resp.code = reply.code();
 
@@ -44,7 +49,8 @@ AccountServer::signup(const account_djinni::SignupMsg &info, account_djinni::Acc
 }
 
 void
-AccountServer::login(const account_djinni::LoginMsg &info, account_djinni::AccountResp &resp, account_djinni::AccountInfo &accountInfo) {
+AccountServer::login(const account_djinni::LoginMsg &info, account_djinni::AccountResp &resp,
+                     account_djinni::AccountInfo &accountInfo) {
     account::LoginMsg loginMsg;
     loginMsg.set_account(info.account);
     loginMsg.set_password(info.password);
@@ -58,9 +64,11 @@ AccountServer::login(const account_djinni::LoginMsg &info, account_djinni::Accou
         account::AccountInfo replyAccountInfo = reply.info();
         resp.extra = reply.extra();
         resp.msg = reply.msg();
-        account_djinni::TokenMsg tokenMsg(replyAccountInfo.token().token(), replyAccountInfo.token().expiration_time_sec());
+        account_djinni::TokenMsg tokenMsg(replyAccountInfo.token().token(),
+                                          replyAccountInfo.token().expiration_time_sec());
         resp.token = tokenMsg;
         resp.code = reply.code();
+        resp.username = replyAccountInfo.username();
 
         accountInfo.username = replyAccountInfo.username();
         accountInfo.phoneNumber = replyAccountInfo.phonenumber();
@@ -88,7 +96,8 @@ AccountServer::logout(const account_djinni::TokenMsg &token, account_djinni::Acc
     if (status.ok()) {
         resp.extra = reply.extra();
         resp.msg = reply.msg();
-        account_djinni::TokenMsg tokenMsgReply(reply.token().token(), reply.token().expiration_time_sec());
+        account_djinni::TokenMsg tokenMsgReply(reply.token().token(),
+                                               reply.token().expiration_time_sec());
         resp.token = tokenMsgReply;
         resp.code = reply.code();
     } else {
@@ -112,7 +121,8 @@ AccountServer::is_alive(const account_djinni::TokenMsg &token, account_djinni::A
     if (status.ok()) {
         resp.extra = reply.extra();
         resp.msg = reply.msg();
-        account_djinni::TokenMsg tokenMsgReply(reply.token().token(), reply.token().expiration_time_sec());
+        account_djinni::TokenMsg tokenMsgReply(reply.token().token(),
+                                               reply.token().expiration_time_sec());
         resp.token = tokenMsgReply;
         resp.code = reply.code();
     } else {

@@ -6,6 +6,9 @@
 
 #include "account_info.hpp"
 #include <string>
+#include "utils/FileUtils.h"
+#include <GlobalValues.h>
+#include "json/json.h"
 
 class AccountData {
 public:
@@ -14,6 +17,8 @@ public:
     std::shared_ptr<account_djinni::AccountInfo> getAccountInfo();
 
     void setAccountInfo(std::shared_ptr<account_djinni::AccountInfo> info);
+
+    AccountData();
 
 private:
     std::shared_ptr<account_djinni::AccountInfo> accountInfo;

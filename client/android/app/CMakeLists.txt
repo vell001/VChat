@@ -110,6 +110,12 @@ set(HANDLER_BUILD_DIR ${CMAKE_BINARY_DIR}/handler/outputs/${ANDROID_ABI})
 file(MAKE_DIRECTORY ${HANDLER_BUILD_DIR})
 add_subdirectory(${HANDLER_SRC_DIR} ${HANDLER_BUILD_DIR})
 
+# 引入jsoncpp库
+set(JSONCPP_SRC_DIR ${COMMON_SRC_DIR}/deps/jsoncpp)
+set(JSONCPP_BUILD_DIR ${CMAKE_BINARY_DIR}/jsoncpp/outputs/${ANDROID_ABI})
+file(MAKE_DIRECTORY ${JSONCPP_BUILD_DIR})
+add_subdirectory(${JSONCPP_SRC_DIR} ${JSONCPP_BUILD_DIR})
+
 file(GLOB_RECURSE CPP_SRCS "${SRC_DIR}/*.cpp"
         "${COMMON_SRC_DIR}/*.cpp"
         "${GEN_CPP_DIR}/*.hpp" "${GEN_JNI_DIR}/*.cpp"
@@ -125,4 +131,5 @@ target_link_libraries(
         account_proto_lib
         libmarsxlog
         handler
+        jsoncpp
 )

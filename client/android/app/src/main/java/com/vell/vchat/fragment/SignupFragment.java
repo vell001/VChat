@@ -37,6 +37,18 @@ public class SignupFragment extends BaseFragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        mEtPassword.setText("");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        mEtPassword.setText("");
+        super.onPause();
+    }
+
     private void initView(View root) {
         mEtUsername = root.findViewById(R.id.et_username);
         mEtPhoneNum = root.findViewById(R.id.et_phone_num);

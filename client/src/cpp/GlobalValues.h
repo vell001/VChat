@@ -4,10 +4,13 @@
 
 #pragma once
 
+#include <string>
 namespace global {
     class AccountVariable {
     public:
         static int heartbeatIntervalSec; // 心跳间隔时间
+        const static std::string vchatSDCardBasePath; // 账号信息保存文件
+        const static std::string accountInfoSavePath; // 账号信息保存文件
     };
 
     // 常量

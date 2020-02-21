@@ -26,6 +26,7 @@ void AccountImpl::init() {
     if (!isAccountInfoValid(accountInfo)) {
         // 需要重新登录
         hasLogin = false;
+        resetLocalAccountInfo();
     } else {
         hasLogin = true;
         // 启动心跳
@@ -98,8 +99,8 @@ void AccountImpl::logout(int32_t seqId) {
             this->stopHeartbeat();
         }
 
-        this->callbackFunc(&account_djinni::AccountListener::on_login_callback, resp,
-                           seqId, *accountInfo);
+        this->callbackFunc(&account_djinni::AccountListener::on_logout_callback, resp,
+                           seqId);
     });
 }
 
@@ -126,13 +127,13 @@ void AccountImpl::is_alive() {
 
             // 停止心跳
             stopHeartbeat();
-
-            callbackFunc(&account_djinni::AccountListener::on_is_alive_callback, resp);
         } else if (resp.code == global::AccountRespCode::IsAlive_TokenUpdate) {
             // 更新Token
             accountInfo->token = resp.token;
             AccountData::getInstance()->setAccountInfo(accountInfo);
         }
+
+        callbackFunc(&account_djinni::AccountListener::on_is_alive_callback, resp);
     });
 }
 
@@ -144,19 +145,21 @@ void AccountImpl::callbackFunc(_FUNC func, Args... args) {
 }
 
 bool AccountImpl::has_login() {
-    return false;
+    return hasLogin;
 }
 
 bool AccountImpl::isAccountInfoValid(std::shared_ptr<account_djinni::AccountInfo> accountInfo) {
     // 检测信息是否完整
     if (accountInfo == nullptr || accountInfo->username.empty() ||
         accountInfo->token.token.empty()) {
+        LOGI(FILE_TAG, "账号信息不完整");
         return false;
     }
     // 本地检查token是否过期
     double nowS = nowSec();
-    if (accountInfo->token.expiration_time_sec <= nowS) {
+    if (nowS >= accountInfo->token.expiration_time_sec) {
         // 已过期
+        LOGI(FILE_TAG, "token已过期: %s %f >= %d", accountInfo->token.token.c_str(), accountInfo->token.expiration_time_sec);
         return false;
     }
     return true;
@@ -203,7 +206,7 @@ void AccountImpl::stopHeartbeat() {
 void AccountImpl::resetLocalAccountInfo() {
     hasLogin = false;
     auto accountInfo = AccountData::getInstance()->getAccountInfo();
-    if (accountInfo == nullptr) {
+    if (accountInfo != nullptr) {
         accountInfo->token.token = "";
         accountInfo->token.expiration_time_sec = 0;
         AccountData::getInstance()->setAccountInfo(accountInfo);

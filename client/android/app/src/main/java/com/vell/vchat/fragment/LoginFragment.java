@@ -36,18 +36,24 @@ public class LoginFragment extends BaseFragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        updateArguments(getArguments());
-    }
-
-    @Override
     public void updateArguments(Bundle bundle) {
         if (bundle == null) {
             return;
         }
 
         mEtAccount.setText(bundle.getString(KEY_account, ""));
+    }
+
+    @Override
+    public void onResume() {
+        mEtPassword.setText("");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        mEtPassword.setText("");
+        super.onPause();
     }
 
     private void initView(View root) {

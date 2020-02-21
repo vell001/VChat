@@ -8,6 +8,13 @@ MysqlDB::MysqlDB() {}
 
 int MysqlDB::connect(const std::string &host, int port, const std::string &dbName, const std::string &user,
                      const std::string &password, const std::string &charset) {
+    this->mHost = host;
+    this->mPort = port;
+    this->mDBName = dbName;
+    this->mUser = user;
+    this->mPassword = password;
+    this->mCharset = charset;
+
     if (mysql_init(&mysql) == nullptr) {
         return global::DBCode::CONN_INIT_ERR;
     }
@@ -17,10 +24,21 @@ int MysqlDB::connect(const std::string &host, int port, const std::string &dbNam
         return global::DBCode::CONN_ERR;
     }
 
+    // 自动重连
+    char reconnectOk = 0;
+    mysql_options(&mysql, MYSQL_OPT_RECONNECT, &reconnectOk);
+    LOG(INFO) << "mysql_options MYSQL_OPT_RECONNECT: " << (int) reconnectOk;
+
     if (mysql_set_character_set(&mysql, charset.c_str()) != 0) {
         return global::DBCode::CONN_CHARSET_ERR;
     }
     return global::DBCode::OK;
+}
+
+void MysqlDB::reconnect() {
+    LOG(INFO) << "reconnect";
+    disconnect();
+    connect(mHost, mPort, mDBName, mUser, mPassword, mCharset);
 }
 
 void MysqlDB::disconnect() {
@@ -38,6 +56,10 @@ int MysqlDB::execSQL(const char *sql, int retColSize, DB_TABLE_PTR ret) {
 
     // TODO 考虑连接断开重连 CR_SERVER_LOST or SERVER_GONE_ERROR
     if (query_result != 0) {
+        // query_result == 1时往往断开连接了
+        if (query_result == 1) {
+            reconnect();
+        }
         LOG(ERROR) << "mysql_query error: " << query_result << " sql: " << sql;
         return global::DBCode::QUERY_ERR;
     }

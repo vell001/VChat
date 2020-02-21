@@ -31,6 +31,7 @@ import com.vell.vchat.fragment.LoginFragment;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.vell.vchat.GlobalValues.KEY_account;
+import static com.vell.vchat.GlobalValues.KEY_username;
 
 public class AccountAct extends FragmentActivity {
     private static final String TAG = AccountAct.class.getSimpleName();
@@ -181,7 +182,9 @@ public class AccountAct extends FragmentActivity {
             }
             if (callback.getCode() == GlobalValues.CODE_AccountResp_OK) {
                 // 注册成功，跳转到账号信息页
-                showFragment(AccountInfoFragment.class, null);
+                Bundle bundle = new Bundle();
+                bundle.putString(KEY_username, info.getUsername());
+                showFragment(AccountInfoFragment.class, bundle);
             }
             Log.d(TAG, "onLoginCallback: " + callback.toString());
             runOnUiThread(new Runnable() {

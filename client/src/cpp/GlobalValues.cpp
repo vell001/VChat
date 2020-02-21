@@ -3,16 +3,20 @@
 //
 
 #include "GlobalValues.h"
-namespace global{
+
+namespace global {
 
     int AccountVariable::heartbeatIntervalSec = 3; // 心跳间隔时间
+    const std::string AccountVariable::vchatSDCardBasePath = "/sdcard/vchat"; // sd卡保存基础目录
+    const std::string AccountVariable::accountInfoSavePath =
+            AccountVariable::vchatSDCardBasePath + "/account_info.json"; // 账户信息文件
 
     const int AccountRespCode::OK = 0;
 
     const int AccountRespCode::ReqErr = -1000; // 请求错误
 
     const int AccountRespCode::Login_AccountNotExist = 1001;
-    const int AccountRespCode::Login_PasswordErr =1002;
+    const int AccountRespCode::Login_PasswordErr = 1002;
     const int AccountRespCode::Login_CreateTokenFail = 1003;
     const int AccountRespCode::Login_ParamErr = 1004;
     const int AccountRespCode::Login_GetUserErr = 1005;

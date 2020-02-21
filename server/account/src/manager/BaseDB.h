@@ -19,6 +19,7 @@ public:
     virtual int connect(const std::string &host, int port, const std::string &dbName, const std::string &user,
                         const std::string &password, const std::string &charset) { return global::DBCode::ERR; }
 
+    virtual void reconnect() {}
     virtual void disconnect() {}
 
     virtual int
