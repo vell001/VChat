@@ -41,8 +41,10 @@ namespace global{
 
     const int AccountRespCode::Logout_TokenNotExist = 3001;
     const int AccountRespCode::Logout_TokenDeleteErr = 3002;
+    const int AccountRespCode::Logout_TokenIncorrect = 3003;
 
     const int AccountRespCode::IsAlive_TokenNotExist = 4001;
     const int AccountRespCode::IsAlive_TokenExpired = 4002;
     const int AccountRespCode::IsAlive_TokenUpdate = 4003;
+    const int AccountRespCode::IsAlive_TokenIncorrect = 4004;
 }

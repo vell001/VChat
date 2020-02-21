@@ -2,6 +2,7 @@ package com.vell.vchat;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.vell.vchat.fragment.AccountInfoFragment;
 import com.vell.vchat.fragment.BaseFragment;
 import com.vell.vchat.fragment.LoginFragment;
 
+import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.vell.vchat.GlobalValues.KEY_account;
@@ -40,6 +42,12 @@ public class AccountAct extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_account);
+
+        File baseSDCardDir = new File(Environment.getExternalStorageDirectory(), "vchat");
+        if (!baseSDCardDir.exists() && !baseSDCardDir.mkdirs()) {
+            Log.e(TAG, "sd卡无法访问");
+            Toast.makeText(this, "sd卡无法访问", Toast.LENGTH_LONG).show();
+        }
 
         AccountInterface.getInstance().init();
         AccountInterface.getInstance().addListener(accountListener);
@@ -66,13 +74,17 @@ public class AccountAct extends FragmentActivity {
             fragment = (BaseFragment) Fragment.instantiate(this, name);
             fragment.setArguments(args);
             ft.add(R.id.fl_container, fragment, name);
+            ft.show(fragment);
+            fragment.actionShow();
         } else {
             fragment.updateArguments(args);
             ft.show(fragment);
+            fragment.actionShow();
         }
 
         if (mLastShowFragment != null) {
             ft.hide(mLastShowFragment);
+            mLastShowFragment.actionHide();
         }
 
         mLastShowFragment = fragment;
@@ -169,7 +181,8 @@ public class AccountAct extends FragmentActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(AccountAct.this, "onSignupCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountAct.this, callback.getMsg(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(AccountAct.this, "onSignupCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
                 }
             });
             closeLoadingDialog();
@@ -190,7 +203,8 @@ public class AccountAct extends FragmentActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(AccountAct.this, "onLoginCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountAct.this, callback.getMsg(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(AccountAct.this, "onLoginCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
                 }
             });
             closeLoadingDialog();
@@ -209,15 +223,37 @@ public class AccountAct extends FragmentActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(AccountAct.this, "onLogoutCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(AccountAct.this, callback.getMsg(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(AccountAct.this, "onLogoutCallback: " + callback.toString(), Toast.LENGTH_LONG).show();
                 }
             });
             closeLoadingDialog();
         }
 
         @Override
-        public void onIsAliveCallback(AccountResp callback) {
+        public void onIsAliveCallback(final AccountResp callback) {
             Log.d(TAG, "onIsAliveCallback: " + callback.toString());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (callback.getCode() == GlobalValues.CODE_AccountResp_IsAlive_TokenExpired ||
+                            callback.getCode() == GlobalValues.CODE_AccountResp_IsAlive_TokenNotExist) {
+                        Toast.makeText(AccountAct.this, "登录信息已过期，请重新登录", Toast.LENGTH_LONG).show();
+                    } else if (callback.getCode() == GlobalValues.CODE_AccountResp_IsAlive_TokenIncorrect) {
+                        Toast.makeText(AccountAct.this, "你已在其他终端登录", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+            if (mLastShowFragment instanceof AccountInfoFragment) {
+                AccountInfoFragment accountInfoFragment = (AccountInfoFragment) mLastShowFragment;
+                accountInfoFragment.updateAccountInfo();
+            }
+            // 判断登陆状态
+            if (!AccountInterface.getInstance().hasLogin()) {
+                // 显示登陆页
+                showFragment(LoginFragment.class, null);
+            }
         }
     };
 

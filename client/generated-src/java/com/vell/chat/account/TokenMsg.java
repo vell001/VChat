@@ -11,11 +11,15 @@ public final class TokenMsg {
 
     /*package*/ final int mExpirationTimeSec;
 
+    /*package*/ final String mUsername;
+
     public TokenMsg(
             String token,
-            int expirationTimeSec) {
+            int expirationTimeSec,
+            String username) {
         this.mToken = token;
         this.mExpirationTimeSec = expirationTimeSec;
+        this.mUsername = username;
     }
 
     public String getToken() {
@@ -26,11 +30,16 @@ public final class TokenMsg {
         return mExpirationTimeSec;
     }
 
+    public String getUsername() {
+        return mUsername;
+    }
+
     @Override
     public String toString() {
         return "TokenMsg{" +
                 "mToken=" + mToken +
                 "," + "mExpirationTimeSec=" + mExpirationTimeSec +
+                "," + "mUsername=" + mUsername +
         "}";
     }
 

@@ -13,11 +13,14 @@ namespace account_djinni {
 struct TokenMsg final {
     std::string token;
     int32_t expiration_time_sec;
+    std::string username;
 
     TokenMsg(std::string token_,
-             int32_t expiration_time_sec_)
+             int32_t expiration_time_sec_,
+             std::string username_)
     : token(std::move(token_))
     , expiration_time_sec(std::move(expiration_time_sec_))
+    , username(std::move(username_))
     {}
 };
 

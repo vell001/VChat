@@ -14,7 +14,7 @@ std::shared_ptr<AccountData> AccountData::getInstance() {
 
 AccountData::AccountData() {
     // 创建文件夹
-    createDirTree(global::AccountVariable::vchatSDCardBasePath);
+    createDir(global::AccountVariable::vchatSDCardBasePath.c_str());
 }
 
 std::shared_ptr<account_djinni::AccountInfo> AccountData::getAccountInfo() {
@@ -32,7 +32,8 @@ std::shared_ptr<account_djinni::AccountInfo> AccountData::getAccountInfo() {
                             root.get("extra", "").asString(),
                             account_djinni::TokenMsg(
                                     root.get("token.token", "").asString(),
-                                    root.get("token.expiration_time_sec", 0).asInt()
+                                    root.get("token.expiration_time_sec", 0).asInt(),
+                                    root.get("token.username", "").asString()
                             )
                     ));
         }
@@ -53,6 +54,7 @@ void AccountData::setAccountInfo(std::shared_ptr<account_djinni::AccountInfo> in
         root["extra"] = info->extra;
         root["token.token"] = info->token.token;
         root["token.expiration_time_sec"] = info->token.expiration_time_sec;
+        root["token.username"] = info->token.username;
         Json::FastWriter fast;
 
         std::ofstream out(global::AccountVariable::accountInfoSavePath);

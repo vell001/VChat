@@ -51,26 +51,33 @@ AccountImpl::remove_listener(const std::shared_ptr<account_djinni::AccountListen
 
 void AccountImpl::signup(const account_djinni::SignupMsg &info, int32_t seqId) {
     serverHandler->post([info, seqId]() {
-        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0), "");
-        account_djinni::AccountInfo accountInfo("", "", "", "", account_djinni::TokenMsg("", 0));
-        AccountServer::getInstance()->signup(info, resp, accountInfo);
+        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0, ""), "");
+        auto accountInfo = std::shared_ptr<account_djinni::AccountInfo>(
+                new account_djinni::AccountInfo("", "", "", "",
+                                                account_djinni::TokenMsg("", 0, "")));
+        AccountServer::getInstance()->signup(info, resp, *accountInfo);
 
+        if (resp.code == global::AccountRespCode::OK) {
+            // 注册成功，保存用户信息
+            AccountData::getInstance()->setAccountInfo(accountInfo);
+        }
         getInstance()->callbackFunc(&account_djinni::AccountListener::on_signup_callback, resp,
-                                    seqId, accountInfo);
+                                    seqId, *accountInfo);
     });
 }
 
 void AccountImpl::login(const account_djinni::LoginMsg &info, int32_t seqId) {
     serverHandler->post([this, info, seqId]() {
-        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0), "");
+        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0, ""), "");
         auto accountInfo = std::shared_ptr<account_djinni::AccountInfo>(
-                new account_djinni::AccountInfo("", "", "", "", account_djinni::TokenMsg("", 0)));
+                new account_djinni::AccountInfo("", "", "", "",
+                                                account_djinni::TokenMsg("", 0, "")));
         AccountServer::getInstance()->login(info, resp, *accountInfo);
 
         if (resp.code == global::AccountRespCode::OK) {
             // 登录成功，保存用户信息
             AccountData::getInstance()->setAccountInfo(accountInfo);
-
+            hasLogin = true;
             // 启动心跳
             this->startHeartbeat();
         }
@@ -82,7 +89,7 @@ void AccountImpl::login(const account_djinni::LoginMsg &info, int32_t seqId) {
 
 void AccountImpl::logout(int32_t seqId) {
     serverHandler->post([this, seqId]() {
-        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0), "");
+        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0, ""), "");
         auto accountInfo = AccountData::getInstance()->getAccountInfo();
         if (accountInfo == nullptr || accountInfo->token.token.empty()) {
             resp.code = global::AccountRespCode::Logout_TokenNotExist;
@@ -99,14 +106,13 @@ void AccountImpl::logout(int32_t seqId) {
             this->stopHeartbeat();
         }
 
-        this->callbackFunc(&account_djinni::AccountListener::on_logout_callback, resp,
-                           seqId);
+        this->callbackFunc(&account_djinni::AccountListener::on_logout_callback, resp, seqId);
     });
 }
 
 void AccountImpl::is_alive() {
     serverHandler->post([this]() {
-        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0), "");
+        account_djinni::AccountResp resp(0, "", "", account_djinni::TokenMsg("", 0, ""), "");
         auto accountInfo = AccountData::getInstance()->getAccountInfo();
         if (accountInfo == nullptr || accountInfo->token.token.empty()) {
             resp.code = global::AccountRespCode::IsAlive_TokenNotExist;
@@ -118,19 +124,20 @@ void AccountImpl::is_alive() {
         LOGI(FILE_TAG, "heartbeat resp: %d,%s%s", resp.code, resp.msg.c_str(),
              resp.extra.c_str());
 
-        if (resp.code == global::AccountRespCode::ReqErr) {
-            // 请求失败, TODO 暂时不管，后续区分失败原因
-        } else if (resp.code == global::AccountRespCode::IsAlive_TokenNotExist ||
-                   resp.code == global::AccountRespCode::IsAlive_TokenExpired) {
-            // 服务端登录信息无效，重置本地信息，重新登录
-            this->resetLocalAccountInfo();
-
-            // 停止心跳
-            stopHeartbeat();
-        } else if (resp.code == global::AccountRespCode::IsAlive_TokenUpdate) {
-            // 更新Token
-            accountInfo->token = resp.token;
-            AccountData::getInstance()->setAccountInfo(accountInfo);
+        if (resp.code != global::AccountRespCode::OK) {
+            if (resp.code == global::AccountRespCode::ReqErr) {
+                // 请求失败, TODO 暂时不管，后续区分失败原因
+            } else if (resp.code == global::AccountRespCode::IsAlive_TokenUpdate) {
+                // 更新Token
+                accountInfo->token = resp.token;
+                AccountData::getInstance()->setAccountInfo(accountInfo);
+            } else {
+                // 服务端登录信息无效，重置本地信息，重新登录
+                this->resetLocalAccountInfo();
+                hasLogin = false;
+                // 停止心跳
+                stopHeartbeat();
+            }
         }
 
         callbackFunc(&account_djinni::AccountListener::on_is_alive_callback, resp);
@@ -159,7 +166,8 @@ bool AccountImpl::isAccountInfoValid(std::shared_ptr<account_djinni::AccountInfo
     double nowS = nowSec();
     if (nowS >= accountInfo->token.expiration_time_sec) {
         // 已过期
-        LOGI(FILE_TAG, "token已过期: %s %f >= %d", accountInfo->token.token.c_str(), accountInfo->token.expiration_time_sec);
+        LOGI(FILE_TAG, "token已过期: %s %f >= %d", accountInfo->token.token.c_str(),
+             accountInfo->token.expiration_time_sec);
         return false;
     }
     return true;
@@ -172,11 +180,10 @@ void AccountImpl::heartbeat() {
         is_alive();
 
         double sleepTimeSec = global::AccountVariable::heartbeatIntervalSec;
-        if (sleepTimeSec > 0)
-        {
+        if (sleepTimeSec > 0) {
             std::chrono::milliseconds sleepTime((long) (sleepTimeSec * 1000));
             std::this_thread::sleep_for(sleepTime);
-            TLog("sleep time %f ms ", sleepTimeSec*1000);
+            TLog("sleep time %f ms ", sleepTimeSec * 1000);
         }
     }
 //    if (heartbeating) {
@@ -218,7 +225,7 @@ account_djinni::AccountInfo AccountImpl::getAccountInfo() {
     if (accountInfo != nullptr) {
         return *accountInfo;
     }
-    return account_djinni::AccountInfo("", "", "", "", account_djinni::TokenMsg("", 0));
+    return account_djinni::AccountInfo("", "", "", "", account_djinni::TokenMsg("", 0, ""));
 }
 
 

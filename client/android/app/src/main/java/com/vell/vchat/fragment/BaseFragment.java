@@ -59,4 +59,7 @@ public class BaseFragment extends Fragment {
         }
         ((AccountAct) activity).runOnUiThread(action);
     }
+
+    public void actionHide() {}
+    public void actionShow() {}
 }

@@ -30,30 +30,62 @@ int CacheManager::init(const std::string &host, int port) {
     return code;
 }
 
-bool CacheManager::saveToken(const std::string &token, double expirationTimeSec) {
+bool CacheManager::saveToken(const std::string &username, const std::string &token, double expirationTimeSec) {
     if (cache) {
-        int code = cache->setValue(token, double2Str(expirationTimeSec));
+        Json::Value tokenJson;
+        tokenJson["token"] = token;
+        tokenJson["expirationTimeSec"] = expirationTimeSec;
+        Json::FastWriter fast;
+        int code = cache->setValue(username + "_token", fast.write(tokenJson));
         return code == global::CacheCode::OK;
     }
     return false;
 }
 
-bool CacheManager::deleteToken(const std::string &token) {
+bool CacheManager::deleteToken(const std::string &username, const std::string &token) {
     if (cache) {
-        int code = cache->deleteKey(token);
-        return code == global::CacheCode::OK;
-    }
-    return false;
-}
-
-bool CacheManager::getToken(const std::string &token, double &expirationTimeSec) {
-    if (cache) {
-        std::string dataStr;
-        int code = cache->getValue(token, dataStr);
+        std::string existTokenJson;
+        const std::string &tokenKey = username + "_token";
+        int code = cache->getValue(tokenKey, existTokenJson);
         if (code == global::CacheCode::OK) {
-            expirationTimeSec = str2Double(dataStr);
-            return true;
+            Json::Reader reader;
+            Json::Value root;
+            if (reader.parse(existTokenJson, root)) {
+                std::string existToken = root.get("token", "").asString();
+                if (existToken == token) {
+                    code = cache->deleteKey(tokenKey);
+                }
+            } else {
+                // 对应值不对，保护性删除
+                cache->deleteKey(tokenKey);
+            }
         }
+        return code == global::CacheCode::OK;
+    }
+    return false;
+}
+
+bool CacheManager::getToken(const std::string &username, std::string &token, double &expirationTimeSec) {
+    if (cache) {
+        std::string existTokenJson;
+        const std::string &tokenKey = username + "_token";
+        int code = cache->getValue(tokenKey, existTokenJson);
+        if (code == global::CacheCode::OK) {
+            Json::Reader reader;
+            Json::Value root;
+            if (reader.parse(existTokenJson, root)) {
+                token = root.get("token", "").asString();
+                expirationTimeSec = root.get("expirationTimeSec", 0).asInt();
+                LOG(INFO) << "getToken: " << token << std::fixed << " " << expirationTimeSec;
+                return !token.empty();
+            } else {
+                LOG(ERROR) << "token json error delete" << existTokenJson;
+                // 对应值不对，保护性删除
+                cache->deleteKey(tokenKey);
+                return false;
+            }
+        }
+        return code == global::CacheCode::OK;
     }
     return false;
 }

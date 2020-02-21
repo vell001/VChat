@@ -8,6 +8,7 @@
 #include <manager/BaseCache.h>
 #include <manager/redis/RedisCache.h>
 #include <utils/StringUtils.h>
+#include "json/json.h"
 
 class CacheManager {
 public:
@@ -15,11 +16,11 @@ public:
 
     int init(const std::string &host, int port);
 
-    bool saveToken(const std::string &token, double expirationTimeSec);
+    bool saveToken(const std::string &username, const std::string &token, double expirationTimeSec);
 
-    bool deleteToken(const std::string &token);
+    bool deleteToken(const std::string &username, const std::string &token);
 
-    bool getToken(const std::string &token, double &expirationTimeSec);
+    bool getToken(const std::string &username, std::string &token, double &expirationTimeSec);
 
 private:
     std::shared_ptr<BaseCache> cache;

@@ -21,8 +21,10 @@ public class GlobalValues {
 
     public static int CODE_AccountResp_Logout_TokenNotExist = 3001;
     public static int CODE_AccountResp_Logout_TokenDeleteErr = 3002;
+    public static int CODE_AccountResp_Logout_TokenIncorrect = 3003;
 
     public static int CODE_AccountResp_IsAlive_TokenNotExist = 4001;
     public static int CODE_AccountResp_IsAlive_TokenExpired = 4002;
     public static int CODE_AccountResp_IsAlive_TokenUpdate = 4003;
+    public static int CODE_AccountResp_IsAlive_TokenIncorrect = 4004;
 }

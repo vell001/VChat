@@ -145,12 +145,13 @@ grpc::Status AccountServiceImpl::login(::grpc::ServerContext *context, const ::a
     }
 
     // 保存token到缓存
-    CacheManager::getInstance()->saveToken(token, expirationTimeSec);
+    CacheManager::getInstance()->saveToken(username, token, expirationTimeSec);
 
     // 登录成功
     auto tokenMsg = new account::TokenMsg();
     tokenMsg->set_token(token);
     tokenMsg->set_expiration_time_sec(expirationTimeSec);
+    tokenMsg->set_username(username);
 
     auto accountInfo = new account::AccountInfo();
     accountInfo->set_username(dbAccountModel->getUsername());
@@ -169,14 +170,21 @@ grpc::Status AccountServiceImpl::logout(::grpc::ServerContext *context, const ::
                                         ::account::AccountResp *response) {
     grpc::Status status(grpc::StatusCode::OK, "");
     const auto &token = request->token();
+    const auto &username = request->username();
+    std::string existToken;
     double expirationTimeSec;
-    if (!CacheManager::getInstance()->getToken(token, expirationTimeSec)) {
+    if (!CacheManager::getInstance()->getToken(username, existToken, expirationTimeSec)) {
         response->set_code(global::AccountRespCode::Logout_TokenNotExist);
-        response->set_msg("登出失败");
+        response->set_msg("未登录");
+        return status;
+    }
+    if (existToken != token) {
+        response->set_code(global::AccountRespCode::Logout_TokenIncorrect);
+        response->set_msg("token不正确");
         return status;
     }
 
-    if (CacheManager::getInstance()->deleteToken(token)) {
+    if (CacheManager::getInstance()->deleteToken(username, token)) {
         response->set_code(global::AccountRespCode::OK);
         response->set_msg("登出成功");
         return status;
@@ -191,18 +199,26 @@ grpc::Status AccountServiceImpl::isAlive(::grpc::ServerContext *context, const :
                                          ::account::AccountResp *response) {
     grpc::Status status(grpc::StatusCode::OK, "");
     const auto &token = request->token();
+    const auto &username = request->username();
     double expirationTimeSec;
-    if (!CacheManager::getInstance()->getToken(token, expirationTimeSec)) {
+    std::string existToken;
+    if (!CacheManager::getInstance()->getToken(username, existToken, expirationTimeSec)) {
         response->set_code(global::AccountRespCode::IsAlive_TokenNotExist);
         response->set_msg("token不存在");
+        return status;
+    }
+
+    if (existToken != token) {
+        response->set_code(global::AccountRespCode::IsAlive_TokenIncorrect);
+        response->set_msg("token不正确");
         return status;
     }
 
     double nowS = nowSec();
     if (nowS >= expirationTimeSec) {
         // token已过期, 删除cache
-        CacheManager::getInstance()->deleteToken(token);
-
+        CacheManager::getInstance()->deleteToken(username, token);
+        LOG(INFO) << "token已过期: " << token << " " << std::fixed << nowS << " >= " << expirationTimeSec;
         response->set_code(global::AccountRespCode::IsAlive_TokenExpired);
         response->set_msg("token已过期");
         return status;

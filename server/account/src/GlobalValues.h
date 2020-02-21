@@ -49,10 +49,12 @@ namespace global {
 
         const static int Logout_TokenNotExist;
         const static int Logout_TokenDeleteErr;
+        const static int Logout_TokenIncorrect;
 
         const static int IsAlive_TokenNotExist;
         const static int IsAlive_TokenExpired;
         const static int IsAlive_TokenUpdate;
+        const static int IsAlive_TokenIncorrect;
     };
 }
 

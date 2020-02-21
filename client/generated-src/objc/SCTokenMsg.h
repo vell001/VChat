@@ -6,12 +6,16 @@
 /** token信息 */
 @interface SCTokenMsg : NSObject
 - (nonnull instancetype)initWithToken:(nonnull NSString *)token
-                    expirationTimeSec:(int32_t)expirationTimeSec;
+                    expirationTimeSec:(int32_t)expirationTimeSec
+                             username:(nonnull NSString *)username;
 + (nonnull instancetype)tokenMsgWithToken:(nonnull NSString *)token
-                        expirationTimeSec:(int32_t)expirationTimeSec;
+                        expirationTimeSec:(int32_t)expirationTimeSec
+                                 username:(nonnull NSString *)username;
 
 @property (nonatomic, readonly, nonnull) NSString * token;
 
 @property (nonatomic, readonly) int32_t expirationTimeSec;
+
+@property (nonatomic, readonly, nonnull) NSString * username;
 
 @end

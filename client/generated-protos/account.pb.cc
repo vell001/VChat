@@ -158,6 +158,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_account_2eproto::offsets[] PRO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::account::TokenMsg, token_),
   PROTOBUF_FIELD_OFFSET(::account::TokenMsg, expiration_time_sec_),
+  PROTOBUF_FIELD_OFFSET(::account::TokenMsg, username_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::account::AccountResp, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -191,9 +192,9 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::account::SignupMsg)},
   { 10, -1, sizeof(::account::LoginMsg)},
   { 17, -1, sizeof(::account::TokenMsg)},
-  { 24, -1, sizeof(::account::AccountResp)},
-  { 33, -1, sizeof(::account::AccountRespWithInfo)},
-  { 42, -1, sizeof(::account::AccountInfo)},
+  { 25, -1, sizeof(::account::AccountResp)},
+  { 34, -1, sizeof(::account::AccountRespWithInfo)},
+  { 43, -1, sizeof(::account::AccountInfo)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -210,23 +211,23 @@ const char descriptor_table_protodef_account_2eproto[] PROTOBUF_SECTION_VARIABLE
   "\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\023\n\013pho"
   "neNumber\030\003 \001(\t\022\r\n\005email\030\004 \001(\t\022\r\n\005extra\030\005"
   " \001(\t\"-\n\010LoginMsg\022\017\n\007account\030\001 \001(\t\022\020\n\010pas"
-  "sword\030\002 \001(\t\"6\n\010TokenMsg\022\r\n\005token\030\001 \001(\t\022\033"
-  "\n\023expiration_time_sec\030\002 \001(\005\"Y\n\013AccountRe"
-  "sp\022\014\n\004code\030\001 \001(\005\022\013\n\003msg\030\002 \001(\t\022 \n\005token\030\003"
-  " \001(\0132\021.account.TokenMsg\022\r\n\005extra\030\004 \001(\t\"c"
-  "\n\023AccountRespWithInfo\022\014\n\004code\030\001 \001(\005\022\013\n\003m"
-  "sg\030\002 \001(\t\022\"\n\004info\030\003 \001(\0132\024.account.Account"
-  "Info\022\r\n\005extra\030\004 \001(\t\"t\n\013AccountInfo\022\020\n\010us"
-  "ername\030\001 \001(\t\022 \n\005token\030\002 \001(\0132\021.account.To"
-  "kenMsg\022\023\n\013phoneNumber\030\003 \001(\t\022\r\n\005email\030\004 \001"
-  "(\t\022\r\n\005extra\030\005 \001(\t2\356\001\n\007Account\022<\n\006signup\022"
-  "\022.account.SignupMsg\032\034.account.AccountRes"
-  "pWithInfo\"\000\022:\n\005login\022\021.account.LoginMsg\032"
-  "\034.account.AccountRespWithInfo\"\000\0223\n\006logou"
-  "t\022\021.account.TokenMsg\032\024.account.AccountRe"
-  "sp\"\000\0224\n\007isAlive\022\021.account.TokenMsg\032\024.acc"
-  "ount.AccountResp\"\000B\027\n\025com.vell.chat.acco"
-  "untb\006proto3"
+  "sword\030\002 \001(\t\"H\n\010TokenMsg\022\r\n\005token\030\001 \001(\t\022\033"
+  "\n\023expiration_time_sec\030\002 \001(\005\022\020\n\010username\030"
+  "\003 \001(\t\"Y\n\013AccountResp\022\014\n\004code\030\001 \001(\005\022\013\n\003ms"
+  "g\030\002 \001(\t\022 \n\005token\030\003 \001(\0132\021.account.TokenMs"
+  "g\022\r\n\005extra\030\004 \001(\t\"c\n\023AccountRespWithInfo\022"
+  "\014\n\004code\030\001 \001(\005\022\013\n\003msg\030\002 \001(\t\022\"\n\004info\030\003 \001(\013"
+  "2\024.account.AccountInfo\022\r\n\005extra\030\004 \001(\t\"t\n"
+  "\013AccountInfo\022\020\n\010username\030\001 \001(\t\022 \n\005token\030"
+  "\002 \001(\0132\021.account.TokenMsg\022\023\n\013phoneNumber\030"
+  "\003 \001(\t\022\r\n\005email\030\004 \001(\t\022\r\n\005extra\030\005 \001(\t2\356\001\n\007"
+  "Account\022<\n\006signup\022\022.account.SignupMsg\032\034."
+  "account.AccountRespWithInfo\"\000\022:\n\005login\022\021"
+  ".account.LoginMsg\032\034.account.AccountRespW"
+  "ithInfo\"\000\0223\n\006logout\022\021.account.TokenMsg\032\024"
+  ".account.AccountResp\"\000\0224\n\007isAlive\022\021.acco"
+  "unt.TokenMsg\032\024.account.AccountResp\"\000B\027\n\025"
+  "com.vell.chat.accountb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_account_2eproto_deps[1] = {
 };
@@ -241,7 +242,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_acc
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_account_2eproto_once;
 static bool descriptor_table_account_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_account_2eproto = {
-  &descriptor_table_account_2eproto_initialized, descriptor_table_protodef_account_2eproto, "account.proto", 811,
+  &descriptor_table_account_2eproto_initialized, descriptor_table_protodef_account_2eproto, "account.proto", 829,
   &descriptor_table_account_2eproto_once, descriptor_table_account_2eproto_sccs, descriptor_table_account_2eproto_deps, 6, 0,
   schemas, file_default_instances, TableStruct_account_2eproto::offsets,
   file_level_metadata_account_2eproto, 6, file_level_enum_descriptors_account_2eproto, file_level_service_descriptors_account_2eproto,
@@ -865,6 +866,10 @@ TokenMsg::TokenMsg(const TokenMsg& from)
   if (!from._internal_token().empty()) {
     token_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.token_);
   }
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_username().empty()) {
+    username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
   expiration_time_sec_ = from.expiration_time_sec_;
   // @@protoc_insertion_point(copy_constructor:account.TokenMsg)
 }
@@ -872,6 +877,7 @@ TokenMsg::TokenMsg(const TokenMsg& from)
 void TokenMsg::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_TokenMsg_account_2eproto.base);
   token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   expiration_time_sec_ = 0;
 }
 
@@ -882,6 +888,7 @@ TokenMsg::~TokenMsg() {
 
 void TokenMsg::SharedDtor() {
   token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void TokenMsg::SetCachedSize(int size) const {
@@ -900,6 +907,7 @@ void TokenMsg::Clear() {
   (void) cached_has_bits;
 
   token_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   expiration_time_sec_ = 0;
   _internal_metadata_.Clear();
 }
@@ -924,6 +932,15 @@ const char* TokenMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           expiration_time_sec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string username = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_username();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "account.TokenMsg.username"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -969,6 +986,16 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_expiration_time_sec(), target);
   }
 
+  // string username = 3;
+  if (this->username().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "account.TokenMsg.username");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_username(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -990,6 +1017,13 @@ size_t TokenMsg::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_token());
+  }
+
+  // string username = 3;
+  if (this->username().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_username());
   }
 
   // int32 expiration_time_sec = 2;
@@ -1034,6 +1068,10 @@ void TokenMsg::MergeFrom(const TokenMsg& from) {
 
     token_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.token_);
   }
+  if (from.username().size() > 0) {
+
+    username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
   if (from.expiration_time_sec() != 0) {
     _internal_set_expiration_time_sec(from._internal_expiration_time_sec());
   }
@@ -1061,6 +1099,8 @@ void TokenMsg::InternalSwap(TokenMsg* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   token_.Swap(&other->token_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  username_.Swap(&other->username_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(expiration_time_sec_, other->expiration_time_sec_);
 }

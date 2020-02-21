@@ -33,7 +33,8 @@ AccountServer::signup(const account_djinni::SignupMsg &info, account_djinni::Acc
         resp.extra = reply.extra();
         resp.msg = reply.msg();
         account_djinni::TokenMsg tokenMsg(replyAccountInfo.token().token(),
-                                          replyAccountInfo.token().expiration_time_sec());
+                                          replyAccountInfo.token().expiration_time_sec(),
+                                          replyAccountInfo.token().username());
         resp.token = tokenMsg;
         resp.code = reply.code();
 
@@ -65,7 +66,8 @@ AccountServer::login(const account_djinni::LoginMsg &info, account_djinni::Accou
         resp.extra = reply.extra();
         resp.msg = reply.msg();
         account_djinni::TokenMsg tokenMsg(replyAccountInfo.token().token(),
-                                          replyAccountInfo.token().expiration_time_sec());
+                                          replyAccountInfo.token().expiration_time_sec(),
+                                          replyAccountInfo.token().username());
         resp.token = tokenMsg;
         resp.code = reply.code();
         resp.username = replyAccountInfo.username();
@@ -87,6 +89,7 @@ AccountServer::logout(const account_djinni::TokenMsg &token, account_djinni::Acc
     account::TokenMsg tokenMsg;
     tokenMsg.set_token(token.token);
     tokenMsg.set_expiration_time_sec(token.expiration_time_sec);
+    tokenMsg.set_username(token.username);
 
     TLog("logout: %s", token.token.c_str());
     account::AccountResp reply;
@@ -97,7 +100,8 @@ AccountServer::logout(const account_djinni::TokenMsg &token, account_djinni::Acc
         resp.extra = reply.extra();
         resp.msg = reply.msg();
         account_djinni::TokenMsg tokenMsgReply(reply.token().token(),
-                                               reply.token().expiration_time_sec());
+                                               reply.token().expiration_time_sec(),
+                                               reply.token().username());
         resp.token = tokenMsgReply;
         resp.code = reply.code();
     } else {
@@ -112,8 +116,9 @@ AccountServer::is_alive(const account_djinni::TokenMsg &token, account_djinni::A
     account::TokenMsg tokenMsg;
     tokenMsg.set_token(token.token);
     tokenMsg.set_expiration_time_sec(token.expiration_time_sec);
+    tokenMsg.set_username(token.username);
 
-    TLog("is_alive: %s", token.token.c_str());
+    TLog("is_alive: %s %s", token.username.c_str(), token.token.c_str());
     account::AccountResp reply;
     grpc::ClientContext context;
     grpc::Status status = stub_->isAlive(&context, tokenMsg, &reply);
@@ -122,7 +127,8 @@ AccountServer::is_alive(const account_djinni::TokenMsg &token, account_djinni::A
         resp.extra = reply.extra();
         resp.msg = reply.msg();
         account_djinni::TokenMsg tokenMsgReply(reply.token().token(),
-                                               reply.token().expiration_time_sec());
+                                               reply.token().expiration_time_sec(),
+                                               reply.token().username());
         resp.token = tokenMsgReply;
         resp.code = reply.code();
     } else {

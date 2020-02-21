@@ -47,6 +47,7 @@ login_msg = record {
 token_msg = record {
     token: string;
     expiration_time_sec: i32;
+    username: string;
 }
 
 # 账号结果返回

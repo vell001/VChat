@@ -553,6 +553,7 @@ class TokenMsg :
 
   enum : int {
     kTokenFieldNumber = 1,
+    kUsernameFieldNumber = 3,
     kExpirationTimeSecFieldNumber = 2,
   };
   // string token = 1;
@@ -571,6 +572,22 @@ class TokenMsg :
   std::string* _internal_mutable_token();
   public:
 
+  // string username = 3;
+  void clear_username();
+  const std::string& username() const;
+  void set_username(const std::string& value);
+  void set_username(std::string&& value);
+  void set_username(const char* value);
+  void set_username(const char* value, size_t size);
+  std::string* mutable_username();
+  std::string* release_username();
+  void set_allocated_username(std::string* username);
+  private:
+  const std::string& _internal_username() const;
+  void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
+  public:
+
   // int32 expiration_time_sec = 2;
   void clear_expiration_time_sec();
   ::PROTOBUF_NAMESPACE_ID::int32 expiration_time_sec() const;
@@ -586,6 +603,7 @@ class TokenMsg :
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
   ::PROTOBUF_NAMESPACE_ID::int32 expiration_time_sec_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_account_2eproto;
@@ -1675,6 +1693,66 @@ inline void TokenMsg::_internal_set_expiration_time_sec(::PROTOBUF_NAMESPACE_ID:
 inline void TokenMsg::set_expiration_time_sec(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_expiration_time_sec(value);
   // @@protoc_insertion_point(field_set:account.TokenMsg.expiration_time_sec)
+}
+
+// string username = 3;
+inline void TokenMsg::clear_username() {
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& TokenMsg::username() const {
+  // @@protoc_insertion_point(field_get:account.TokenMsg.username)
+  return _internal_username();
+}
+inline void TokenMsg::set_username(const std::string& value) {
+  _internal_set_username(value);
+  // @@protoc_insertion_point(field_set:account.TokenMsg.username)
+}
+inline std::string* TokenMsg::mutable_username() {
+  // @@protoc_insertion_point(field_mutable:account.TokenMsg.username)
+  return _internal_mutable_username();
+}
+inline const std::string& TokenMsg::_internal_username() const {
+  return username_.GetNoArena();
+}
+inline void TokenMsg::_internal_set_username(const std::string& value) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void TokenMsg::set_username(std::string&& value) {
+  
+  username_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:account.TokenMsg.username)
+}
+inline void TokenMsg::set_username(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:account.TokenMsg.username)
+}
+inline void TokenMsg::set_username(const char* value, size_t size) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:account.TokenMsg.username)
+}
+inline std::string* TokenMsg::_internal_mutable_username() {
+  
+  return username_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* TokenMsg::release_username() {
+  // @@protoc_insertion_point(field_release:account.TokenMsg.username)
+  
+  return username_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void TokenMsg::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  username_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), username);
+  // @@protoc_insertion_point(field_set_allocated:account.TokenMsg.username)
 }
 
 // -------------------------------------------------------------------

@@ -11,13 +11,15 @@ auto TokenMsg::toCpp(ObjcType obj) -> CppType
 {
     assert(obj);
     return {::djinni::String::toCpp(obj.token),
-            ::djinni::I32::toCpp(obj.expirationTimeSec)};
+            ::djinni::I32::toCpp(obj.expirationTimeSec),
+            ::djinni::String::toCpp(obj.username)};
 }
 
 auto TokenMsg::fromCpp(const CppType& cpp) -> ObjcType
 {
     return [[SCTokenMsg alloc] initWithToken:(::djinni::String::fromCpp(cpp.token))
-                           expirationTimeSec:(::djinni::I32::fromCpp(cpp.expiration_time_sec))];
+                           expirationTimeSec:(::djinni::I32::fromCpp(cpp.expiration_time_sec))
+                                    username:(::djinni::String::fromCpp(cpp.username))];
 }
 
 }  // namespace djinni_generated

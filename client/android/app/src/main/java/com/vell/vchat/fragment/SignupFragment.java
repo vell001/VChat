@@ -15,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.vell.chat.account.AccountInfo;
+import com.vell.chat.account.AccountInterface;
 import com.vell.chat.account.SignupMsg;
 import com.vell.vchat.R;
 
@@ -28,25 +30,33 @@ public class SignupFragment extends BaseFragment {
     private Button mBtnSignup;
     private TextView mTvLogin;
     private CheckBox mCbShowPassword;
+    private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_signup, container, false);
-        initView(view);
-        return view;
+        rootView = inflater.inflate(R.layout.frag_signup, container, false);
+        initView(rootView);
+        return rootView;
+    }
+
+
+    @Override
+    public void actionHide() {
+        if (rootView == null) {
+            return;
+        }
+        mEtPassword.setText("");
     }
 
     @Override
-    public void onResume() {
+    public void actionShow() {
+        if (rootView == null) {
+            return;
+        }
         mEtPassword.setText("");
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        mEtPassword.setText("");
-        super.onPause();
+        AccountInfo accountInfo = AccountInterface.getInstance().getAccountInfo();
+        mEtUsername.setText(accountInfo.getUsername());
     }
 
     private void initView(View root) {

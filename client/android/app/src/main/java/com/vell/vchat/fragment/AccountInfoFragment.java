@@ -31,14 +31,15 @@ public class AccountInfoFragment extends BaseFragment {
     private TextView mTvAccountInfo;
     private TextView mTvTokenInfo;
     private Button mBtnLogout;
+    private View rootView;
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE);
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_account_info, container, false);
-        initView(view);
-        return view;
+        rootView = inflater.inflate(R.layout.frag_account_info, container, false);
+        initView(rootView);
+        return rootView;
     }
 
     private void initView(View root) {
@@ -56,15 +57,18 @@ public class AccountInfoFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        AccountInterface.getInstance().addListener(accountListener);
+    public void actionShow() {
+        updateAccountInfo();
     }
 
     @Override
-    public void onPause() {
-        AccountInterface.getInstance().removeListener(accountListener);
-        super.onPause();
+    public void onResume() {
+        super.onResume();
+        updateAccountInfo();
+    }
+
+    @Override
+    public void actionHide() {
     }
 
     @Override
@@ -77,39 +81,19 @@ public class AccountInfoFragment extends BaseFragment {
         mTvTokenInfo.setText(bundle.getString(KEY_token_info, ""));
     }
 
-    private AccountListener accountListener = new AccountListener() {
-        @Override
-        public void onSignupCallback(AccountResp callback, int seqId, AccountInfo info) {
-
+    public void updateAccountInfo() {
+        if (rootView == null) {
+            return;
         }
-
-        @Override
-        public void onLoginCallback(AccountResp callback, int seqId, AccountInfo info) {
-
-        }
-
-        @Override
-        public void onLogoutCallback(AccountResp callback, int seqId) {
-
-        }
-
-        @Override
-        public void onIsAliveCallback(final AccountResp callback) {
-            // 更新账号信息
-            final AccountInfo accountInfo = AccountInterface.getInstance().getAccountInfo();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mTvUsername.setText(accountInfo.getUsername());
-                    mTvAccountInfo.setText(String.format("电话: %s\nemail: %s\n其他: %s", accountInfo.getPhoneNumber(), accountInfo.getEmail(), accountInfo.getExtra()));
-                    mTvTokenInfo.setText(String.format(Locale.CHINESE, "token: %s\ntoken 过期时间: %s", accountInfo.getToken().getToken(), formatter.format(new Date(((long) accountInfo.getToken().getExpirationTimeSec()) * 1000))));
-                    if (callback.getCode() == GlobalValues.CODE_AccountResp_OK) {
-
-                    } else {
-
-                    }
-                }
-            });
-        }
-    };
+        // 更新账号信息
+        final AccountInfo accountInfo = AccountInterface.getInstance().getAccountInfo();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mTvUsername.setText(accountInfo.getUsername());
+                mTvAccountInfo.setText(String.format("电话: %s\nemail: %s\n其他: %s", accountInfo.getPhoneNumber(), accountInfo.getEmail(), accountInfo.getExtra()));
+                mTvTokenInfo.setText(String.format(Locale.CHINESE, "token: %s\ntoken 过期时间: %s", accountInfo.getToken().getToken(), formatter.format(new Date(((long) accountInfo.getToken().getExpirationTimeSec()) * 1000))));
+            }
+        });
+    }
 }

@@ -15,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.vell.chat.account.AccountInfo;
+import com.vell.chat.account.AccountInterface;
 import com.vell.chat.account.LoginMsg;
 import com.vell.vchat.R;
 
@@ -26,13 +28,14 @@ public class LoginFragment extends BaseFragment {
     private Button mBtnLogin;
     private TextView mTvSignup;
     private CheckBox mCbShowPassword;
+    private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_login, container, false);
-        initView(view);
-        return view;
+        rootView = inflater.inflate(R.layout.frag_login, container, false);
+        initView(rootView);
+        return rootView;
     }
 
     @Override
@@ -45,15 +48,28 @@ public class LoginFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
+    public void actionHide() {
+        if (rootView == null) {
+            return;
+        }
         mEtPassword.setText("");
-        super.onResume();
     }
 
     @Override
-    public void onPause() {
+    public void actionShow() {
+        if (rootView == null) {
+            return;
+        }
         mEtPassword.setText("");
-        super.onPause();
+        AccountInfo accountInfo = AccountInterface.getInstance().getAccountInfo();
+        mEtAccount.setText(accountInfo.getUsername());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AccountInfo accountInfo = AccountInterface.getInstance().getAccountInfo();
+        mEtAccount.setText(accountInfo.getUsername());
     }
 
     private void initView(View root) {

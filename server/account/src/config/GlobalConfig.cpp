@@ -70,5 +70,5 @@ string GlobalConfig::getAESIvHex() {
 }
 
 int GlobalConfig::getTokenExpirationPeriodSec() {
-    return config.get("token_expiration_period_sec", 3600 * 24).asInt();
+    return config.get("token_expiration_period_sec", 30).asInt();
 }

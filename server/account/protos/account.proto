@@ -31,6 +31,7 @@ message LoginMsg {
 message TokenMsg {
   string token = 1;
   int32 expiration_time_sec = 2;
+  string username = 3; // 用户名，唯一存在
 }
 
 // 账号结果返回

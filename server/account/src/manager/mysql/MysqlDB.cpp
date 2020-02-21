@@ -47,19 +47,27 @@ void MysqlDB::disconnect() {
 
 int MysqlDB::execSQL(const char *sql, int retColSize, DB_TABLE_PTR ret) {
     int query_result = -1;
-    try {
-        query_result = mysql_real_query(&mysql, sql, (unsigned int) strlen(sql));
-    } catch (const std::exception &e) {
-        LOG(ERROR) << "mysql_query error: " << query_result << " sql: " << sql;
-        return global::DBCode::QUERY_ERR;
+
+    // 重试三次
+    int retryCount = 3;
+    while (retryCount > 0) {
+        try {
+            query_result = mysql_real_query(&mysql, sql, (unsigned int) strlen(sql));
+        } catch (const std::exception &e) {
+            LOG(ERROR) << "mysql_query error: " << query_result << " sql: " << sql;
+            return global::DBCode::QUERY_ERR;
+        }
+
+        if (query_result == 1) {
+            // TODO 考虑连接断开重连 CR_SERVER_LOST or SERVER_GONE_ERROR
+            reconnect();
+        } else {
+            break;
+        }
+        retryCount--;
     }
 
-    // TODO 考虑连接断开重连 CR_SERVER_LOST or SERVER_GONE_ERROR
     if (query_result != 0) {
-        // query_result == 1时往往断开连接了
-        if (query_result == 1) {
-            reconnect();
-        }
         LOG(ERROR) << "mysql_query error: " << query_result << " sql: " << sql;
         return global::DBCode::QUERY_ERR;
     }
