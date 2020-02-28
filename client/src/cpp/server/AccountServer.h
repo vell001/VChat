@@ -18,7 +18,7 @@ using namespace std;
 class AccountServer {
 public:
     AccountServer(){
-        auto channel = grpc::CreateChannel("192.168.1.3:50051", grpc::InsecureChannelCredentials());
+        auto channel = grpc::CreateChannel("v2ray.vell001.ml:50051", grpc::InsecureChannelCredentials());
         stub_ = account::Account::NewStub(channel);
     }
 

@@ -8,6 +8,7 @@
 #include <manager/BaseCache.h>
 #include <manager/redis/RedisCache.h>
 #include <utils/StringUtils.h>
+#include <utils/ReadWriteLocker.h>
 #include "json/json.h"
 
 class CacheManager {
@@ -24,7 +25,7 @@ public:
 
 private:
     std::shared_ptr<BaseCache> cache;
-
+    ReadWriteLocker locker;
 };
 
 

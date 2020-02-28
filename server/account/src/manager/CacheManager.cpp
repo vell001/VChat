@@ -21,12 +21,15 @@ int CacheManager::init(const std::string &host, int port) {
         return code;
     }
 
+    // TODO for test
     std::string username;
     cache->getValue("username", username);
     cache->setValue("username", "vell002");
     cache->getValue("username", username);
     LOG(INFO) << "username: " << username;
     cache->deleteKey("username");
+    // end test
+
     return code;
 }
 
@@ -36,7 +39,12 @@ bool CacheManager::saveToken(const std::string &username, const std::string &tok
         tokenJson["token"] = token;
         tokenJson["expirationTimeSec"] = expirationTimeSec;
         Json::FastWriter fast;
-        int code = cache->setValue(username + "_token", fast.write(tokenJson));
+
+        int code;
+        {
+            auto lock = ReadWriteLocker::Holder(ReadWriteLocker::WRITE, locker);
+            code = cache->setValue(username + "_token", fast.write(tokenJson));
+        }
         return code == global::CacheCode::OK;
     }
     return false;
@@ -46,18 +54,24 @@ bool CacheManager::deleteToken(const std::string &username, const std::string &t
     if (cache) {
         std::string existTokenJson;
         const std::string &tokenKey = username + "_token";
-        int code = cache->getValue(tokenKey, existTokenJson);
-        if (code == global::CacheCode::OK) {
-            Json::Reader reader;
-            Json::Value root;
-            if (reader.parse(existTokenJson, root)) {
-                std::string existToken = root.get("token", "").asString();
-                if (existToken == token) {
-                    code = cache->deleteKey(tokenKey);
+
+        int code;
+        {
+            auto lock = ReadWriteLocker::Holder(ReadWriteLocker::WRITE, locker);
+
+            code = cache->getValue(tokenKey, existTokenJson);
+            if (code == global::CacheCode::OK) {
+                Json::Reader reader;
+                Json::Value root;
+                if (reader.parse(existTokenJson, root)) {
+                    std::string existToken = root.get("token", "").asString();
+                    if (existToken == token) {
+                        code = cache->deleteKey(tokenKey);
+                    }
+                } else {
+                    // 对应值不对，保护性删除
+                    cache->deleteKey(tokenKey);
                 }
-            } else {
-                // 对应值不对，保护性删除
-                cache->deleteKey(tokenKey);
             }
         }
         return code == global::CacheCode::OK;
@@ -69,7 +83,13 @@ bool CacheManager::getToken(const std::string &username, std::string &token, dou
     if (cache) {
         std::string existTokenJson;
         const std::string &tokenKey = username + "_token";
-        int code = cache->getValue(tokenKey, existTokenJson);
+
+        int code;
+        {
+            auto lock = ReadWriteLocker::Holder(ReadWriteLocker::READ, locker);
+            code = cache->getValue(tokenKey, existTokenJson);
+        }
+
         if (code == global::CacheCode::OK) {
             Json::Reader reader;
             Json::Value root;

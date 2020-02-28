@@ -10,6 +10,7 @@
 #include <glog/logging.h>
 #include <model/AccountModel.h>
 #include "utils/StringUtils.h"
+#include "utils/ReadWriteLocker.h"
 
 class DBManager {
 public:
@@ -23,6 +24,7 @@ public:
 private:
     std::shared_ptr<BaseDB> db = nullptr;
     int createAccountTable();
+    ReadWriteLocker locker;
 };
 
 

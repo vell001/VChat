@@ -43,6 +43,8 @@ int DBManager::init(const std::string &host, int port, const std::string &dbName
 }
 
 int DBManager::createAccountTable() {
+    auto lock = ReadWriteLocker::Holder(ReadWriteLocker::WRITE, locker);
+
     //构建查询语句
     const char *checkTableSql = "SELECT table_name FROM information_schema.TABLES WHERE table_name ='account';";
     auto checkTableRet = DB_TABLE_PTR(new DB_TABLE);
@@ -76,7 +78,12 @@ std::shared_ptr<AccountModel> DBManager::getAccountByUsername(const std::string 
             "SELECT id, username, password, password_salt, phone_number, email, extra FROM account where username='" +
             username + "'";
     DB_TABLE_PTR selectAccountRet = DB_TABLE_PTR(new DB_TABLE);
-    code = db->execSQL(selectAccountSql.c_str(), 7, selectAccountRet);
+
+    {
+        auto lock = ReadWriteLocker::Holder(ReadWriteLocker::READ, locker);
+        code = db->execSQL(selectAccountSql.c_str(), 7, selectAccountRet);
+    }
+
     if (code == global::DBCode::OK) {
         LOG(INFO) << selectAccountSql << " succ";
         if (selectAccountRet->empty()) {
@@ -111,7 +118,12 @@ int DBManager::addAccount(std::shared_ptr<AccountModel> accountModel) {
             "VALUES ('" + accountModel->getUsername() + "', '" + accountModel->getPassword() + "', '" +
             accountModel->getPasswordSalt() + "', '" + accountModel->getPhoneNumber() + "', '" +
             accountModel->getEmail() + "', '" + accountModel->getExtra() + "')";
-    int insertAccountCode = db->execSQL(insertAccountSql.c_str(), 0, nullptr);
+
+    int insertAccountCode;
+    {
+        auto lock = ReadWriteLocker::Holder(ReadWriteLocker::WRITE, locker);
+        insertAccountCode = db->execSQL(insertAccountSql.c_str(), 0, nullptr);
+    }
     if (insertAccountCode == global::DBCode::OK) {
         LOG(INFO) << insertAccountSql << " succ";
     } else {
