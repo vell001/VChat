@@ -11,6 +11,11 @@ namespace global {
         const static int ERR;
 
         const static int QUERY_ERR;
+        const static int QUERY_STMT_ERR; // Prepared Statement param error
+        const static int QUERY_STMT_PARAM_ERR; // Prepared Statement param error
+        const static int QUERY_STMT_INIT_ERR; // Prepared Statement init error
+        const static int QUERY_STMT_PREPARED_ERR; // Prepared Statement prepared error
+        const static int QUERY_STMT_RET_ERR; // Prepared Statement prepared error
 
         const static int CONN_INIT_ERR;
         const static int CONN_ERR;

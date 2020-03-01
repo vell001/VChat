@@ -42,7 +42,7 @@ bool CacheManager::saveToken(const std::string &username, const std::string &tok
 
         int code;
         {
-            auto lock = ReadWriteLocker::Holder(ReadWriteLocker::WRITE, locker);
+            ReadWriteLocker::Holder lock(ReadWriteLocker::WRITE, locker);
             code = cache->setValue(username + "_token", fast.write(tokenJson));
         }
         return code == global::CacheCode::OK;
@@ -57,7 +57,7 @@ bool CacheManager::deleteToken(const std::string &username, const std::string &t
 
         int code;
         {
-            auto lock = ReadWriteLocker::Holder(ReadWriteLocker::WRITE, locker);
+            ReadWriteLocker::Holder lock(ReadWriteLocker::WRITE, locker);
 
             code = cache->getValue(tokenKey, existTokenJson);
             if (code == global::CacheCode::OK) {
@@ -86,7 +86,7 @@ bool CacheManager::getToken(const std::string &username, std::string &token, dou
 
         int code;
         {
-            auto lock = ReadWriteLocker::Holder(ReadWriteLocker::READ, locker);
+            ReadWriteLocker::Holder lock(ReadWriteLocker::READ, locker);
             code = cache->getValue(tokenKey, existTokenJson);
         }
 

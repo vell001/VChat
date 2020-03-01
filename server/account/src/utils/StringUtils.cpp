@@ -64,6 +64,12 @@ int str2Int(const std::string &s) {
     return t;
 }
 
+int buffer2Int(const std::string &s) {
+    int t;
+    memcpy(&t, s.c_str(), sizeof(t));
+    return t;
+}
+
 std::string double2Str(double d) {
     std::ostringstream ost;
     ost << d;

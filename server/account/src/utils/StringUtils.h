@@ -32,6 +32,8 @@ T string_as_T(const std::string &s);
 
 int str2Int(const std::string &s);
 
+int buffer2Int(const std::string &s);
+
 std::string double2Str(double d);
 
 double str2Double(const std::string &s);

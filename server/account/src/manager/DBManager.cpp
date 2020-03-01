@@ -30,6 +30,7 @@ int DBManager::init(const std::string &host, int port, const std::string &dbName
         return code;
     }
 
+    // TODO for test
 //    std::shared_ptr<AccountModel> accountModel = std::shared_ptr<AccountModel>(new AccountModel());
 //
 //    accountModel->setUsername("vell");
@@ -38,12 +39,15 @@ int DBManager::init(const std::string &host, int port, const std::string &dbName
 //    accountModel->setPhoneNumber("row[4]");
 //    accountModel->setEmail("row[5]");
 //    addAccount(accountModel);
-//    getAccountByUsername("vell");
+    std::shared_ptr<AccountModel> accountModel = getAccountByUsername("vell", code);
+    LOG(INFO) << "test getAccountByUsername: " << "id " << accountModel->getId() << " " << accountModel->getUsername();
+    // end test
+
     return global::DBCode::OK;
 }
 
 int DBManager::createAccountTable() {
-    auto lock = ReadWriteLocker::Holder(ReadWriteLocker::WRITE, locker);
+    ReadWriteLocker::Holder lock(ReadWriteLocker::WRITE, locker);
 
     //构建查询语句
     const char *checkTableSql = "SELECT table_name FROM information_schema.TABLES WHERE table_name ='account';";
@@ -74,14 +78,35 @@ int DBManager::createAccountTable() {
 }
 
 std::shared_ptr<AccountModel> DBManager::getAccountByUsername(const std::string &username, int &code) {
-    std::string selectAccountSql =
-            "SELECT id, username, password, password_salt, phone_number, email, extra FROM account where username='" +
-            username + "'";
-    DB_TABLE_PTR selectAccountRet = DB_TABLE_PTR(new DB_TABLE);
+//    std::string selectAccountSql =
+//            "SELECT id, username, password, password_salt, phone_number, email, extra FROM account where username='" +
+//            username + "'";
+//    DB_TABLE_PTR selectAccountRet = DB_TABLE_PTR(new DB_TABLE);
+//
+//    {
+//        ReadWriteLocker::Holder lock(ReadWriteLocker::READ, locker);
+//        code = db->execSQL(selectAccountSql.c_str(), 7, selectAccountRet);
+//    }
 
+    std::string selectAccountSql = "SELECT id, username, password, password_salt, phone_number, email, extra FROM account where username=?";
+    DB_TABLE_PTR selectAccountRet = DB_TABLE_PTR(new DB_TABLE);
     {
-        auto lock = ReadWriteLocker::Holder(ReadWriteLocker::READ, locker);
-        code = db->execSQL(selectAccountSql.c_str(), 7, selectAccountRet);
+        ReadWriteLocker::Holder lock(ReadWriteLocker::READ, locker);
+        std::vector<BaseDB::KeyType> keyTypes;
+        std::vector<std::string> values;
+        keyTypes.emplace_back(BaseDB::STR_128);
+        values.emplace_back(username);
+
+        std::vector<BaseDB::KeyType> retColTypes;
+        retColTypes.emplace_back(BaseDB::INT);
+        retColTypes.emplace_back(BaseDB::STR_128);
+        retColTypes.emplace_back(BaseDB::STR_128);
+        retColTypes.emplace_back(BaseDB::STR_128);
+        retColTypes.emplace_back(BaseDB::STR_128);
+        retColTypes.emplace_back(BaseDB::STR_128);
+        retColTypes.emplace_back(BaseDB::STR_512);
+
+        code = db->execStmtFetch(selectAccountSql, keyTypes, values, retColTypes, selectAccountRet);
     }
 
     if (code == global::DBCode::OK) {
@@ -95,15 +120,13 @@ std::shared_ptr<AccountModel> DBManager::getAccountByUsername(const std::string 
         }
         std::vector<std::string> &row = *((*selectAccountRet)[0]);
         std::shared_ptr<AccountModel> accountModel = std::shared_ptr<AccountModel>(new AccountModel());
-
-        accountModel->setId(str2Int(row[0]));
+        accountModel->setId(buffer2Int(row[0]));
         accountModel->setUsername(row[1]);
         accountModel->setPassword(row[2]);
         accountModel->setPasswordSalt(row[3]);
         accountModel->setPhoneNumber(row[4]);
         accountModel->setEmail(row[5]);
         accountModel->setExtra(row[6]);
-
         return accountModel;
     } else {
         LOG(ERROR) << "selectAccountSql error: " << selectAccountSql << "code: " << code;
@@ -113,19 +136,45 @@ std::shared_ptr<AccountModel> DBManager::getAccountByUsername(const std::string 
 
 int DBManager::addAccount(std::shared_ptr<AccountModel> accountModel) {
     // TODO 先简单粗暴的拼接sql，后续改成PreparedStatement方式
+//    std::string insertAccountSql =
+//            "INSERT INTO `account`.`account`(`username`, `password`, `password_salt`, `phone_number`, `email`, `extra`) "
+//            "VALUES ('" + accountModel->getUsername() + "', '" + accountModel->getPassword() + "', '" +
+//            accountModel->getPasswordSalt() + "', '" + accountModel->getPhoneNumber() + "', '" +
+//            accountModel->getEmail() + "', '" + accountModel->getExtra() + "')";
+//
+//    int insertAccountCode;
+//    {
+//        ReadWriteLocker::Holder lock(ReadWriteLocker::WRITE, locker);
+//        insertAccountCode = db->execSQL(insertAccountSql.c_str(), 0, nullptr);
+//    }
     std::string insertAccountSql =
             "INSERT INTO `account`.`account`(`username`, `password`, `password_salt`, `phone_number`, `email`, `extra`) "
-            "VALUES ('" + accountModel->getUsername() + "', '" + accountModel->getPassword() + "', '" +
-            accountModel->getPasswordSalt() + "', '" + accountModel->getPhoneNumber() + "', '" +
-            accountModel->getEmail() + "', '" + accountModel->getExtra() + "')";
+            "VALUES (?,?,?,?,?,?)";
 
     int insertAccountCode;
+    int affectedRows;
     {
-        auto lock = ReadWriteLocker::Holder(ReadWriteLocker::WRITE, locker);
-        insertAccountCode = db->execSQL(insertAccountSql.c_str(), 0, nullptr);
+        ReadWriteLocker::Holder lock(ReadWriteLocker::WRITE, locker);
+        std::vector<BaseDB::KeyType> keyTypes;
+        std::vector<std::string> values;
+        keyTypes.emplace_back(BaseDB::STR_128);
+        values.emplace_back(accountModel->getUsername());
+        keyTypes.emplace_back(BaseDB::STR_128);
+        values.emplace_back(accountModel->getPassword());
+        keyTypes.emplace_back(BaseDB::STR_128);
+        values.emplace_back(accountModel->getPasswordSalt());
+        keyTypes.emplace_back(BaseDB::STR_128);
+        values.emplace_back(accountModel->getPhoneNumber());
+        keyTypes.emplace_back(BaseDB::STR_128);
+        values.emplace_back(accountModel->getEmail());
+        keyTypes.emplace_back(BaseDB::STR_512);
+        values.emplace_back(accountModel->getExtra());
+
+        insertAccountCode = db->execStmt(insertAccountSql, keyTypes, values, affectedRows);
     }
+
     if (insertAccountCode == global::DBCode::OK) {
-        LOG(INFO) << insertAccountSql << " succ";
+        LOG(INFO) << insertAccountSql << " succ affectedRows: " << affectedRows;
     } else {
         LOG(ERROR) << insertAccountSql << " error: " << insertAccountCode;
     }

@@ -3,12 +3,18 @@
 //
 
 #include "GlobalValues.h"
-namespace global{
+
+namespace global {
 
     const int DBCode::OK = 0;
     const int DBCode::ERR = -1;
 
     const int DBCode::QUERY_ERR = -1001;
+    const int DBCode::QUERY_STMT_ERR = -1002;
+    const int DBCode::QUERY_STMT_PARAM_ERR = -1003;
+    const int DBCode::QUERY_STMT_INIT_ERR = -1004;
+    const int DBCode::QUERY_STMT_PREPARED_ERR = -1005;
+    const int DBCode::QUERY_STMT_RET_ERR = -1006;
 
     const int DBCode::CONN_INIT_ERR = -2001;
     const int DBCode::CONN_ERR = -2002;
@@ -30,7 +36,7 @@ namespace global{
     const int AccountRespCode::ReqErr = -1000; // 请求错误
 
     const int AccountRespCode::Login_AccountNotExist = 1001;
-    const int AccountRespCode::Login_PasswordErr =1002;
+    const int AccountRespCode::Login_PasswordErr = 1002;
     const int AccountRespCode::Login_CreateTokenFail = 1003;
     const int AccountRespCode::Login_ParamErr = 1004;
     const int AccountRespCode::Login_GetUserErr = 1005;

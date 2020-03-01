@@ -8,11 +8,10 @@
 #include<thread>
 
 /**
- * 读写锁，允许并行读，但只能串行写，写时不能读，可使用内部Holder类对象进行自动加解锁，如: auto lock = ReadWriteLocker::Holder(ReadWriteLocker::WRITE, locker);
+ * 读写锁，允许并行读，但只能串行写，写时不能读，可使用内部Holder类对象进行自动加解锁，如: ReadWriteLocker::Holder lock(ReadWriteLocker::WRITE, locker);
  */
 class ReadWriteLocker {
 private:
-    std::mutex functionLocker; // 函数调用锁，本类所有函数只能串行调用
     std::mutex rwLocker; // 读写锁
     std::condition_variable_any condition; // 状态变量，用于等待和唤醒线程
     int readerCount = 0;

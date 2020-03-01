@@ -102,3 +102,215 @@ int MysqlDB::execSQL(const char *sql, int retColSize, DB_TABLE_PTR ret) {
 
     return global::DBCode::OK;
 }
+
+int MysqlDB::execStmt(const std::string &sql, const std::vector<KeyType> &keyTypes,
+                      const std::vector<std::string> &values, int &affectedRows) {
+    if (keyTypes.size() != values.size()) {
+        LOG(ERROR) << "execStmt param error, keyTypes.size() != values.size(): " << keyTypes.size() << " : "
+                   << values.size();
+        return global::DBCode::QUERY_STMT_PARAM_ERR;
+    }
+    if (keyTypes.empty()) {
+        LOG(ERROR) << "execStmt param error, keyTypes.empty()";
+        return global::DBCode::QUERY_STMT_PARAM_ERR;
+    }
+
+    int keyNum = keyTypes.size();
+    std::shared_ptr<StmtBuffer> stmtBuffer;
+    int bindCode = getStmtCache(stmtBuffer, sql, keyTypes);
+    if (bindCode != global::DBCode::OK) {
+        return bindCode;
+    }
+
+    unsigned long paramCount = mysql_stmt_param_count(stmtBuffer->stmt);
+    if (paramCount != keyNum) {
+        LOG(ERROR) << "execStmt param error, paramCount != keyNum: " << paramCount << " : " << keyNum;
+        return global::DBCode::QUERY_STMT_PARAM_ERR;
+    }
+
+    /* Bind the buffers */
+    if (mysql_stmt_bind_param(stmtBuffer->stmt, stmtBuffer->bind)) {
+        LOG(ERROR) << "mysql_stmt_bind_param() failed" << mysql_stmt_error(stmtBuffer->stmt);
+        return global::DBCode::QUERY_STMT_PARAM_ERR;
+    }
+
+    // 数据赋值
+    for (int i = 0; i < keyNum; i++) {
+        const std::string &value = values[i];
+        memcpy(stmtBuffer->buffer[i], value.c_str(), value.size());
+        stmtBuffer->length[i] = value.size();
+    }
+
+    if (mysql_stmt_execute(stmtBuffer->stmt)) {
+        LOG(ERROR) << "mysql_stmt_execute(), failed" << mysql_stmt_error(stmtBuffer->stmt);
+        return global::DBCode::QUERY_STMT_ERR;
+    }
+
+    affectedRows = (int) mysql_stmt_affected_rows(stmtBuffer->stmt);
+
+    return global::DBCode::OK;
+}
+
+int MysqlDB::execStmtFetch(const std::string &sql, const std::vector<KeyType> &keyTypes,
+                           const std::vector<std::string> &values, const std::vector<KeyType> &retColTypes,
+                           DB_TABLE_PTR ret) {
+    if (keyTypes.size() != values.size()) {
+        LOG(ERROR) << "execStmtFetch param error, keyTypes.size() != values.size(): " << keyTypes.size() << " : "
+                   << values.size();
+        return global::DBCode::QUERY_STMT_PARAM_ERR;
+    }
+    if (keyTypes.empty()) {
+        LOG(ERROR) << "execStmtFetch param error, keyTypes.empty()";
+        return global::DBCode::QUERY_STMT_PARAM_ERR;
+    }
+
+    int keyNum = keyTypes.size();
+    std::shared_ptr<StmtBuffer> stmtBuffer;
+    int bindCode = getStmtCache(stmtBuffer, sql, keyTypes);
+    if (bindCode != global::DBCode::OK) {
+        return bindCode;
+    }
+
+    unsigned long paramCount = mysql_stmt_param_count(stmtBuffer->stmt);
+    if (paramCount != keyNum) {
+        LOG(ERROR) << "execStmt param error, paramCount != keyNum: " << paramCount << " : " << keyNum;
+        return global::DBCode::QUERY_STMT_PARAM_ERR;
+    }
+
+    /* Bind the buffers */
+    if (mysql_stmt_bind_param(stmtBuffer->stmt, stmtBuffer->bind)) {
+        LOG(ERROR) << "mysql_stmt_bind_param() failed" << mysql_stmt_error(stmtBuffer->stmt);
+        return global::DBCode::QUERY_STMT_PARAM_ERR;
+    }
+
+    /* Fetch result set meta information */
+    MYSQL_RES *prepare_meta_result = mysql_stmt_result_metadata(stmtBuffer->stmt);
+    if (!prepare_meta_result) {
+        LOG(ERROR) << "mysql_stmt_result_metadata(), returned no meta information "
+                   << mysql_stmt_error(stmtBuffer->stmt);
+    }
+
+    /* Get total columns in the query */
+    int retColNum = retColTypes.size();
+    int column_count = (int) mysql_num_fields(prepare_meta_result);
+    if (column_count != retColNum) {
+        LOG(ERROR) << "execStmtFetch param error, column_count != retColTypes.size()";
+        return global::DBCode::QUERY_STMT_PARAM_ERR;
+    }
+
+    // 数据赋值
+    for (int i = 0; i < keyNum; i++) {
+        const std::string &value = values[i];
+        memcpy(stmtBuffer->buffer[i], value.c_str(), value.size());
+        stmtBuffer->length[i] = value.size();
+    }
+
+    if (mysql_stmt_execute(stmtBuffer->stmt)) {
+        LOG(ERROR) << "mysql_stmt_execute(), failed" << mysql_stmt_error(stmtBuffer->stmt);
+        return global::DBCode::QUERY_STMT_ERR;
+    }
+
+    // 获取ret
+    std::shared_ptr<StmtBuffer> retStmtBuffer = std::shared_ptr<StmtBuffer>(new StmtBuffer(retColNum));
+    retStmtBuffer->stmt = stmtBuffer->stmt;
+    bindBuffer(retColTypes, retStmtBuffer);
+    /* Bind the result buffers */
+    if (mysql_stmt_bind_result(retStmtBuffer->stmt, retStmtBuffer->bind)) {
+        LOG(ERROR) << "mysql_stmt_bind_result() failed " << mysql_stmt_error(retStmtBuffer->stmt);
+        return global::DBCode::QUERY_STMT_PARAM_ERR;
+    }
+
+    // 读取buffer数据
+    /* Now buffer all results to client (optional step) */
+    if (mysql_stmt_store_result(retStmtBuffer->stmt)) {
+        LOG(ERROR) << "mysql_stmt_store_result() failed " << mysql_stmt_error(retStmtBuffer->stmt);
+        return global::DBCode::QUERY_STMT_RET_ERR;
+    }
+
+    /* Fetch all rows */
+    while (!mysql_stmt_fetch(retStmtBuffer->stmt)) {
+        auto retRow = DB_ROW_PTR(new DB_ROW());
+        for (int i = 0; i < retColNum; i++) {
+            retRow->emplace_back(std::string(retStmtBuffer->buffer[i], retStmtBuffer->length[i]));
+        }
+        ret->push_back(retRow);
+    }
+
+    /* Free the prepared result metadata */
+    mysql_free_result(prepare_meta_result);
+
+    return global::DBCode::OK;
+}
+
+int MysqlDB::getStmtCache(std::shared_ptr<StmtBuffer> &stmtCache, const std::string &sql,
+                          const std::vector<KeyType> &keyTypes) {
+    int keyNum = keyTypes.size();
+
+    auto iter = stmtCaches.find(sql);
+    if (iter != stmtCaches.end()) {
+        // 找到缓存，使用缓存
+        stmtCache = iter->second;
+    }
+
+    if (stmtCache == nullptr || keyNum != stmtCache->keyNum ) {
+        stmtCaches.erase(sql);
+        stmtCache = nullptr;
+    }
+
+    if (stmtCache == nullptr) {
+        // 没找到缓存，创建缓存
+        stmtCache = std::shared_ptr<StmtBuffer>(new StmtBuffer(keyNum));
+
+        stmtCache->stmt = mysql_stmt_init(&mysql);
+        if (!stmtCache->stmt) {
+            LOG(ERROR) << "execStmt mysql_stmt_init error, out of memory";
+            return global::DBCode::QUERY_STMT_INIT_ERR;
+        }
+        if (mysql_stmt_prepare(stmtCache->stmt, sql.c_str(), sql.size())) {
+            LOG(ERROR) << " mysql_stmt_prepare() failed" << mysql_stmt_error(stmtCache->stmt);
+            return global::DBCode::QUERY_STMT_INIT_ERR;
+        }
+        bindBuffer(keyTypes, stmtCache);
+    }
+
+    return global::DBCode::OK;
+}
+
+void
+MysqlDB::bindBuffer(const std::vector<KeyType> &keyTypes, std::shared_ptr<StmtBuffer> stmtCache) {
+    int keyNum = keyTypes.size();
+
+    // 绑定数据
+    for (int i = 0; i < keyNum; i++) {
+        KeyType keyType = keyTypes[i];
+        // TODO 支持更多类型的statement，暂时只会用到这两类
+        if (keyType == INT) {
+            stmtCache->bind[i].buffer_type = MYSQL_TYPE_LONG;
+            stmtCache->bind[i].buffer_length = sizeof(int);
+            stmtCache->buffer[i] = new char[stmtCache->bind[i].buffer_length];
+        } else if (keyType == STR_128) {
+            stmtCache->bind[i].buffer_type = MYSQL_TYPE_STRING;
+            stmtCache->bind[i].buffer_length = 128;
+            stmtCache->buffer[i] = new char[stmtCache->bind[i].buffer_length];
+        } else if (keyType == STR_512) {
+            stmtCache->bind[i].buffer_type = MYSQL_TYPE_STRING;
+            stmtCache->bind[i].buffer_length = 512;
+            stmtCache->buffer[i] = new char[stmtCache->bind[i].buffer_length];
+        }
+
+        stmtCache->bind[i].buffer = stmtCache->buffer[i];
+        stmtCache->bind[i].is_null = &stmtCache->is_null[i];
+        stmtCache->bind[i].length = &stmtCache->length[i];
+        stmtCache->bind[i].error = &stmtCache->error[i];
+    }
+}
+
+MysqlDB::~MysqlDB() {
+    for (auto iter = stmtCaches.begin(); iter != stmtCaches.end(); iter++) {
+        LOG(INFO) << "release statement " << iter->first;
+        if (iter->second->stmt != nullptr) {
+            mysql_stmt_close(iter->second->stmt);
+            iter->second->stmt = nullptr;
+        }
+    }
+}

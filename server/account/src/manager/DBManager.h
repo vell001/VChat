@@ -20,10 +20,14 @@ public:
              const std::string &password, const std::string &charset);
 
     std::shared_ptr<AccountModel> getAccountByUsername(const std::string &username, int &code);
+
     int addAccount(std::shared_ptr<AccountModel> accountModel);
+
 private:
     std::shared_ptr<BaseDB> db = nullptr;
+
     int createAccountTable();
+
     ReadWriteLocker locker;
 };
 

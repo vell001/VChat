@@ -34,9 +34,8 @@ void ReadWriteLocker::endWrite() {
     condition.notify_all();
 }
 
-ReadWriteLocker::Holder::Holder(ReadWriteLocker::LockerType lockerType, ReadWriteLocker &locker) : lockerType(
-        lockerType),
-                                                                                                   locker(locker) {
+ReadWriteLocker::Holder::Holder(ReadWriteLocker::LockerType lockerType, ReadWriteLocker &locker) :
+        lockerType(lockerType), locker(locker) {
     if (lockerType == LockerType::READ) {
         locker.startRead();
     } else if (lockerType == LockerType::WRITE) {
