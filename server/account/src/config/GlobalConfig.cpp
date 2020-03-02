@@ -31,7 +31,7 @@ void GlobalConfig::init(const std::string &configPath) {
 }
 
 std::string GlobalConfig::getDBHost() {
-    return config.get("db_host", "192.168.1.3").asString();
+    return config.get("db_host", "192.168.43.96").asString();
 }
 
 int GlobalConfig::getDBPort() {
@@ -71,5 +71,9 @@ string GlobalConfig::getAESIvHex() {
 }
 
 int GlobalConfig::getTokenExpirationPeriodSec() {
-    return config.get("token_expiration_period_sec", 30).asInt();
+    return config.get("token_expiration_period_sec", 6).asInt();
+}
+
+int GlobalConfig::getRefreshTokenExpirationPeriodSec() {
+    return config.get("refresh_token_expiration_period_sec", 12).asInt();
 }

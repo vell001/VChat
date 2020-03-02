@@ -25,6 +25,7 @@ namespace global {
         const static int Login_CreateTokenFail;
         const static int Login_ParamErr;
         const static int Login_GetUserErr;
+        const static int Login_CreateRefreshTokenFail;
 
         const static int Signup_ParamErr;
         const static int Signup_UserExist;
@@ -38,6 +39,13 @@ namespace global {
         const static int IsAlive_TokenExpired;
         const static int IsAlive_TokenUpdate;
         const static int IsAlive_TokenIncorrect;
+
+        const static int RefreshToken_RefreshTokenNotExist;
+        const static int RefreshToken_RefreshTokenExpired;
+        const static int RefreshToken_RefreshTokenIncorrect;
+        const static int RefreshToken_GetUserErr;
+        const static int RefreshToken_AccountNotExist;
+        const static int RefreshToken_CreateTokenFail;
     };
 }
 

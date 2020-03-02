@@ -50,6 +50,13 @@ token_msg = record {
     username: string;
 }
 
+# refresh_token信息
+refresh_token_msg = record {
+    refresh_token: string;
+    expiration_time_sec: i32;
+    username: string;
+}
+
 # 账号结果返回
 account_resp = record {
     code: i32; # 错误码
@@ -66,4 +73,5 @@ account_info = record {
     email: string;
     extra: string;
     token: token_msg;
+    refreshToken: refresh_token_msg;
 }

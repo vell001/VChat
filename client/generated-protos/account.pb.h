@@ -47,7 +47,7 @@ struct TableStruct_account_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -67,6 +67,9 @@ extern AccountRespWithInfoDefaultTypeInternal _AccountRespWithInfo_default_insta
 class LoginMsg;
 class LoginMsgDefaultTypeInternal;
 extern LoginMsgDefaultTypeInternal _LoginMsg_default_instance_;
+class RefreshTokenMsg;
+class RefreshTokenMsgDefaultTypeInternal;
+extern RefreshTokenMsgDefaultTypeInternal _RefreshTokenMsg_default_instance_;
 class SignupMsg;
 class SignupMsgDefaultTypeInternal;
 extern SignupMsgDefaultTypeInternal _SignupMsg_default_instance_;
@@ -79,6 +82,7 @@ template<> ::account::AccountInfo* Arena::CreateMaybeMessage<::account::AccountI
 template<> ::account::AccountResp* Arena::CreateMaybeMessage<::account::AccountResp>(Arena*);
 template<> ::account::AccountRespWithInfo* Arena::CreateMaybeMessage<::account::AccountRespWithInfo>(Arena*);
 template<> ::account::LoginMsg* Arena::CreateMaybeMessage<::account::LoginMsg>(Arena*);
+template<> ::account::RefreshTokenMsg* Arena::CreateMaybeMessage<::account::RefreshTokenMsg>(Arena*);
 template<> ::account::SignupMsg* Arena::CreateMaybeMessage<::account::SignupMsg>(Arena*);
 template<> ::account::TokenMsg* Arena::CreateMaybeMessage<::account::TokenMsg>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -446,6 +450,170 @@ class LoginMsg :
 };
 // -------------------------------------------------------------------
 
+class RefreshTokenMsg :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:account.RefreshTokenMsg) */ {
+ public:
+  RefreshTokenMsg();
+  virtual ~RefreshTokenMsg();
+
+  RefreshTokenMsg(const RefreshTokenMsg& from);
+  RefreshTokenMsg(RefreshTokenMsg&& from) noexcept
+    : RefreshTokenMsg() {
+    *this = ::std::move(from);
+  }
+
+  inline RefreshTokenMsg& operator=(const RefreshTokenMsg& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RefreshTokenMsg& operator=(RefreshTokenMsg&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RefreshTokenMsg& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RefreshTokenMsg* internal_default_instance() {
+    return reinterpret_cast<const RefreshTokenMsg*>(
+               &_RefreshTokenMsg_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(RefreshTokenMsg& a, RefreshTokenMsg& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RefreshTokenMsg* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RefreshTokenMsg* New() const final {
+    return CreateMaybeMessage<RefreshTokenMsg>(nullptr);
+  }
+
+  RefreshTokenMsg* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RefreshTokenMsg>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RefreshTokenMsg& from);
+  void MergeFrom(const RefreshTokenMsg& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RefreshTokenMsg* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "account.RefreshTokenMsg";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_account_2eproto);
+    return ::descriptor_table_account_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRefreshTokenFieldNumber = 1,
+    kUsernameFieldNumber = 3,
+    kExpirationTimeSecFieldNumber = 2,
+  };
+  // string refreshToken = 1;
+  void clear_refreshtoken();
+  const std::string& refreshtoken() const;
+  void set_refreshtoken(const std::string& value);
+  void set_refreshtoken(std::string&& value);
+  void set_refreshtoken(const char* value);
+  void set_refreshtoken(const char* value, size_t size);
+  std::string* mutable_refreshtoken();
+  std::string* release_refreshtoken();
+  void set_allocated_refreshtoken(std::string* refreshtoken);
+  private:
+  const std::string& _internal_refreshtoken() const;
+  void _internal_set_refreshtoken(const std::string& value);
+  std::string* _internal_mutable_refreshtoken();
+  public:
+
+  // string username = 3;
+  void clear_username();
+  const std::string& username() const;
+  void set_username(const std::string& value);
+  void set_username(std::string&& value);
+  void set_username(const char* value);
+  void set_username(const char* value, size_t size);
+  std::string* mutable_username();
+  std::string* release_username();
+  void set_allocated_username(std::string* username);
+  private:
+  const std::string& _internal_username() const;
+  void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
+  public:
+
+  // int32 expiration_time_sec = 2;
+  void clear_expiration_time_sec();
+  ::PROTOBUF_NAMESPACE_ID::int32 expiration_time_sec() const;
+  void set_expiration_time_sec(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_expiration_time_sec() const;
+  void _internal_set_expiration_time_sec(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:account.RefreshTokenMsg)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr refreshtoken_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
+  ::PROTOBUF_NAMESPACE_ID::int32 expiration_time_sec_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_account_2eproto;
+};
+// -------------------------------------------------------------------
+
 class TokenMsg :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:account.TokenMsg) */ {
  public:
@@ -488,7 +656,7 @@ class TokenMsg :
                &_TokenMsg_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(TokenMsg& a, TokenMsg& b) {
     a.Swap(&b);
@@ -652,7 +820,7 @@ class AccountResp :
                &_AccountResp_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(AccountResp& a, AccountResp& b) {
     a.Swap(&b);
@@ -833,7 +1001,7 @@ class AccountRespWithInfo :
                &_AccountRespWithInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(AccountRespWithInfo& a, AccountRespWithInfo& b) {
     a.Swap(&b);
@@ -1014,7 +1182,7 @@ class AccountInfo :
                &_AccountInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(AccountInfo& a, AccountInfo& b) {
     a.Swap(&b);
@@ -1079,10 +1247,11 @@ class AccountInfo :
 
   enum : int {
     kUsernameFieldNumber = 1,
-    kPhoneNumberFieldNumber = 3,
-    kEmailFieldNumber = 4,
-    kExtraFieldNumber = 5,
+    kPhoneNumberFieldNumber = 4,
+    kEmailFieldNumber = 5,
+    kExtraFieldNumber = 6,
     kTokenFieldNumber = 2,
+    kRefreshTokenFieldNumber = 3,
   };
   // string username = 1;
   void clear_username();
@@ -1100,7 +1269,7 @@ class AccountInfo :
   std::string* _internal_mutable_username();
   public:
 
-  // string phoneNumber = 3;
+  // string phoneNumber = 4;
   void clear_phonenumber();
   const std::string& phonenumber() const;
   void set_phonenumber(const std::string& value);
@@ -1116,7 +1285,7 @@ class AccountInfo :
   std::string* _internal_mutable_phonenumber();
   public:
 
-  // string email = 4;
+  // string email = 5;
   void clear_email();
   const std::string& email() const;
   void set_email(const std::string& value);
@@ -1132,7 +1301,7 @@ class AccountInfo :
   std::string* _internal_mutable_email();
   public:
 
-  // string extra = 5;
+  // string extra = 6;
   void clear_extra();
   const std::string& extra() const;
   void set_extra(const std::string& value);
@@ -1163,6 +1332,21 @@ class AccountInfo :
   ::account::TokenMsg* _internal_mutable_token();
   public:
 
+  // .account.RefreshTokenMsg refreshToken = 3;
+  bool has_refreshtoken() const;
+  private:
+  bool _internal_has_refreshtoken() const;
+  public:
+  void clear_refreshtoken();
+  const ::account::RefreshTokenMsg& refreshtoken() const;
+  ::account::RefreshTokenMsg* release_refreshtoken();
+  ::account::RefreshTokenMsg* mutable_refreshtoken();
+  void set_allocated_refreshtoken(::account::RefreshTokenMsg* refreshtoken);
+  private:
+  const ::account::RefreshTokenMsg& _internal_refreshtoken() const;
+  ::account::RefreshTokenMsg* _internal_mutable_refreshtoken();
+  public:
+
   // @@protoc_insertion_point(class_scope:account.AccountInfo)
  private:
   class _Internal;
@@ -1173,6 +1357,7 @@ class AccountInfo :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr extra_;
   ::account::TokenMsg* token_;
+  ::account::RefreshTokenMsg* refreshtoken_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_account_2eproto;
 };
@@ -1609,6 +1794,150 @@ inline void LoginMsg::set_allocated_password(std::string* password) {
   }
   password_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), password);
   // @@protoc_insertion_point(field_set_allocated:account.LoginMsg.password)
+}
+
+// -------------------------------------------------------------------
+
+// RefreshTokenMsg
+
+// string refreshToken = 1;
+inline void RefreshTokenMsg::clear_refreshtoken() {
+  refreshtoken_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& RefreshTokenMsg::refreshtoken() const {
+  // @@protoc_insertion_point(field_get:account.RefreshTokenMsg.refreshToken)
+  return _internal_refreshtoken();
+}
+inline void RefreshTokenMsg::set_refreshtoken(const std::string& value) {
+  _internal_set_refreshtoken(value);
+  // @@protoc_insertion_point(field_set:account.RefreshTokenMsg.refreshToken)
+}
+inline std::string* RefreshTokenMsg::mutable_refreshtoken() {
+  // @@protoc_insertion_point(field_mutable:account.RefreshTokenMsg.refreshToken)
+  return _internal_mutable_refreshtoken();
+}
+inline const std::string& RefreshTokenMsg::_internal_refreshtoken() const {
+  return refreshtoken_.GetNoArena();
+}
+inline void RefreshTokenMsg::_internal_set_refreshtoken(const std::string& value) {
+  
+  refreshtoken_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void RefreshTokenMsg::set_refreshtoken(std::string&& value) {
+  
+  refreshtoken_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:account.RefreshTokenMsg.refreshToken)
+}
+inline void RefreshTokenMsg::set_refreshtoken(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  refreshtoken_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:account.RefreshTokenMsg.refreshToken)
+}
+inline void RefreshTokenMsg::set_refreshtoken(const char* value, size_t size) {
+  
+  refreshtoken_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:account.RefreshTokenMsg.refreshToken)
+}
+inline std::string* RefreshTokenMsg::_internal_mutable_refreshtoken() {
+  
+  return refreshtoken_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* RefreshTokenMsg::release_refreshtoken() {
+  // @@protoc_insertion_point(field_release:account.RefreshTokenMsg.refreshToken)
+  
+  return refreshtoken_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void RefreshTokenMsg::set_allocated_refreshtoken(std::string* refreshtoken) {
+  if (refreshtoken != nullptr) {
+    
+  } else {
+    
+  }
+  refreshtoken_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), refreshtoken);
+  // @@protoc_insertion_point(field_set_allocated:account.RefreshTokenMsg.refreshToken)
+}
+
+// int32 expiration_time_sec = 2;
+inline void RefreshTokenMsg::clear_expiration_time_sec() {
+  expiration_time_sec_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 RefreshTokenMsg::_internal_expiration_time_sec() const {
+  return expiration_time_sec_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 RefreshTokenMsg::expiration_time_sec() const {
+  // @@protoc_insertion_point(field_get:account.RefreshTokenMsg.expiration_time_sec)
+  return _internal_expiration_time_sec();
+}
+inline void RefreshTokenMsg::_internal_set_expiration_time_sec(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  expiration_time_sec_ = value;
+}
+inline void RefreshTokenMsg::set_expiration_time_sec(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_expiration_time_sec(value);
+  // @@protoc_insertion_point(field_set:account.RefreshTokenMsg.expiration_time_sec)
+}
+
+// string username = 3;
+inline void RefreshTokenMsg::clear_username() {
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& RefreshTokenMsg::username() const {
+  // @@protoc_insertion_point(field_get:account.RefreshTokenMsg.username)
+  return _internal_username();
+}
+inline void RefreshTokenMsg::set_username(const std::string& value) {
+  _internal_set_username(value);
+  // @@protoc_insertion_point(field_set:account.RefreshTokenMsg.username)
+}
+inline std::string* RefreshTokenMsg::mutable_username() {
+  // @@protoc_insertion_point(field_mutable:account.RefreshTokenMsg.username)
+  return _internal_mutable_username();
+}
+inline const std::string& RefreshTokenMsg::_internal_username() const {
+  return username_.GetNoArena();
+}
+inline void RefreshTokenMsg::_internal_set_username(const std::string& value) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void RefreshTokenMsg::set_username(std::string&& value) {
+  
+  username_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:account.RefreshTokenMsg.username)
+}
+inline void RefreshTokenMsg::set_username(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:account.RefreshTokenMsg.username)
+}
+inline void RefreshTokenMsg::set_username(const char* value, size_t size) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:account.RefreshTokenMsg.username)
+}
+inline std::string* RefreshTokenMsg::_internal_mutable_username() {
+  
+  return username_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* RefreshTokenMsg::release_username() {
+  // @@protoc_insertion_point(field_release:account.RefreshTokenMsg.username)
+  
+  return username_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void RefreshTokenMsg::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  username_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), username);
+  // @@protoc_insertion_point(field_set_allocated:account.RefreshTokenMsg.username)
 }
 
 // -------------------------------------------------------------------
@@ -2287,7 +2616,67 @@ inline void AccountInfo::set_allocated_token(::account::TokenMsg* token) {
   // @@protoc_insertion_point(field_set_allocated:account.AccountInfo.token)
 }
 
-// string phoneNumber = 3;
+// .account.RefreshTokenMsg refreshToken = 3;
+inline bool AccountInfo::_internal_has_refreshtoken() const {
+  return this != internal_default_instance() && refreshtoken_ != nullptr;
+}
+inline bool AccountInfo::has_refreshtoken() const {
+  return _internal_has_refreshtoken();
+}
+inline void AccountInfo::clear_refreshtoken() {
+  if (GetArenaNoVirtual() == nullptr && refreshtoken_ != nullptr) {
+    delete refreshtoken_;
+  }
+  refreshtoken_ = nullptr;
+}
+inline const ::account::RefreshTokenMsg& AccountInfo::_internal_refreshtoken() const {
+  const ::account::RefreshTokenMsg* p = refreshtoken_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::account::RefreshTokenMsg*>(
+      &::account::_RefreshTokenMsg_default_instance_);
+}
+inline const ::account::RefreshTokenMsg& AccountInfo::refreshtoken() const {
+  // @@protoc_insertion_point(field_get:account.AccountInfo.refreshToken)
+  return _internal_refreshtoken();
+}
+inline ::account::RefreshTokenMsg* AccountInfo::release_refreshtoken() {
+  // @@protoc_insertion_point(field_release:account.AccountInfo.refreshToken)
+  
+  ::account::RefreshTokenMsg* temp = refreshtoken_;
+  refreshtoken_ = nullptr;
+  return temp;
+}
+inline ::account::RefreshTokenMsg* AccountInfo::_internal_mutable_refreshtoken() {
+  
+  if (refreshtoken_ == nullptr) {
+    auto* p = CreateMaybeMessage<::account::RefreshTokenMsg>(GetArenaNoVirtual());
+    refreshtoken_ = p;
+  }
+  return refreshtoken_;
+}
+inline ::account::RefreshTokenMsg* AccountInfo::mutable_refreshtoken() {
+  // @@protoc_insertion_point(field_mutable:account.AccountInfo.refreshToken)
+  return _internal_mutable_refreshtoken();
+}
+inline void AccountInfo::set_allocated_refreshtoken(::account::RefreshTokenMsg* refreshtoken) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete refreshtoken_;
+  }
+  if (refreshtoken) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      refreshtoken = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, refreshtoken, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  refreshtoken_ = refreshtoken;
+  // @@protoc_insertion_point(field_set_allocated:account.AccountInfo.refreshToken)
+}
+
+// string phoneNumber = 4;
 inline void AccountInfo::clear_phonenumber() {
   phonenumber_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -2347,7 +2736,7 @@ inline void AccountInfo::set_allocated_phonenumber(std::string* phonenumber) {
   // @@protoc_insertion_point(field_set_allocated:account.AccountInfo.phoneNumber)
 }
 
-// string email = 4;
+// string email = 5;
 inline void AccountInfo::clear_email() {
   email_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -2407,7 +2796,7 @@ inline void AccountInfo::set_allocated_email(std::string* email) {
   // @@protoc_insertion_point(field_set_allocated:account.AccountInfo.email)
 }
 
-// string extra = 5;
+// string extra = 6;
 inline void AccountInfo::clear_extra() {
   extra_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -2470,6 +2859,8 @@ inline void AccountInfo::set_allocated_extra(std::string* extra) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

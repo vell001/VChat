@@ -92,7 +92,12 @@ public class AccountInfoFragment extends BaseFragment {
             public void run() {
                 mTvUsername.setText(accountInfo.getUsername());
                 mTvAccountInfo.setText(String.format("电话: %s\nemail: %s\n其他: %s", accountInfo.getPhoneNumber(), accountInfo.getEmail(), accountInfo.getExtra()));
-                mTvTokenInfo.setText(String.format(Locale.CHINESE, "token: %s\ntoken 过期时间: %s", accountInfo.getToken().getToken(), formatter.format(new Date(((long) accountInfo.getToken().getExpirationTimeSec()) * 1000))));
+                mTvTokenInfo.setText(String.format(Locale.CHINESE, "refresh_token 过期时间: %s\n" +
+                                "token: %s\n" +
+                                "token 过期时间: %s",
+                        formatter.format(new Date(((long) accountInfo.getRefreshToken().getExpirationTimeSec()) * 1000)),
+                        accountInfo.getToken().getToken(),
+                        formatter.format(new Date(((long) accountInfo.getToken().getExpirationTimeSec()) * 1000))));
             }
         });
     }

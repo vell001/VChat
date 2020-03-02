@@ -14,7 +14,8 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-extern PROTOBUF_INTERNAL_EXPORT_account_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AccountInfo_account_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_account_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_AccountInfo_account_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_account_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RefreshTokenMsg_account_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_account_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TokenMsg_account_2eproto;
 namespace account {
 class SignupMsgDefaultTypeInternal {
@@ -25,6 +26,10 @@ class LoginMsgDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<LoginMsg> _instance;
 } _LoginMsg_default_instance_;
+class RefreshTokenMsgDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RefreshTokenMsg> _instance;
+} _RefreshTokenMsg_default_instance_;
 class TokenMsgDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TokenMsg> _instance;
@@ -53,9 +58,10 @@ static void InitDefaultsscc_info_AccountInfo_account_2eproto() {
   ::account::AccountInfo::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_AccountInfo_account_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_AccountInfo_account_2eproto}, {
-      &scc_info_TokenMsg_account_2eproto.base,}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_AccountInfo_account_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 2, 0, InitDefaultsscc_info_AccountInfo_account_2eproto}, {
+      &scc_info_TokenMsg_account_2eproto.base,
+      &scc_info_RefreshTokenMsg_account_2eproto.base,}};
 
 static void InitDefaultsscc_info_AccountResp_account_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -101,6 +107,20 @@ static void InitDefaultsscc_info_LoginMsg_account_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_LoginMsg_account_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_LoginMsg_account_2eproto}, {}};
 
+static void InitDefaultsscc_info_RefreshTokenMsg_account_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::account::_RefreshTokenMsg_default_instance_;
+    new (ptr) ::account::RefreshTokenMsg();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::account::RefreshTokenMsg::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RefreshTokenMsg_account_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_RefreshTokenMsg_account_2eproto}, {}};
+
 static void InitDefaultsscc_info_SignupMsg_account_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -129,7 +149,7 @@ static void InitDefaultsscc_info_TokenMsg_account_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TokenMsg_account_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TokenMsg_account_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_account_2eproto[6];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_account_2eproto[7];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_account_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_account_2eproto = nullptr;
 
@@ -151,6 +171,14 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_account_2eproto::offsets[] PRO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::account::LoginMsg, account_),
   PROTOBUF_FIELD_OFFSET(::account::LoginMsg, password_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::account::RefreshTokenMsg, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::account::RefreshTokenMsg, refreshtoken_),
+  PROTOBUF_FIELD_OFFSET(::account::RefreshTokenMsg, expiration_time_sec_),
+  PROTOBUF_FIELD_OFFSET(::account::RefreshTokenMsg, username_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::account::TokenMsg, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -184,6 +212,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_account_2eproto::offsets[] PRO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::account::AccountInfo, username_),
   PROTOBUF_FIELD_OFFSET(::account::AccountInfo, token_),
+  PROTOBUF_FIELD_OFFSET(::account::AccountInfo, refreshtoken_),
   PROTOBUF_FIELD_OFFSET(::account::AccountInfo, phonenumber_),
   PROTOBUF_FIELD_OFFSET(::account::AccountInfo, email_),
   PROTOBUF_FIELD_OFFSET(::account::AccountInfo, extra_),
@@ -191,15 +220,17 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_account_2eproto::offsets[] PRO
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::account::SignupMsg)},
   { 10, -1, sizeof(::account::LoginMsg)},
-  { 17, -1, sizeof(::account::TokenMsg)},
-  { 25, -1, sizeof(::account::AccountResp)},
-  { 34, -1, sizeof(::account::AccountRespWithInfo)},
-  { 43, -1, sizeof(::account::AccountInfo)},
+  { 17, -1, sizeof(::account::RefreshTokenMsg)},
+  { 25, -1, sizeof(::account::TokenMsg)},
+  { 33, -1, sizeof(::account::AccountResp)},
+  { 42, -1, sizeof(::account::AccountRespWithInfo)},
+  { 51, -1, sizeof(::account::AccountInfo)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::account::_SignupMsg_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::account::_LoginMsg_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::account::_RefreshTokenMsg_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::account::_TokenMsg_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::account::_AccountResp_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::account::_AccountRespWithInfo_default_instance_),
@@ -211,41 +242,47 @@ const char descriptor_table_protodef_account_2eproto[] PROTOBUF_SECTION_VARIABLE
   "\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\023\n\013pho"
   "neNumber\030\003 \001(\t\022\r\n\005email\030\004 \001(\t\022\r\n\005extra\030\005"
   " \001(\t\"-\n\010LoginMsg\022\017\n\007account\030\001 \001(\t\022\020\n\010pas"
-  "sword\030\002 \001(\t\"H\n\010TokenMsg\022\r\n\005token\030\001 \001(\t\022\033"
-  "\n\023expiration_time_sec\030\002 \001(\005\022\020\n\010username\030"
-  "\003 \001(\t\"Y\n\013AccountResp\022\014\n\004code\030\001 \001(\005\022\013\n\003ms"
-  "g\030\002 \001(\t\022 \n\005token\030\003 \001(\0132\021.account.TokenMs"
-  "g\022\r\n\005extra\030\004 \001(\t\"c\n\023AccountRespWithInfo\022"
-  "\014\n\004code\030\001 \001(\005\022\013\n\003msg\030\002 \001(\t\022\"\n\004info\030\003 \001(\013"
-  "2\024.account.AccountInfo\022\r\n\005extra\030\004 \001(\t\"t\n"
-  "\013AccountInfo\022\020\n\010username\030\001 \001(\t\022 \n\005token\030"
-  "\002 \001(\0132\021.account.TokenMsg\022\023\n\013phoneNumber\030"
-  "\003 \001(\t\022\r\n\005email\030\004 \001(\t\022\r\n\005extra\030\005 \001(\t2\356\001\n\007"
-  "Account\022<\n\006signup\022\022.account.SignupMsg\032\034."
-  "account.AccountRespWithInfo\"\000\022:\n\005login\022\021"
-  ".account.LoginMsg\032\034.account.AccountRespW"
-  "ithInfo\"\000\0223\n\006logout\022\021.account.TokenMsg\032\024"
-  ".account.AccountResp\"\000\0224\n\007isAlive\022\021.acco"
-  "unt.TokenMsg\032\024.account.AccountResp\"\000B\027\n\025"
-  "com.vell.chat.accountb\006proto3"
+  "sword\030\002 \001(\t\"V\n\017RefreshTokenMsg\022\024\n\014refres"
+  "hToken\030\001 \001(\t\022\033\n\023expiration_time_sec\030\002 \001("
+  "\005\022\020\n\010username\030\003 \001(\t\"H\n\010TokenMsg\022\r\n\005token"
+  "\030\001 \001(\t\022\033\n\023expiration_time_sec\030\002 \001(\005\022\020\n\010u"
+  "sername\030\003 \001(\t\"Y\n\013AccountResp\022\014\n\004code\030\001 \001"
+  "(\005\022\013\n\003msg\030\002 \001(\t\022 \n\005token\030\003 \001(\0132\021.account"
+  ".TokenMsg\022\r\n\005extra\030\004 \001(\t\"c\n\023AccountRespW"
+  "ithInfo\022\014\n\004code\030\001 \001(\005\022\013\n\003msg\030\002 \001(\t\022\"\n\004in"
+  "fo\030\003 \001(\0132\024.account.AccountInfo\022\r\n\005extra\030"
+  "\004 \001(\t\"\244\001\n\013AccountInfo\022\020\n\010username\030\001 \001(\t\022"
+  " \n\005token\030\002 \001(\0132\021.account.TokenMsg\022.\n\014ref"
+  "reshToken\030\003 \001(\0132\030.account.RefreshTokenMs"
+  "g\022\023\n\013phoneNumber\030\004 \001(\t\022\r\n\005email\030\005 \001(\t\022\r\n"
+  "\005extra\030\006 \001(\t2\260\002\n\007Account\022<\n\006signup\022\022.acc"
+  "ount.SignupMsg\032\034.account.AccountRespWith"
+  "Info\"\000\022:\n\005login\022\021.account.LoginMsg\032\034.acc"
+  "ount.AccountRespWithInfo\"\000\0223\n\006logout\022\021.a"
+  "ccount.TokenMsg\032\024.account.AccountResp\"\000\022"
+  "4\n\007isAlive\022\021.account.TokenMsg\032\024.account."
+  "AccountResp\"\000\022@\n\014refreshToken\022\030.account."
+  "RefreshTokenMsg\032\024.account.AccountResp\"\000B"
+  "\027\n\025com.vell.chat.accountb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_account_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_account_2eproto_sccs[6] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_account_2eproto_sccs[7] = {
   &scc_info_AccountInfo_account_2eproto.base,
   &scc_info_AccountResp_account_2eproto.base,
   &scc_info_AccountRespWithInfo_account_2eproto.base,
   &scc_info_LoginMsg_account_2eproto.base,
+  &scc_info_RefreshTokenMsg_account_2eproto.base,
   &scc_info_SignupMsg_account_2eproto.base,
   &scc_info_TokenMsg_account_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_account_2eproto_once;
 static bool descriptor_table_account_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_account_2eproto = {
-  &descriptor_table_account_2eproto_initialized, descriptor_table_protodef_account_2eproto, "account.proto", 829,
-  &descriptor_table_account_2eproto_once, descriptor_table_account_2eproto_sccs, descriptor_table_account_2eproto_deps, 6, 0,
+  &descriptor_table_account_2eproto_initialized, descriptor_table_protodef_account_2eproto, "account.proto", 1032,
+  &descriptor_table_account_2eproto_once, descriptor_table_account_2eproto_sccs, descriptor_table_account_2eproto_deps, 7, 0,
   schemas, file_default_instances, TableStruct_account_2eproto::offsets,
-  file_level_metadata_account_2eproto, 6, file_level_enum_descriptors_account_2eproto, file_level_service_descriptors_account_2eproto,
+  file_level_metadata_account_2eproto, 7, file_level_enum_descriptors_account_2eproto, file_level_service_descriptors_account_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -841,6 +878,271 @@ void LoginMsg::InternalSwap(LoginMsg* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata LoginMsg::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void RefreshTokenMsg::InitAsDefaultInstance() {
+}
+class RefreshTokenMsg::_Internal {
+ public:
+};
+
+RefreshTokenMsg::RefreshTokenMsg()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:account.RefreshTokenMsg)
+}
+RefreshTokenMsg::RefreshTokenMsg(const RefreshTokenMsg& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  refreshtoken_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_refreshtoken().empty()) {
+    refreshtoken_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.refreshtoken_);
+  }
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_username().empty()) {
+    username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
+  expiration_time_sec_ = from.expiration_time_sec_;
+  // @@protoc_insertion_point(copy_constructor:account.RefreshTokenMsg)
+}
+
+void RefreshTokenMsg::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_RefreshTokenMsg_account_2eproto.base);
+  refreshtoken_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  expiration_time_sec_ = 0;
+}
+
+RefreshTokenMsg::~RefreshTokenMsg() {
+  // @@protoc_insertion_point(destructor:account.RefreshTokenMsg)
+  SharedDtor();
+}
+
+void RefreshTokenMsg::SharedDtor() {
+  refreshtoken_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void RefreshTokenMsg::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const RefreshTokenMsg& RefreshTokenMsg::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_RefreshTokenMsg_account_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void RefreshTokenMsg::Clear() {
+// @@protoc_insertion_point(message_clear_start:account.RefreshTokenMsg)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  refreshtoken_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  expiration_time_sec_ = 0;
+  _internal_metadata_.Clear();
+}
+
+const char* RefreshTokenMsg::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string refreshToken = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_refreshtoken();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "account.RefreshTokenMsg.refreshToken"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 expiration_time_sec = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          expiration_time_sec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string username = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_username();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "account.RefreshTokenMsg.username"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* RefreshTokenMsg::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:account.RefreshTokenMsg)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string refreshToken = 1;
+  if (this->refreshtoken().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_refreshtoken().data(), static_cast<int>(this->_internal_refreshtoken().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "account.RefreshTokenMsg.refreshToken");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_refreshtoken(), target);
+  }
+
+  // int32 expiration_time_sec = 2;
+  if (this->expiration_time_sec() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_expiration_time_sec(), target);
+  }
+
+  // string username = 3;
+  if (this->username().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "account.RefreshTokenMsg.username");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_username(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:account.RefreshTokenMsg)
+  return target;
+}
+
+size_t RefreshTokenMsg::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:account.RefreshTokenMsg)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string refreshToken = 1;
+  if (this->refreshtoken().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_refreshtoken());
+  }
+
+  // string username = 3;
+  if (this->username().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_username());
+  }
+
+  // int32 expiration_time_sec = 2;
+  if (this->expiration_time_sec() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_expiration_time_sec());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RefreshTokenMsg::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:account.RefreshTokenMsg)
+  GOOGLE_DCHECK_NE(&from, this);
+  const RefreshTokenMsg* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<RefreshTokenMsg>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:account.RefreshTokenMsg)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:account.RefreshTokenMsg)
+    MergeFrom(*source);
+  }
+}
+
+void RefreshTokenMsg::MergeFrom(const RefreshTokenMsg& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:account.RefreshTokenMsg)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.refreshtoken().size() > 0) {
+
+    refreshtoken_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.refreshtoken_);
+  }
+  if (from.username().size() > 0) {
+
+    username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
+  if (from.expiration_time_sec() != 0) {
+    _internal_set_expiration_time_sec(from._internal_expiration_time_sec());
+  }
+}
+
+void RefreshTokenMsg::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:account.RefreshTokenMsg)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RefreshTokenMsg::CopyFrom(const RefreshTokenMsg& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:account.RefreshTokenMsg)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RefreshTokenMsg::IsInitialized() const {
+  return true;
+}
+
+void RefreshTokenMsg::InternalSwap(RefreshTokenMsg* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  refreshtoken_.Swap(&other->refreshtoken_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  username_.Swap(&other->username_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(expiration_time_sec_, other->expiration_time_sec_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RefreshTokenMsg::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -1735,15 +2037,22 @@ void AccountRespWithInfo::InternalSwap(AccountRespWithInfo* other) {
 void AccountInfo::InitAsDefaultInstance() {
   ::account::_AccountInfo_default_instance_._instance.get_mutable()->token_ = const_cast< ::account::TokenMsg*>(
       ::account::TokenMsg::internal_default_instance());
+  ::account::_AccountInfo_default_instance_._instance.get_mutable()->refreshtoken_ = const_cast< ::account::RefreshTokenMsg*>(
+      ::account::RefreshTokenMsg::internal_default_instance());
 }
 class AccountInfo::_Internal {
  public:
   static const ::account::TokenMsg& token(const AccountInfo* msg);
+  static const ::account::RefreshTokenMsg& refreshtoken(const AccountInfo* msg);
 };
 
 const ::account::TokenMsg&
 AccountInfo::_Internal::token(const AccountInfo* msg) {
   return *msg->token_;
+}
+const ::account::RefreshTokenMsg&
+AccountInfo::_Internal::refreshtoken(const AccountInfo* msg) {
+  return *msg->refreshtoken_;
 }
 AccountInfo::AccountInfo()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
@@ -1775,6 +2084,11 @@ AccountInfo::AccountInfo(const AccountInfo& from)
   } else {
     token_ = nullptr;
   }
+  if (from._internal_has_refreshtoken()) {
+    refreshtoken_ = new ::account::RefreshTokenMsg(*from.refreshtoken_);
+  } else {
+    refreshtoken_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:account.AccountInfo)
 }
 
@@ -1784,7 +2098,9 @@ void AccountInfo::SharedCtor() {
   phonenumber_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   extra_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  token_ = nullptr;
+  ::memset(&token_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&refreshtoken_) -
+      reinterpret_cast<char*>(&token_)) + sizeof(refreshtoken_));
 }
 
 AccountInfo::~AccountInfo() {
@@ -1798,6 +2114,7 @@ void AccountInfo::SharedDtor() {
   email_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   extra_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete token_;
+  if (this != internal_default_instance()) delete refreshtoken_;
 }
 
 void AccountInfo::SetCachedSize(int size) const {
@@ -1823,6 +2140,10 @@ void AccountInfo::Clear() {
     delete token_;
   }
   token_ = nullptr;
+  if (GetArenaNoVirtual() == nullptr && refreshtoken_ != nullptr) {
+    delete refreshtoken_;
+  }
+  refreshtoken_ = nullptr;
   _internal_metadata_.Clear();
 }
 
@@ -1849,27 +2170,34 @@ const char* AccountInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string phoneNumber = 3;
+      // .account.RefreshTokenMsg refreshToken = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_refreshtoken(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string phoneNumber = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           auto str = _internal_mutable_phonenumber();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "account.AccountInfo.phoneNumber"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string email = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+      // string email = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           auto str = _internal_mutable_email();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "account.AccountInfo.email"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string extra = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+      // string extra = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
           auto str = _internal_mutable_extra();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "account.AccountInfo.extra"));
@@ -1920,34 +2248,42 @@ failure:
         2, _Internal::token(this), target, stream);
   }
 
-  // string phoneNumber = 3;
+  // .account.RefreshTokenMsg refreshToken = 3;
+  if (this->has_refreshtoken()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::refreshtoken(this), target, stream);
+  }
+
+  // string phoneNumber = 4;
   if (this->phonenumber().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_phonenumber().data(), static_cast<int>(this->_internal_phonenumber().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "account.AccountInfo.phoneNumber");
     target = stream->WriteStringMaybeAliased(
-        3, this->_internal_phonenumber(), target);
+        4, this->_internal_phonenumber(), target);
   }
 
-  // string email = 4;
+  // string email = 5;
   if (this->email().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_email().data(), static_cast<int>(this->_internal_email().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "account.AccountInfo.email");
     target = stream->WriteStringMaybeAliased(
-        4, this->_internal_email(), target);
+        5, this->_internal_email(), target);
   }
 
-  // string extra = 5;
+  // string extra = 6;
   if (this->extra().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_extra().data(), static_cast<int>(this->_internal_extra().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "account.AccountInfo.extra");
     target = stream->WriteStringMaybeAliased(
-        5, this->_internal_extra(), target);
+        6, this->_internal_extra(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1973,21 +2309,21 @@ size_t AccountInfo::ByteSizeLong() const {
         this->_internal_username());
   }
 
-  // string phoneNumber = 3;
+  // string phoneNumber = 4;
   if (this->phonenumber().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_phonenumber());
   }
 
-  // string email = 4;
+  // string email = 5;
   if (this->email().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_email());
   }
 
-  // string extra = 5;
+  // string extra = 6;
   if (this->extra().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -1999,6 +2335,13 @@ size_t AccountInfo::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *token_);
+  }
+
+  // .account.RefreshTokenMsg refreshToken = 3;
+  if (this->has_refreshtoken()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *refreshtoken_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2051,6 +2394,9 @@ void AccountInfo::MergeFrom(const AccountInfo& from) {
   if (from.has_token()) {
     _internal_mutable_token()->::account::TokenMsg::MergeFrom(from._internal_token());
   }
+  if (from.has_refreshtoken()) {
+    _internal_mutable_refreshtoken()->::account::RefreshTokenMsg::MergeFrom(from._internal_refreshtoken());
+  }
 }
 
 void AccountInfo::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -2083,6 +2429,7 @@ void AccountInfo::InternalSwap(AccountInfo* other) {
   extra_.Swap(&other->extra_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(token_, other->token_);
+  swap(refreshtoken_, other->refreshtoken_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AccountInfo::GetMetadata() const {
@@ -2098,6 +2445,9 @@ template<> PROTOBUF_NOINLINE ::account::SignupMsg* Arena::CreateMaybeMessage< ::
 }
 template<> PROTOBUF_NOINLINE ::account::LoginMsg* Arena::CreateMaybeMessage< ::account::LoginMsg >(Arena* arena) {
   return Arena::CreateInternal< ::account::LoginMsg >(arena);
+}
+template<> PROTOBUF_NOINLINE ::account::RefreshTokenMsg* Arena::CreateMaybeMessage< ::account::RefreshTokenMsg >(Arena* arena) {
+  return Arena::CreateInternal< ::account::RefreshTokenMsg >(arena);
 }
 template<> PROTOBUF_NOINLINE ::account::TokenMsg* Arena::CreateMaybeMessage< ::account::TokenMsg >(Arena* arena) {
   return Arena::CreateInternal< ::account::TokenMsg >(arena);

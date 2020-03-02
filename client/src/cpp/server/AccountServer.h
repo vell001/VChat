@@ -11,6 +11,7 @@
 #include "token_msg.hpp"
 #include "account_resp.hpp"
 #include "account_info.hpp"
+#include "refresh_token_msg.hpp"
 #include "../Platform.h"
 #include <GlobalValues.h>
 using namespace std;
@@ -18,7 +19,7 @@ using namespace std;
 class AccountServer {
 public:
     AccountServer(){
-        auto channel = grpc::CreateChannel("192.168.1.3:50051", grpc::InsecureChannelCredentials());
+        auto channel = grpc::CreateChannel("192.168.43.96:50051", grpc::InsecureChannelCredentials());
         stub_ = account::Account::NewStub(channel);
     }
 
@@ -29,6 +30,8 @@ public:
     void logout(const account_djinni::TokenMsg &token, account_djinni::AccountResp &resp);
 
     void is_alive(const account_djinni::TokenMsg &token, account_djinni::AccountResp &resp);
+
+    void refresh_token(const account_djinni::RefreshTokenMsg &refreshToken, account_djinni::AccountResp &resp);
 
     static std::shared_ptr<AccountServer> getInstance();
 private:

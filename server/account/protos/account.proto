@@ -10,6 +10,7 @@ service Account {
   rpc login (LoginMsg) returns (AccountRespWithInfo) {}
   rpc logout (TokenMsg) returns (AccountResp) {}
   rpc isAlive (TokenMsg) returns (AccountResp) {}
+  rpc refreshToken (RefreshTokenMsg) returns (AccountResp) {}
 }
 
 // 注册信息
@@ -25,6 +26,13 @@ message SignupMsg {
 message LoginMsg {
   string account = 1; // 账号，可以是用户名、手机号、email
   string password = 2;
+}
+
+// refreshToken信息
+message RefreshTokenMsg {
+  string refreshToken = 1;
+  int32 expiration_time_sec = 2;
+  string username = 3; // 用户名，唯一存在
 }
 
 // token信息
@@ -52,7 +60,8 @@ message AccountRespWithInfo {
 message AccountInfo{
     string username = 1; // 用户名，唯一存在
     TokenMsg token = 2;
-    string phoneNumber = 3;
-    string email = 4;
-    string extra = 5;
+    RefreshTokenMsg refreshToken = 3;
+    string phoneNumber = 4;
+    string email = 5;
+    string extra = 6;
 }

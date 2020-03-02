@@ -57,6 +57,7 @@ private:
     bool isAccountInfoValid(std::shared_ptr<account_djinni::AccountInfo> accountInfo);
     void resetLocalAccountInfo(); // 重置本地的账号信息
     void heartbeat();
+    void refreshToken(); // 重新向服务器获取token
 };
 
 

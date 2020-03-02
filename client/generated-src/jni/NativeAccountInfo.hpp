@@ -25,12 +25,13 @@ private:
     friend ::djinni::JniClass<NativeAccountInfo>;
 
     const ::djinni::GlobalRef<jclass> clazz { ::djinni::jniFindClass("com/vell/chat/account/AccountInfo") };
-    const jmethodID jconstructor { ::djinni::jniGetMethodID(clazz.get(), "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/vell/chat/account/TokenMsg;)V") };
+    const jmethodID jconstructor { ::djinni::jniGetMethodID(clazz.get(), "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/vell/chat/account/TokenMsg;Lcom/vell/chat/account/RefreshTokenMsg;)V") };
     const jfieldID field_mUsername { ::djinni::jniGetFieldID(clazz.get(), "mUsername", "Ljava/lang/String;") };
     const jfieldID field_mPhoneNumber { ::djinni::jniGetFieldID(clazz.get(), "mPhoneNumber", "Ljava/lang/String;") };
     const jfieldID field_mEmail { ::djinni::jniGetFieldID(clazz.get(), "mEmail", "Ljava/lang/String;") };
     const jfieldID field_mExtra { ::djinni::jniGetFieldID(clazz.get(), "mExtra", "Ljava/lang/String;") };
     const jfieldID field_mToken { ::djinni::jniGetFieldID(clazz.get(), "mToken", "Lcom/vell/chat/account/TokenMsg;") };
+    const jfieldID field_mRefreshToken { ::djinni::jniGetFieldID(clazz.get(), "mRefreshToken", "Lcom/vell/chat/account/RefreshTokenMsg;") };
 };
 
 }  // namespace djinni_generated

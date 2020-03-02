@@ -40,6 +40,7 @@ namespace global {
     const int AccountRespCode::Login_CreateTokenFail = 1003;
     const int AccountRespCode::Login_ParamErr = 1004;
     const int AccountRespCode::Login_GetUserErr = 1005;
+    const int AccountRespCode::Login_CreateRefreshTokenFail = 1006;
 
     const int AccountRespCode::Signup_ParamErr = 2001;
     const int AccountRespCode::Signup_UserExist = 2001;
@@ -53,4 +54,11 @@ namespace global {
     const int AccountRespCode::IsAlive_TokenExpired = 4002;
     const int AccountRespCode::IsAlive_TokenUpdate = 4003;
     const int AccountRespCode::IsAlive_TokenIncorrect = 4004;
+
+    const int AccountRespCode::RefreshToken_RefreshTokenNotExist = 5001;
+    const int AccountRespCode::RefreshToken_RefreshTokenExpired = 5002;
+    const int AccountRespCode::RefreshToken_RefreshTokenIncorrect = 5003;
+    const int AccountRespCode::RefreshToken_GetUserErr = 5004;
+    const int AccountRespCode::RefreshToken_AccountNotExist = 5005;
+    const int AccountRespCode::RefreshToken_CreateTokenFail = 5006;
 }

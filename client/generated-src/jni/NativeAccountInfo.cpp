@@ -3,6 +3,7 @@
 
 #include "NativeAccountInfo.hpp"  // my header
 #include "Marshal.hpp"
+#include "NativeRefreshTokenMsg.hpp"
 #include "NativeTokenMsg.hpp"
 
 namespace djinni_generated {
@@ -18,20 +19,22 @@ auto NativeAccountInfo::fromCpp(JNIEnv* jniEnv, const CppType& c) -> ::djinni::L
                                                            ::djinni::get(::djinni::String::fromCpp(jniEnv, c.phoneNumber)),
                                                            ::djinni::get(::djinni::String::fromCpp(jniEnv, c.email)),
                                                            ::djinni::get(::djinni::String::fromCpp(jniEnv, c.extra)),
-                                                           ::djinni::get(::djinni_generated::NativeTokenMsg::fromCpp(jniEnv, c.token)))};
+                                                           ::djinni::get(::djinni_generated::NativeTokenMsg::fromCpp(jniEnv, c.token)),
+                                                           ::djinni::get(::djinni_generated::NativeRefreshTokenMsg::fromCpp(jniEnv, c.refreshToken)))};
     ::djinni::jniExceptionCheck(jniEnv);
     return r;
 }
 
 auto NativeAccountInfo::toCpp(JNIEnv* jniEnv, JniType j) -> CppType {
-    ::djinni::JniLocalScope jscope(jniEnv, 6);
+    ::djinni::JniLocalScope jscope(jniEnv, 7);
     assert(j != nullptr);
     const auto& data = ::djinni::JniClass<NativeAccountInfo>::get();
     return {::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mUsername)),
             ::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mPhoneNumber)),
             ::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mEmail)),
             ::djinni::String::toCpp(jniEnv, (jstring)jniEnv->GetObjectField(j, data.field_mExtra)),
-            ::djinni_generated::NativeTokenMsg::toCpp(jniEnv, jniEnv->GetObjectField(j, data.field_mToken))};
+            ::djinni_generated::NativeTokenMsg::toCpp(jniEnv, jniEnv->GetObjectField(j, data.field_mToken)),
+            ::djinni_generated::NativeRefreshTokenMsg::toCpp(jniEnv, jniEnv->GetObjectField(j, data.field_mRefreshToken))};
 }
 
 }  // namespace djinni_generated

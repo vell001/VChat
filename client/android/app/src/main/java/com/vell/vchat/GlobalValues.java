@@ -27,4 +27,12 @@ public class GlobalValues {
     public static int CODE_AccountResp_IsAlive_TokenExpired = 4002;
     public static int CODE_AccountResp_IsAlive_TokenUpdate = 4003;
     public static int CODE_AccountResp_IsAlive_TokenIncorrect = 4004;
+
+
+    public static int CODE_AccountResp_RefreshToken_RefreshTokenNotExist = 5001;
+    public static int CODE_AccountResp_RefreshToken_RefreshTokenExpired = 5002;
+    public static int CODE_AccountResp_RefreshToken_RefreshTokenIncorrect = 5003;
+    public static int CODE_AccountResp_RefreshToken_GetUserErr = 5004;
+    public static int CODE_AccountResp_RefreshToken_AccountNotExist = 5005;
+    public static int CODE_AccountResp_RefreshToken_CreateTokenFail = 5006;
 }

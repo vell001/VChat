@@ -17,17 +17,21 @@ public final class AccountInfo {
 
     /*package*/ final TokenMsg mToken;
 
+    /*package*/ final RefreshTokenMsg mRefreshToken;
+
     public AccountInfo(
             String username,
             String phoneNumber,
             String email,
             String extra,
-            TokenMsg token) {
+            TokenMsg token,
+            RefreshTokenMsg refreshToken) {
         this.mUsername = username;
         this.mPhoneNumber = phoneNumber;
         this.mEmail = email;
         this.mExtra = extra;
         this.mToken = token;
+        this.mRefreshToken = refreshToken;
     }
 
     public String getUsername() {
@@ -51,6 +55,10 @@ public final class AccountInfo {
         return mToken;
     }
 
+    public RefreshTokenMsg getRefreshToken() {
+        return mRefreshToken;
+    }
+
     @Override
     public String toString() {
         return "AccountInfo{" +
@@ -59,6 +67,7 @@ public final class AccountInfo {
                 "," + "mEmail=" + mEmail +
                 "," + "mExtra=" + mExtra +
                 "," + "mToken=" + mToken +
+                "," + "mRefreshToken=" + mRefreshToken +
         "}";
     }
 

@@ -30,6 +30,9 @@ public:
     grpc::Status isAlive(::grpc::ServerContext *context, const ::account::TokenMsg *request,
                          ::account::AccountResp *response) override;
 
+    grpc::Status refreshToken(::grpc::ServerContext *context, const ::account::RefreshTokenMsg *request,
+                              ::account::AccountResp *response) override;
+
 private:
     bool isUsernameValid(const std::string &username);
     bool isPasswordValid(const std::string &password);

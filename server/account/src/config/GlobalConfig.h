@@ -39,6 +39,8 @@ public:
     string getAESIvHex();
 
     int getTokenExpirationPeriodSec();
+
+    int getRefreshTokenExpirationPeriodSec();
 };
 
 

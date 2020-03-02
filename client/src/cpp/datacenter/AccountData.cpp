@@ -18,6 +18,8 @@ AccountData::AccountData() {
 }
 
 std::shared_ptr<account_djinni::AccountInfo> AccountData::getAccountInfo() {
+    ReadWriteLocker::Holder lock(ReadWriteLocker::READ, locker);
+
     if (accountInfo == nullptr) {
         // 从文件中加载
         Json::Reader reader;
@@ -34,6 +36,11 @@ std::shared_ptr<account_djinni::AccountInfo> AccountData::getAccountInfo() {
                                     root.get("token.token", "").asString(),
                                     root.get("token.expiration_time_sec", 0).asInt(),
                                     root.get("token.username", "").asString()
+                            ),
+                            account_djinni::RefreshTokenMsg(
+                                    root.get("refreshToken.refreshToken", "").asString(),
+                                    root.get("refreshToken.expiration_time_sec", 0).asInt(),
+                                    root.get("refreshToken.username", "").asString()
                             )
                     ));
         }
@@ -42,6 +49,8 @@ std::shared_ptr<account_djinni::AccountInfo> AccountData::getAccountInfo() {
 }
 
 void AccountData::setAccountInfo(std::shared_ptr<account_djinni::AccountInfo> info) {
+    ReadWriteLocker::Holder lock(ReadWriteLocker::WRITE, locker);
+
     if (info == nullptr) {
         // 删除账号信息
         remove(global::AccountVariable::accountInfoSavePath.c_str());
@@ -55,6 +64,9 @@ void AccountData::setAccountInfo(std::shared_ptr<account_djinni::AccountInfo> in
         root["token.token"] = info->token.token;
         root["token.expiration_time_sec"] = info->token.expiration_time_sec;
         root["token.username"] = info->token.username;
+        root["refreshToken.refreshToken"] = info->refreshToken.refresh_token;
+        root["refreshToken.expiration_time_sec"] = info->refreshToken.expiration_time_sec;
+        root["refreshToken.username"] = info->refreshToken.username;
         Json::FastWriter fast;
 
         std::ofstream out(global::AccountVariable::accountInfoSavePath);

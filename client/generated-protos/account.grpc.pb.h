@@ -65,6 +65,13 @@ class Account final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>> PrepareAsyncisAlive(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>>(PrepareAsyncisAliveRaw(context, request, cq));
     }
+    virtual ::grpc::Status refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::account::AccountResp* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>> AsyncrefreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>>(AsyncrefreshTokenRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>> PrepareAsyncrefreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>>(PrepareAsyncrefreshTokenRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
@@ -116,6 +123,18 @@ class Account final {
       #else
       virtual void isAlive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
+      virtual void refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void refreshToken(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void refreshToken(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void refreshToken(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     typedef class experimental_async_interface async_interface;
@@ -133,6 +152,8 @@ class Account final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* PrepareAsynclogoutRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* AsyncisAliveRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* PrepareAsyncisAliveRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* AsyncrefreshTokenRaw(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::account::AccountResp>* PrepareAsyncrefreshTokenRaw(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -164,6 +185,13 @@ class Account final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>> PrepareAsyncisAlive(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>>(PrepareAsyncisAliveRaw(context, request, cq));
+    }
+    ::grpc::Status refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::account::AccountResp* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>> AsyncrefreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>>(AsyncrefreshTokenRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>> PrepareAsyncrefreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::account::AccountResp>>(PrepareAsyncrefreshTokenRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
@@ -216,6 +244,18 @@ class Account final {
       #else
       void isAlive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
+      void refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
+      void refreshToken(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void refreshToken(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void refreshToken(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -235,10 +275,13 @@ class Account final {
     ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* PrepareAsynclogoutRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* AsyncisAliveRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* PrepareAsyncisAliveRaw(::grpc::ClientContext* context, const ::account::TokenMsg& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* AsyncrefreshTokenRaw(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::account::AccountResp>* PrepareAsyncrefreshTokenRaw(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_signup_;
     const ::grpc::internal::RpcMethod rpcmethod_login_;
     const ::grpc::internal::RpcMethod rpcmethod_logout_;
     const ::grpc::internal::RpcMethod rpcmethod_isAlive_;
+    const ::grpc::internal::RpcMethod rpcmethod_refreshToken_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -250,6 +293,7 @@ class Account final {
     virtual ::grpc::Status login(::grpc::ServerContext* context, const ::account::LoginMsg* request, ::account::AccountRespWithInfo* response);
     virtual ::grpc::Status logout(::grpc::ServerContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response);
     virtual ::grpc::Status isAlive(::grpc::ServerContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response);
+    virtual ::grpc::Status refreshToken(::grpc::ServerContext* context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_signup : public BaseClass {
@@ -331,7 +375,27 @@ class Account final {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_signup<WithAsyncMethod_login<WithAsyncMethod_logout<WithAsyncMethod_isAlive<Service > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_refreshToken : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_refreshToken() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_refreshToken() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status refreshToken(::grpc::ServerContext* /*context*/, const ::account::RefreshTokenMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestrefreshToken(::grpc::ServerContext* context, ::account::RefreshTokenMsg* request, ::grpc::ServerAsyncResponseWriter< ::account::AccountResp>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_signup<WithAsyncMethod_login<WithAsyncMethod_logout<WithAsyncMethod_isAlive<WithAsyncMethod_refreshToken<Service > > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_signup : public BaseClass {
    private:
@@ -520,11 +584,58 @@ class Account final {
     #endif
       { return nullptr; }
   };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_refreshToken : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_refreshToken() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(4,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::account::RefreshTokenMsg, ::account::AccountResp>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response) { return this->refreshToken(context, request, response); }));}
+    void SetMessageAllocatorFor_refreshToken(
+        ::grpc::experimental::MessageAllocator< ::account::RefreshTokenMsg, ::account::AccountResp>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::account::RefreshTokenMsg, ::account::AccountResp>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_refreshToken() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status refreshToken(::grpc::ServerContext* /*context*/, const ::account::RefreshTokenMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* refreshToken(
+      ::grpc::CallbackServerContext* /*context*/, const ::account::RefreshTokenMsg* /*request*/, ::account::AccountResp* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* refreshToken(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::account::RefreshTokenMsg* /*request*/, ::account::AccountResp* /*response*/)
+    #endif
+      { return nullptr; }
+  };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_signup<ExperimentalWithCallbackMethod_login<ExperimentalWithCallbackMethod_logout<ExperimentalWithCallbackMethod_isAlive<Service > > > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_signup<ExperimentalWithCallbackMethod_login<ExperimentalWithCallbackMethod_logout<ExperimentalWithCallbackMethod_isAlive<ExperimentalWithCallbackMethod_refreshToken<Service > > > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_signup<ExperimentalWithCallbackMethod_login<ExperimentalWithCallbackMethod_logout<ExperimentalWithCallbackMethod_isAlive<Service > > > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_signup<ExperimentalWithCallbackMethod_login<ExperimentalWithCallbackMethod_logout<ExperimentalWithCallbackMethod_isAlive<ExperimentalWithCallbackMethod_refreshToken<Service > > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_signup : public BaseClass {
    private:
@@ -589,6 +700,23 @@ class Account final {
     }
     // disable synchronous version of this method
     ::grpc::Status isAlive(::grpc::ServerContext* /*context*/, const ::account::TokenMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_refreshToken : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_refreshToken() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_refreshToken() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status refreshToken(::grpc::ServerContext* /*context*/, const ::account::RefreshTokenMsg* /*request*/, ::account::AccountResp* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -671,6 +799,26 @@ class Account final {
     }
     void RequestisAlive(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_refreshToken : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_refreshToken() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_refreshToken() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status refreshToken(::grpc::ServerContext* /*context*/, const ::account::RefreshTokenMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestrefreshToken(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -826,6 +974,44 @@ class Account final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_refreshToken : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_refreshToken() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(4,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->refreshToken(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_refreshToken() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status refreshToken(::grpc::ServerContext* /*context*/, const ::account::RefreshTokenMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* refreshToken(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* refreshToken(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_signup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -905,9 +1091,29 @@ class Account final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedisAlive(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::account::TokenMsg,::account::AccountResp>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_signup<WithStreamedUnaryMethod_login<WithStreamedUnaryMethod_logout<WithStreamedUnaryMethod_isAlive<Service > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_refreshToken : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_refreshToken() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler< ::account::RefreshTokenMsg, ::account::AccountResp>(std::bind(&WithStreamedUnaryMethod_refreshToken<BaseClass>::StreamedrefreshToken, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_refreshToken() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status refreshToken(::grpc::ServerContext* /*context*/, const ::account::RefreshTokenMsg* /*request*/, ::account::AccountResp* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedrefreshToken(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::account::RefreshTokenMsg,::account::AccountResp>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_signup<WithStreamedUnaryMethod_login<WithStreamedUnaryMethod_logout<WithStreamedUnaryMethod_isAlive<WithStreamedUnaryMethod_refreshToken<Service > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_signup<WithStreamedUnaryMethod_login<WithStreamedUnaryMethod_logout<WithStreamedUnaryMethod_isAlive<Service > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_signup<WithStreamedUnaryMethod_login<WithStreamedUnaryMethod_logout<WithStreamedUnaryMethod_isAlive<WithStreamedUnaryMethod_refreshToken<Service > > > > > StreamedService;
 };
 
 }  // namespace account

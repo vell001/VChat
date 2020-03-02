@@ -11,6 +11,7 @@
                                    email:(nonnull NSString *)email
                                    extra:(nonnull NSString *)extra
                                    token:(nonnull SCTokenMsg *)token
+                            refreshToken:(nonnull SCRefreshTokenMsg *)refreshToken
 {
     if (self = [super init]) {
         _username = [username copy];
@@ -18,6 +19,7 @@
         _email = [email copy];
         _extra = [extra copy];
         _token = token;
+        _refreshToken = refreshToken;
     }
     return self;
 }
@@ -27,17 +29,19 @@
                                           email:(nonnull NSString *)email
                                           extra:(nonnull NSString *)extra
                                           token:(nonnull SCTokenMsg *)token
+                                   refreshToken:(nonnull SCRefreshTokenMsg *)refreshToken
 {
     return [(SCAccountInfo*)[self alloc] initWithUsername:username
                                               phoneNumber:phoneNumber
                                                     email:email
                                                     extra:extra
-                                                    token:token];
+                                                    token:token
+                                             refreshToken:refreshToken];
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ %p username:%@ phoneNumber:%@ email:%@ extra:%@ token:%@>", self.class, (void *)self, self.username, self.phoneNumber, self.email, self.extra, self.token];
+    return [NSString stringWithFormat:@"<%@ %p username:%@ phoneNumber:%@ email:%@ extra:%@ token:%@ refreshToken:%@>", self.class, (void *)self, self.username, self.phoneNumber, self.email, self.extra, self.token, self.refreshToken];
 }
 
 @end

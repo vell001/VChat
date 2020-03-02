@@ -9,6 +9,8 @@
 #include "utils/FileUtils.h"
 #include <GlobalValues.h>
 #include "json/json.h"
+#include <refresh_token_msg.hpp>
+#include <utils/ReadWriteLocker.h>
 
 class AccountData {
 public:
@@ -22,4 +24,6 @@ public:
 
 private:
     std::shared_ptr<account_djinni::AccountInfo> accountInfo;
+
+    ReadWriteLocker locker;
 };

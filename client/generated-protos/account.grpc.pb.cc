@@ -26,6 +26,7 @@ static const char* Account_method_names[] = {
   "/account.Account/login",
   "/account.Account/logout",
   "/account.Account/isAlive",
+  "/account.Account/refreshToken",
 };
 
 std::unique_ptr< Account::Stub> Account::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -39,6 +40,7 @@ Account::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   , rpcmethod_login_(Account_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_logout_(Account_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_isAlive_(Account_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_refreshToken_(Account_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Account::Stub::signup(::grpc::ClientContext* context, const ::account::SignupMsg& request, ::account::AccountRespWithInfo* response) {
@@ -153,6 +155,34 @@ void Account::Stub::experimental_async::isAlive(::grpc::ClientContext* context, 
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountResp>::Create(channel_.get(), cq, rpcmethod_isAlive_, context, request, false);
 }
 
+::grpc::Status Account::Stub::refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::account::AccountResp* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_refreshToken_, context, request, response);
+}
+
+void Account::Stub::experimental_async::refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_refreshToken_, context, request, response, std::move(f));
+}
+
+void Account::Stub::experimental_async::refreshToken(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_refreshToken_, context, request, response, std::move(f));
+}
+
+void Account::Stub::experimental_async::refreshToken(::grpc::ClientContext* context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_refreshToken_, context, request, response, reactor);
+}
+
+void Account::Stub::experimental_async::refreshToken(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::account::AccountResp* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_refreshToken_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::account::AccountResp>* Account::Stub::AsyncrefreshTokenRaw(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountResp>::Create(channel_.get(), cq, rpcmethod_refreshToken_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::account::AccountResp>* Account::Stub::PrepareAsyncrefreshTokenRaw(::grpc::ClientContext* context, const ::account::RefreshTokenMsg& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::account::AccountResp>::Create(channel_.get(), cq, rpcmethod_refreshToken_, context, request, false);
+}
+
 Account::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Account_method_names[0],
@@ -174,6 +204,11 @@ Account::Service::Service() {
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< Account::Service, ::account::TokenMsg, ::account::AccountResp>(
           std::mem_fn(&Account::Service::isAlive), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Account_method_names[4],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Account::Service, ::account::RefreshTokenMsg, ::account::AccountResp>(
+          std::mem_fn(&Account::Service::refreshToken), this)));
 }
 
 Account::Service::~Service() {
@@ -201,6 +236,13 @@ Account::Service::~Service() {
 }
 
 ::grpc::Status Account::Service::isAlive(::grpc::ServerContext* context, const ::account::TokenMsg* request, ::account::AccountResp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Account::Service::refreshToken(::grpc::ServerContext* context, const ::account::RefreshTokenMsg* request, ::account::AccountResp* response) {
   (void) context;
   (void) request;
   (void) response;

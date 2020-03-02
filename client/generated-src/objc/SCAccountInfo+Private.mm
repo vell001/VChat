@@ -3,6 +3,7 @@
 
 #import "SCAccountInfo+Private.h"
 #import "DJIMarshal+Private.h"
+#import "SCRefreshTokenMsg+Private.h"
 #import "SCTokenMsg+Private.h"
 #include <cassert>
 
@@ -15,7 +16,8 @@ auto AccountInfo::toCpp(ObjcType obj) -> CppType
             ::djinni::String::toCpp(obj.phoneNumber),
             ::djinni::String::toCpp(obj.email),
             ::djinni::String::toCpp(obj.extra),
-            ::djinni_generated::TokenMsg::toCpp(obj.token)};
+            ::djinni_generated::TokenMsg::toCpp(obj.token),
+            ::djinni_generated::RefreshTokenMsg::toCpp(obj.refreshToken)};
 }
 
 auto AccountInfo::fromCpp(const CppType& cpp) -> ObjcType
@@ -24,7 +26,8 @@ auto AccountInfo::fromCpp(const CppType& cpp) -> ObjcType
                                        phoneNumber:(::djinni::String::fromCpp(cpp.phoneNumber))
                                              email:(::djinni::String::fromCpp(cpp.email))
                                              extra:(::djinni::String::fromCpp(cpp.extra))
-                                             token:(::djinni_generated::TokenMsg::fromCpp(cpp.token))];
+                                             token:(::djinni_generated::TokenMsg::fromCpp(cpp.token))
+                                      refreshToken:(::djinni_generated::RefreshTokenMsg::fromCpp(cpp.refreshToken))];
 }
 
 }  // namespace djinni_generated

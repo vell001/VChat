@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "refresh_token_msg.hpp"
 #include "token_msg.hpp"
 #include <string>
 #include <utility>
@@ -17,17 +18,20 @@ struct AccountInfo final {
     std::string email;
     std::string extra;
     TokenMsg token;
+    RefreshTokenMsg refreshToken;
 
     AccountInfo(std::string username_,
                 std::string phoneNumber_,
                 std::string email_,
                 std::string extra_,
-                TokenMsg token_)
+                TokenMsg token_,
+                RefreshTokenMsg refreshToken_)
     : username(std::move(username_))
     , phoneNumber(std::move(phoneNumber_))
     , email(std::move(email_))
     , extra(std::move(extra_))
     , token(std::move(token_))
+    , refreshToken(std::move(refreshToken_))
     {}
 };
 

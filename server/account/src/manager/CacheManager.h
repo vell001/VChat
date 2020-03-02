@@ -17,15 +17,25 @@ public:
 
     int init(const std::string &host, int port);
 
-    bool saveToken(const std::string &username, const std::string &token, double expirationTimeSec);
+    enum TokenType {
+        TOKEN,
+        REFRESH_TOKEN
+    };
 
-    bool deleteToken(const std::string &username, const std::string &token);
+    bool saveToken(TokenType tokenType, const std::string &username, const std::string &token, double expirationTimeSec);
 
-    bool getToken(const std::string &username, std::string &token, double &expirationTimeSec);
+    bool deleteToken(TokenType tokenType, const std::string &username);
+
+    // 会检查token是否正确再删除，保证不会误删
+    bool deleteTokenCheckCorrect(TokenType tokenType, const std::string &username, const std::string &token);
+
+    bool getToken(TokenType tokenType, const std::string &username, std::string &token, double &expirationTimeSec);
 
 private:
     std::shared_ptr<BaseCache> cache;
     ReadWriteLocker locker;
+
+    std::string getTokenKey(TokenType tokenType, const std::string &username);
 };
 
 

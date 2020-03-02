@@ -82,7 +82,7 @@ public class AccountAct extends FragmentActivity {
             fragment.actionShow();
         }
 
-        if (mLastShowFragment != null) {
+        if (mLastShowFragment != null && mLastShowFragment != fragment) {
             ft.hide(mLastShowFragment);
             mLastShowFragment.actionHide();
         }
@@ -236,10 +236,12 @@ public class AccountAct extends FragmentActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (callback.getCode() == GlobalValues.CODE_AccountResp_IsAlive_TokenExpired ||
-                            callback.getCode() == GlobalValues.CODE_AccountResp_IsAlive_TokenNotExist) {
+                    if (callback.getCode() == GlobalValues.CODE_AccountResp_RefreshToken_RefreshTokenNotExist ||
+                            callback.getCode() == GlobalValues.CODE_AccountResp_RefreshToken_RefreshTokenExpired ||
+                            callback.getCode() == GlobalValues.CODE_AccountResp_RefreshToken_AccountNotExist
+                    ) {
                         Toast.makeText(AccountAct.this, "登录信息已过期，请重新登录", Toast.LENGTH_LONG).show();
-                    } else if (callback.getCode() == GlobalValues.CODE_AccountResp_IsAlive_TokenIncorrect) {
+                    } else if (callback.getCode() == GlobalValues.CODE_AccountResp_RefreshToken_RefreshTokenIncorrect) {
                         Toast.makeText(AccountAct.this, "你已在其他终端登录", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -249,8 +251,9 @@ public class AccountAct extends FragmentActivity {
                 AccountInfoFragment accountInfoFragment = (AccountInfoFragment) mLastShowFragment;
                 accountInfoFragment.updateAccountInfo();
             }
+
             // 判断登陆状态
-            if (!AccountInterface.getInstance().hasLogin()) {
+            if (!(mLastShowFragment instanceof LoginFragment) && !AccountInterface.getInstance().hasLogin()) {
                 // 显示登陆页
                 showFragment(LoginFragment.class, null);
             }
