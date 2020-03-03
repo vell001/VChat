@@ -10,10 +10,10 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 #include <glog/stl_logging.h>
-#include <manager/DBManager.h>
+#include <data_manager/DBManager.h>
 #include "AccountServiceImpl.h"
 #include "config/GlobalConfig.h"
-#include <manager/CacheManager.h>
+#include <data_manager/CacheManager.h>
 
 using grpc::Server;
 using grpc::ServerBuilder;

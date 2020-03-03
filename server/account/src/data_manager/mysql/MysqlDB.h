@@ -6,7 +6,7 @@
 
 #include "mysql/mysql.h"
 #include "mysql/errmsg.h"
-#include "manager/BaseDB.h"
+#include "data_manager/BaseDB.h"
 #include <glog/logging.h>
 #include <map>
 #include "utils/StringUtils.h"

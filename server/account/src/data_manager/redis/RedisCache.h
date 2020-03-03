@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "manager/BaseCache.h"
+#include "data_manager/BaseCache.h"
 #include "hiredis.h"
 #include <glog/logging.h>
 

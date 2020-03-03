@@ -5,8 +5,8 @@
 #pragma once
 
 #include <memory>
-#include <manager/BaseCache.h>
-#include <manager/redis/RedisCache.h>
+#include <data_manager/BaseCache.h>
+#include <data_manager/redis/RedisCache.h>
 #include <utils/StringUtils.h>
 #include <utils/ReadWriteLocker.h>
 #include "json/json.h"

@@ -143,19 +143,23 @@ int MysqlDB::execStmt(const std::string &sql, const std::vector<KeyType> &keyTyp
 
     // 重试三次
     int retryCount = 3;
+    int code;
     while (retryCount > 0) {
-        int code = mysql_stmt_execute(stmtBuffer->stmt);
+        code = mysql_stmt_execute(stmtBuffer->stmt);
         if (code != 0) {
-            if(code == 2013 || code == 2006 || code == 2000) {
+            LOG(ERROR) << "mysql_stmt_execute(), failed" << mysql_stmt_error(stmtBuffer->stmt);
+            if (code == 1 || code == 2013 || code == 2006 || code == 2000) {
                 reconnect();
             } else {
-                LOG(ERROR) << "mysql_stmt_execute(), failed" << mysql_stmt_error(stmtBuffer->stmt);
                 return global::DBCode::QUERY_STMT_ERR;
             }
         } else {
             break;
         }
-        retryCount --;
+        retryCount--;
+    }
+    if (code != 0) {
+        return global::DBCode::QUERY_STMT_ERR;
     }
 
 
@@ -220,19 +224,23 @@ int MysqlDB::execStmtFetch(const std::string &sql, const std::vector<KeyType> &k
 
     // 重试三次
     int retryCount = 3;
+    int code;
     while (retryCount > 0) {
-        int code = mysql_stmt_execute(stmtBuffer->stmt);
+        code = mysql_stmt_execute(stmtBuffer->stmt);
         if (code != 0) {
-            if(code == 2013 || code == 2006 || code == 2000) {
+            LOG(ERROR) << "mysql_stmt_execute(), failed" << mysql_stmt_error(stmtBuffer->stmt) << " code: " << code;
+            if (code == 1 || code == 2013 || code == 2006 || code == 2000) {
                 reconnect();
             } else {
-                LOG(ERROR) << "mysql_stmt_execute(), failed" << mysql_stmt_error(stmtBuffer->stmt);
                 return global::DBCode::QUERY_STMT_ERR;
             }
         } else {
             break;
         }
-        retryCount --;
+        retryCount--;
+    }
+    if (code != 0) {
+        return global::DBCode::QUERY_STMT_ERR;
     }
 
     // 获取ret
@@ -277,7 +285,7 @@ int MysqlDB::getStmtCache(std::shared_ptr<StmtBuffer> &stmtCache, const std::str
         stmtCache = iter->second;
     }
 
-    if (stmtCache == nullptr || keyNum != stmtCache->keyNum ) {
+    if (stmtCache == nullptr || keyNum != stmtCache->keyNum) {
         stmtCaches.erase(sql);
         stmtCache = nullptr;
     }
@@ -293,22 +301,29 @@ int MysqlDB::getStmtCache(std::shared_ptr<StmtBuffer> &stmtCache, const std::str
         }
         // 重试三次
         int retryCount = 3;
+        int code;
         while (retryCount > 0) {
-            int code = mysql_stmt_prepare(stmtCache->stmt, sql.c_str(), sql.size());
+            code = mysql_stmt_prepare(stmtCache->stmt, sql.c_str(), sql.size());
             if (code != 0) {
-                if(code == 2013 || code == 2006 || code == 2000) {
+                LOG(ERROR) << " mysql_stmt_prepare() failed " << mysql_stmt_error(stmtCache->stmt) << " code: " << code;
+                if (code == 1 || code == 2013 || code == 2006 || code == 2000) {
                     reconnect();
                 } else {
-                    LOG(ERROR) << " mysql_stmt_prepare() failed " << mysql_stmt_error(stmtCache->stmt) << " code: " << code;
                     return global::DBCode::QUERY_STMT_INIT_ERR;
                 }
             } else {
                 break;
             }
-            retryCount --;
+            retryCount--;
+        }
+        if (code != 0) {
+            return global::DBCode::QUERY_STMT_INIT_ERR;
         }
 
         bindBuffer(keyTypes, stmtCache);
+
+        // 保存到缓存，供下次使用
+//        stmtCaches[sql] = stmtCache;
     }
 
     return global::DBCode::OK;
@@ -344,7 +359,7 @@ MysqlDB::bindBuffer(const std::vector<KeyType> &keyTypes, std::shared_ptr<StmtBu
 }
 
 MysqlDB::~MysqlDB() {
-    for (auto & stmtCache : stmtCaches) {
+    for (auto &stmtCache : stmtCaches) {
         LOG(INFO) << "release statement " << stmtCache.first;
         if (stmtCache.second->stmt != nullptr) {
             mysql_stmt_close(stmtCache.second->stmt);

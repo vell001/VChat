@@ -7,12 +7,12 @@
 #include "account/protos/account.grpc.pb.h"
 #include <glog/logging.h>
 #include <glog/stl_logging.h>
-#include <manager/DBManager.h>
+#include <data_manager/DBManager.h>
 #include <utils/StringUtils.h>
 #include <utils/CryptUtils.h>
 #include <utils/TimeUtils.h>
 #include <config/GlobalConfig.h>
-#include <manager/CacheManager.h>
+#include <data_manager/CacheManager.h>
 
 class AccountServiceImpl final : public account::Account::Service {
 public:
