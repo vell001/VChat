@@ -23,4 +23,6 @@ void showAllFiles(const std::string &dirPath);
 
 int readFile(const std::string &filePath, char **buffer);
 
+std::string readFileToStr(const std::string &filePath);
+
 int readFileToVec(const std::string &filePath, std::vector<unsigned char> &buffer);

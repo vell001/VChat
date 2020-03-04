@@ -112,3 +112,17 @@ int readFileToVec(const std::string &filePath, std::vector<unsigned char> &buffe
     filestr.close();
     return size;
 }
+
+std::string readFileToStr(const std::string &filePath) {
+    std::filebuf *pbuf;
+    std::ifstream filestr;
+    filestr.open(filePath, std::ios::binary);
+    pbuf = filestr.rdbuf();
+    int size = static_cast<int>(pbuf->pubseekoff(0, std::ios::end, std::ios::in));
+    pbuf->pubseekpos(0, std::ios::in);
+    std::string str;
+    str.resize(static_cast<unsigned long>(size));
+    pbuf->sgetn((char *)&str[0], size);
+    filestr.close();
+    return str;
+}
