@@ -52,14 +52,11 @@ load("@com_github_cschuet_jsoncpp//:bazel/repositories.bzl", "repositories")
 repositories()
 
 # hiredis
-#http_archive(
-#    name = "com_github_redis_hiredis",
-#    strip_prefix = "hiredis-0.14.0",
-#    urls = [
-#        "https://github.com/redis/hiredis/archive/v0.14.0.tar.gz",
-#    ],
-#    build_file = "//libs/hiredis:hiredis.BUILD",
-#)
-load("//libs/hiredis:hiredis.bzl","hiredis_deps")
-
-hiredis_deps()
+http_archive(
+    name = "com_github_redis_hiredis",
+    strip_prefix = "hiredis-0.14.0",
+    urls = [
+        "https://github.com/redis/hiredis/archive/v0.14.0.tar.gz",
+    ],
+    build_file = "//:libs/hiredis/hiredis.BUILD",
+)
