@@ -39,8 +39,8 @@ int DBManager::init(const std::string &host, int port, const std::string &dbName
 //    accountModel->setPhoneNumber("row[4]");
 //    accountModel->setEmail("row[5]");
 //    addAccount(accountModel);
-    std::shared_ptr<AccountModel> accountModel = getAccountByUsername("vell", code);
-    LOG(INFO) << "test getAccountByUsername: " << "id " << accountModel->getId() << " " << accountModel->getUsername();
+//    std::shared_ptr<AccountModel> accountModel = getAccountByUsername("vell", code);
+//    LOG(INFO) << "test getAccountByUsername: " << "id " << accountModel->getId() << " " << accountModel->getUsername();
     // end test
 
     return global::DBCode::OK;

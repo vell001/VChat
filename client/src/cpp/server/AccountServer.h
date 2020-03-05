@@ -51,9 +51,8 @@ public:
                                   "-----END CERTIFICATE-----";
 
         ssl_opts.pem_private_key = "";
-
         ssl_opts.pem_cert_chain = "";
-        auto channel = grpc::CreateChannel("www.vell001.cf:50051", grpc::SslCredentials(ssl_opts));
+        auto channel = grpc::CreateChannel("vchat.vell001.cf:50051", grpc::SslCredentials(ssl_opts));
         stub_ = account::Account::NewStub(channel);
     }
 
