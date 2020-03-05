@@ -5,13 +5,13 @@
 #pragma once
 
 #include <memory>
-#include "utils/Config.h"
 #include <glog/logging.h>
 #include "json/json.h"
+#include <fstream>
+#include "utils/FileUtils.h"
 
 class GlobalConfig {
 private:
-//    Config config;
     Json::Value config;
 public:
     static std::shared_ptr<GlobalConfig> getInstance();
@@ -22,25 +22,43 @@ public:
 
     int getDBPort();
 
-    string getDBName();
+    std::string getDBName();
 
-    string getDBUser();
+    std::string getDBUser();
 
-    string getDBPassword();
+    std::string getDBPassword();
 
-    string getDBCharset();
+    std::string getDBCharset();
 
-    string getRedisHost();
+    std::string getRedisHost();
 
     int getRedisPort();
 
-    string getAESKeyHex();
+    std::string getAESKeyHex();
 
-    string getAESIvHex();
+    std::string getAESIvHex();
 
     int getTokenExpirationPeriodSec();
 
     int getRefreshTokenExpirationPeriodSec();
+
+    /**
+     * CA机构根证书
+     * @return
+     */
+    std::string getSslCARootCert();
+
+    /**
+     * 服务私钥
+     * @return
+     */
+    std::string getSslServerKey();
+
+    /**
+     * 服务证书
+     * @return
+     */
+    std::string getSslServerCert();
 };
 
 

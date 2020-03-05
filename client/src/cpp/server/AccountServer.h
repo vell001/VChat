@@ -22,47 +22,38 @@ public:
     AccountServer() {
         grpc::SslCredentialsOptions ssl_opts;
         ssl_opts.pem_root_certs = "-----BEGIN CERTIFICATE-----\n"
-                                  "MIICsjCCAZoCCQCCYZuV5OAGETANBgkqhkiG9w0BAQsFADAbMRkwFwYDVQQDDBB2\n"
-                                  "Y2hhdC52ZWxsMDAxLmNmMB4XDTIwMDMwNDEzMzcyMVoXDTM5MTEyMDEzMzcyMVow\n"
-                                  "GzEZMBcGA1UEAwwQdmNoYXQudmVsbDAwMS5jZjCCASIwDQYJKoZIhvcNAQEBBQAD\n"
-                                  "ggEPADCCAQoCggEBALoAMuWJa/lIukniUhIiA1FXDvvYaqAvlI/cv0CsusAsna8c\n"
-                                  "AwzWmowDGVDRgDiCKLrfXZxG5205EcU82/XPpq1H+H/+YGaECsU91QRsqVbKI0mz\n"
-                                  "HmVuG+RnEl9pCOI1hD/ZOY0iws7WXvUpFol05GysTcYballwI4rOQBnDKpqEiLAs\n"
-                                  "nEdWa4L5JK5eCf2LS244K9DNgogj4QLCNhnJW7bXbI4SpJRgoW8KHXZM4lJYlonR\n"
-                                  "k5clpK1GOlUj6COtFEn6Y9OS+JsXzanmGTxu74CQsRTU7vWu/8Beb/TLmKicfDZ9\n"
-                                  "wgtNHgSenD+tYjutOMwSS7RnTTpy0ZrpIo4FV/8CAwEAATANBgkqhkiG9w0BAQsF\n"
-                                  "AAOCAQEAcSiDrOB4IYX+hplEjf5LTO5Pmc1JVHcYvVbJspWVGHyNtJDZ3KAxyyRP\n"
-                                  "yZRelMBtwvHr3RNwog6xUsAjEdTjDyi1FE8TUZ+osVCNzJcMnwgO2R1LhJiMyq/H\n"
-                                  "iEkhgd2aR2ulngiBMd7Jwbih5uxf1tPgk84pyNRPtkFI4F5Pwlirg9q3XIHjnMgM\n"
-                                  "8wP2WdJYii5P4zlk/EZIT0lDtzipNgLrO/5S+FZjFKPwmKKmqfLEcRrmL+VyK46S\n"
-                                  "IUzCK0Tt6o13gpNBRypq6sj4EhMVtEqYRFgi2Qg6FyXdH908DNj//b/2anosaHw1\n"
-                                  "30zWgDaHEdkuYVCQeha5csxlScnXkw==\n"
+                                  "MIIErjCCA5agAwIBAgIQBYAmfwbylVM0jhwYWl7uLjANBgkqhkiG9w0BAQsFADBh\n"
+                                  "MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3\n"
+                                  "d3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBD\n"
+                                  "QTAeFw0xNzEyMDgxMjI4MjZaFw0yNzEyMDgxMjI4MjZaMHIxCzAJBgNVBAYTAkNO\n"
+                                  "MSUwIwYDVQQKExxUcnVzdEFzaWEgVGVjaG5vbG9naWVzLCBJbmMuMR0wGwYDVQQL\n"
+                                  "ExREb21haW4gVmFsaWRhdGVkIFNTTDEdMBsGA1UEAxMUVHJ1c3RBc2lhIFRMUyBS\n"
+                                  "U0EgQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCgWa9X+ph+wAm8\n"
+                                  "Yh1Fk1MjKbQ5QwBOOKVaZR/OfCh+F6f93u7vZHGcUU/lvVGgUQnbzJhR1UV2epJa\n"
+                                  "e+m7cxnXIKdD0/VS9btAgwJszGFvwoqXeaCqFoP71wPmXjjUwLT70+qvX4hdyYfO\n"
+                                  "JcjeTz5QKtg8zQwxaK9x4JT9CoOmoVdVhEBAiD3DwR5fFgOHDwwGxdJWVBvktnoA\n"
+                                  "zjdTLXDdbSVC5jZ0u8oq9BiTDv7jAlsB5F8aZgvSZDOQeFrwaOTbKWSEInEhnchK\n"
+                                  "ZTD1dz6aBlk1xGEI5PZWAnVAba/ofH33ktymaTDsE6xRDnW97pDkimCRak6CEbfe\n"
+                                  "3dXw6OV5AgMBAAGjggFPMIIBSzAdBgNVHQ4EFgQUf9OZ86BHDjEAVlYijrfMnt3K\n"
+                                  "AYowHwYDVR0jBBgwFoAUA95QNVbRTLtm8KPiGxvDl7I90VUwDgYDVR0PAQH/BAQD\n"
+                                  "AgGGMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjASBgNVHRMBAf8ECDAG\n"
+                                  "AQH/AgEAMDQGCCsGAQUFBwEBBCgwJjAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Au\n"
+                                  "ZGlnaWNlcnQuY29tMEIGA1UdHwQ7MDkwN6A1oDOGMWh0dHA6Ly9jcmwzLmRpZ2lj\n"
+                                  "ZXJ0LmNvbS9EaWdpQ2VydEdsb2JhbFJvb3RDQS5jcmwwTAYDVR0gBEUwQzA3Bglg\n"
+                                  "hkgBhv1sAQIwKjAoBggrBgEFBQcCARYcaHR0cHM6Ly93d3cuZGlnaWNlcnQuY29t\n"
+                                  "L0NQUzAIBgZngQwBAgEwDQYJKoZIhvcNAQELBQADggEBAK3dVOj5dlv4MzK2i233\n"
+                                  "lDYvyJ3slFY2X2HKTYGte8nbK6i5/fsDImMYihAkp6VaNY/en8WZ5qcrQPVLuJrJ\n"
+                                  "DSXT04NnMeZOQDUoj/NHAmdfCBB/h1bZ5OGK6Sf1h5Yx/5wR4f3TUoPgGlnU7EuP\n"
+                                  "ISLNdMRiDrXntcImDAiRvkh5GJuH4YCVE6XEntqaNIgGkRwxKSgnU3Id3iuFbW9F\n"
+                                  "UQ9Qqtb1GX91AJ7i4153TikGgYCdwYkBURD8gSVe8OAco6IfZOYt/TEwii1Ivi1C\n"
+                                  "qnuUlWpsF1LdQNIdfbW3TSe0BhQa7ifbVIfvPWHYOu3rkg1ZeMo6XRU9B4n5VyJY\n"
+                                  "RmE=\n"
                                   "-----END CERTIFICATE-----";
 
-        ssl_opts.pem_private_key = "-----BEGIN EC PARAMETERS-----\n"
-                                   "BgUrgQQAIg==\n"
-                                   "-----END EC PARAMETERS-----\n"
-                                   "-----BEGIN EC PRIVATE KEY-----\n"
-                                   "MIGkAgEBBDA6nBXFljgIeZkOmceHPc5CFVN9MJmHpxnAD8Ea4P27euMq/bef3j2s\n"
-                                   "5EE7LSVWThmgBwYFK4EEACKhZANiAARWaetDW+BRhpf/gZdNj7wlAR3kLdyeQFzT\n"
-                                   "SQi5/X7DMBh65NnrMFS9Kh05Shzx0rlkWEY5s8g+Doxze73h7ZJyKT4cTgJDfrXs\n"
-                                   "qaiozq2TQP46/aFZ/NebFlMrJiqydo0=\n"
-                                   "-----END EC PRIVATE KEY-----";
+        ssl_opts.pem_private_key = "";
 
-        ssl_opts.pem_cert_chain = "-----BEGIN CERTIFICATE-----\n"
-                                  "MIICAzCB7AIJAMr+2YGDGCISMA0GCSqGSIb3DQEBCwUAMBsxGTAXBgNVBAMMEHZj\n"
-                                  "aGF0LnZlbGwwMDEuY2YwHhcNMjAwMzA0MTM0MDEyWhcNMzAwMzAyMTM0MDEyWjAb\n"
-                                  "MRkwFwYDVQQDDBB2Y2hhdC52ZWxsMDAxLmNmMHYwEAYHKoZIzj0CAQYFK4EEACID\n"
-                                  "YgAEVmnrQ1vgUYaX/4GXTY+8JQEd5C3cnkBc00kIuf1+wzAYeuTZ6zBUvSodOUoc\n"
-                                  "8dK5ZFhGObPIPg6Mc3u94e2Scik+HE4CQ3617KmoqM6tk0D+Ov2hWfzXmxZTKyYq\n"
-                                  "snaNMA0GCSqGSIb3DQEBCwUAA4IBAQA47OiRJqt0OnOpCHKznS9bfw2D8KABkXFb\n"
-                                  "QzSdlkqQonC/nnqjCqm7adhQ0N0zjlQ5Gm284Rmd2S6+4omATKKcV/jg+iRIdS/F\n"
-                                  "5LXaknGhcKewdag9VL18gdgGySH0809/tBvF+8NZONz6R46+U1tAuoSldZlQzCGz\n"
-                                  "lHfAtO+q4ZDFSMBcA/W3biYebZlM5qpDIDyFHf6TKjMaWz+XJGVLUz8naCuYwliK\n"
-                                  "PBvpRrJHNsYUrqY6q8WC0CWc6nEVr2uHAhzL587EujiFhEHVyvLaUBCrc2LcA0ju\n"
-                                  "BXqvq5c5EwEeysv7y172kn1GKbJiJFyFHUaeHP/rgpvwEWqnAH6x\n"
-                                  "-----END CERTIFICATE-----";
-        auto channel = grpc::CreateChannel("vchat.vell001.cf:50051", grpc::SslCredentials(ssl_opts));
+        ssl_opts.pem_cert_chain = "";
+        auto channel = grpc::CreateChannel("www.vell001.cf:50051", grpc::SslCredentials(ssl_opts));
         stub_ = account::Account::NewStub(channel);
     }
 

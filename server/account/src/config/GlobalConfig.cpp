@@ -31,7 +31,7 @@ void GlobalConfig::init(const std::string &configPath) {
 }
 
 std::string GlobalConfig::getDBHost() {
-    return config.get("db_host", "192.168.43.96").asString();
+    return config.get("db_host", "127.0.0.1").asString();
 }
 
 int GlobalConfig::getDBPort() {
@@ -47,7 +47,7 @@ std::string GlobalConfig::getDBUser() {
 }
 
 std::string GlobalConfig::getDBPassword() {
-    return config.get("db_password", std::string("vell001")).asString();
+    return config.get("db_password", std::string("admin")).asString();
 }
 
 std::string GlobalConfig::getDBCharset() {
@@ -62,11 +62,11 @@ int GlobalConfig::getRedisPort() {
     return config.get("redis_port", 6379).asInt();
 }
 
-string GlobalConfig::getAESKeyHex() {
+std::string GlobalConfig::getAESKeyHex() {
     return config.get("aes_key", "DFB370401839D4ABD1698202B2281C149AB32FA7C30C9847868513D6D77C05BF").asString();
 }
 
-string GlobalConfig::getAESIvHex() {
+std::string GlobalConfig::getAESIvHex() {
     return config.get("aes_iv", "1CC67545BD8208A8236698F0AF49A58A").asString();
 }
 
@@ -76,4 +76,16 @@ int GlobalConfig::getTokenExpirationPeriodSec() {
 
 int GlobalConfig::getRefreshTokenExpirationPeriodSec() {
     return config.get("refresh_token_expiration_period_sec", 12).asInt();
+}
+
+std::string GlobalConfig::getSslCARootCert() {
+    return readFileToStr(config.get("ssl_ca_root_cert", "./1_root_bundle.crt").asString());
+}
+
+std::string GlobalConfig::getSslServerKey() {
+    return readFileToStr(config.get("ssl_server_key", "./3_www.vell001.cf.key").asString());
+}
+
+std::string GlobalConfig::getSslServerCert() {
+    return readFileToStr(config.get("ssl_server_cert", "./2_www.vell001.cf.crt").asString());
 }
