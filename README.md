@@ -34,3 +34,15 @@
 ![](https://upload-images.jianshu.io/upload_images/35286-06672a23566357c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 调用流程图
+![](https://upload-images.jianshu.io/upload_images/35286-be4e96dc458cbd5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+### GRPC SSL/TLS加密传输
+
+### 数据库密码加盐哈希
+
+### Token生成规则
+
+### 数据库安全
+
+----------
+## 使用说明
