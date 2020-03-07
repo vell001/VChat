@@ -31,10 +31,10 @@
 ----------
 ## 技术介绍
 ### 技术架构
-![](https://upload-images.jianshu.io/upload_images/35286-06672a23566357c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](doc/VChat登录系统技术架构图.png)
 
 ### 调用流程图
-![](https://upload-images.jianshu.io/upload_images/35286-be4e96dc458cbd5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](doc/VChat登录系统流程图.jpg)
 
 ### GRPC SSL/TLS加密传输
 
