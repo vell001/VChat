@@ -37,12 +37,16 @@
 ![](doc/VChat登录系统流程图.jpg)
 
 ### GRPC SSL/TLS加密传输
+![](doc/VChat登录系统SSL_TLS流程图.png)
 
 ### 数据库密码加盐哈希
+![](doc/VChat登录系统加密密码生成.png)
 
 ### Token生成规则
+![](doc/VChat登录系统token生成.png)
 
-### 数据库安全
+### 多线程数据读写安全
+![](doc/VChat登录系统多线程读写安全.png)
 
 ----------
 ## 使用说明
