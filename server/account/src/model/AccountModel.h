@@ -42,14 +42,13 @@ public:
     AccountModel();
 
 private:
-    int id;
-    /** 用户名，唯一存在 */
-    std::string username;
-    std::string password;
-    std::string password_salt;
-    std::string phoneNumber;
-    std::string email;
-    std::string extra;
+    int id; // 数据库唯一id
+    std::string username; // 用户名
+    std::string password; // 加密后的密码
+    std::string password_salt; // 密码随机盐
+    std::string phoneNumber; // 电话，TODO 加密存储
+    std::string email; // 邮箱，TODO 加密存储
+    std::string extra; // 附加信息
 };
 
 

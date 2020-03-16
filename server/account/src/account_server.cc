@@ -52,6 +52,7 @@ void RunServer() {
     std::string server_address("0.0.0.0:50051");
     AccountServiceImpl service;
 
+    // 配置ssl
     grpc::SslServerCredentialsOptions ssl_opts;
 
     ssl_opts.pem_root_certs = config->getSslCARootCert();

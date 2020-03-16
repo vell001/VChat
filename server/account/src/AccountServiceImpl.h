@@ -34,9 +34,35 @@ public:
                               ::account::AccountResp *response) override;
 
 private:
+    /**
+     * 用户名是否有效
+     * @param username
+     * @return
+     */
     bool isUsernameValid(const std::string &username);
+
+    /**
+     * 密码是否有效
+     * @param password
+     * @return
+     */
     bool isPasswordValid(const std::string &password);
+
+    /**
+     * 加盐哈希编码用户密码
+     *
+     * @param password 原始密码
+     * @param passwordSalt 随机盐
+     * @return 编码后的密码
+     */
     std::string encodePassword(const std::string &password, const std::string &passwordSalt);
+
+    /**
+     * 生成token
+     * @param baseInfo 基础参考信息
+     * @param expirationTimeSec 过期时间
+     * @return token
+     */
     std::string genToken(const std::string &baseInfo, double expirationTimeSec);
 };
 

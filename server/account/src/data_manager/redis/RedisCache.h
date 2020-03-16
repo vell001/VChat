@@ -8,6 +8,9 @@
 #include "hiredis.h"
 #include <glog/logging.h>
 
+/**
+ * redis缓存服务实现
+ */
 class RedisCache:public BaseCache {
 public:
     int connect(const std::string &host, int port) override;

@@ -12,16 +12,28 @@
 #include <iostream>
 #include <fstream>
 
+/**
+ * 创建单个文件夹
+ *
+ * @param name  文件夹名
+ * @param mode 文件夹权限
+ * @return 是否创建成功
+ */
 bool createDir(const char *name, mode_t mode = 777);
 
-bool createDirTree(const std::string full_path, mode_t mode = 777);
+/**
+ * 递归创建文件夹
+ *
+ * @param full_path 完整文件夹路径
+ * @param mode 文件夹权限
+ * @return 是否创建成功
+ */
+bool createDirTree(const std::string &full_path, mode_t mode = 777);
 
-std::string findDirByStart(const std::string &dirPath, const char *startStr);
-
-void showAllFiles(const std::string &dirPath);
-
-int readFile(const std::string &filePath, char **buffer);
-
+/**
+ * 将文件内容读取到字符串内
+ *
+ * @param filePath 文件路径
+ * @return 文件内容字符串
+ */
 std::string readFileToStr(const std::string &filePath);
-
-int readFileToVec(const std::string &filePath, std::vector<unsigned char> &buffer);

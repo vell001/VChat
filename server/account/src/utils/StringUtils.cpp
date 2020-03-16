@@ -3,15 +3,6 @@
 //
 #include "StringUtils.h"
 
-template<typename ... Args>
-std::string strFormat(const std::string &format, Args ... args) {
-    size_t size =
-            (size_t) snprintf(nullptr, 0, format.c_str(), args ...) + 1; // Extra space for '\0'
-    std::unique_ptr<char[]> buf(new char[size]);
-    snprintf(buf.get(), size, format.c_str(), args ...);
-    return std::string(buf.get(), buf.get() + size - 1); // We don't want the '\0' inside
-}
-
 std::string strFmt(const std::string &fmt_str, ...) {
     int final_n, n =
             ((int) fmt_str.size()) * 2; /* Reserve two times as much as the length of the fmt_str */
@@ -29,30 +20,6 @@ std::string strFmt(const std::string &fmt_str, ...) {
             break;
     }
     return std::string(formatted.get());
-}
-
-bool startsWith(const char *str, const char *pre) {
-    size_t lenpre = strlen(pre), lenstr = strlen(str);
-    return lenstr < lenpre ? false : strncmp(pre, str, lenpre) == 0;
-}
-
-template<class T>
-std::string T_as_string(const T &t) {
-    // Convert from a T to a string
-    // Type T must support << operator
-    std::ostringstream ost;
-    ost << t;
-    return ost.str();
-}
-
-template<class T>
-T string_as_T(const std::string &s) {
-    // Convert from a string to a T
-    // Type T must support >> operator
-    T t;
-    std::istringstream ist(s);
-    ist >> t;
-    return t;
 }
 
 int str2Int(const std::string &s) {

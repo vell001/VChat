@@ -15,29 +15,59 @@
 #include <ctime>
 #include <regex>
 
-template<typename ... Args>
-std::string strFormat(const std::string &format, Args ... args);
-
+/**
+ * 字符串format
+ *
+ * @param fmt_str format格式
+ * @param ... 对应参数
+ * @return format后的字符串
+ */
 std::string strFmt(const std::string &fmt_str, ...);
 
-bool startsWith(const char *str, const char *pre);
-
-template<class T>
-std::string T_as_string(const T &t);
-
-
-/* static */
-template<class T>
-T string_as_T(const std::string &s);
-
+/**
+ * string 转int
+ *
+ * @param s
+ * @return
+ */
 int str2Int(const std::string &s);
 
+/**
+ * 字节码转int
+ *
+ * @param s 输入字节码，存在string中
+ * @return int
+ */
 int buffer2Int(const std::string &s);
 
+/**
+ * double 转 string
+ * @param d
+ * @return
+ */
 std::string double2Str(double d);
 
+/**
+ * string 转 double
+ *
+ * @param s
+ * @return
+ */
 double str2Double(const std::string &s);
 
+/**
+ * 正则是否匹配
+ *
+ * @param pattern 正则规则
+ * @param text 待匹配数据
+ * @return 正则是否匹配
+ */
 bool regMatch(const std::string &pattern, const std::string &text);
 
+/**
+ * 生成随机字符串
+ *
+ * @param len 生成的字符串长度
+ * @return 生成的字符串
+ */
 std::string randStr(int len);

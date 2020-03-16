@@ -11,6 +11,9 @@
 #include <map>
 #include "utils/StringUtils.h"
 
+/**
+ * mysql数据库服务实现
+ */
 class MysqlDB : public BaseDB {
 public:
     MysqlDB();
@@ -42,6 +45,9 @@ private:
     std::string mPassword;
     std::string mCharset;
 
+    /**
+     * PreparedStatement对应变量抽象类
+     */
     class StmtBuffer {
     public:
         MYSQL_STMT *stmt = nullptr;
